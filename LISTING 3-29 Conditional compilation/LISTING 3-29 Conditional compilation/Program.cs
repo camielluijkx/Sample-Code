@@ -1,4 +1,4 @@
-﻿#
+﻿//#
 #define DIAGNOSTICS
 
 using System;

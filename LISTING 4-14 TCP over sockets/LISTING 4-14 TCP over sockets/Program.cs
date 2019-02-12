@@ -253,7 +253,7 @@ namespace LISTING_4_14_TCP_over_sockets
             Console.WriteLine(webPageText);
             Console.ReadKey();
 
-            HttpWebRequest w = new HttpWebRequest
+            //HttpWebRequest w = new HttpWebRequest
             WebRequest x = WebRequest.Create("url");
         }
     }

@@ -6,11 +6,11 @@
         {
             string name = "Rob Miles";
             int age = 21;
-            int silly = age - name;
+            //int silly = age - name;
 
             var namev = "Rob Miles";
             var agev = 21;
-            var sillyv = agev - namev;
+            //var sillyv = agev - namev;
         }
     }
 }
