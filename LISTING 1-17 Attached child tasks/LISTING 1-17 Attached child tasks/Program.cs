@@ -20,10 +20,19 @@ namespace LISTING_1_17_Attached_child_tasks
                 for (int i = 0; i < 10; i++)
                 {
                     int taskNo = i;
+
+                    // Code running inside a parent Task can create other tasks, but these "child" tasks will execute 
+                    // indepently of the parent in which they were created.
+                    // Such tasks are called detached child tasks or detached nested tasks.
+                    // A parent task can create child tasks with a task creation option that specifies that the child 
+                    // task is attached to the parent.
+                    // The parent task will not complete until all of the attached child tasks have completed.
                     Task.Factory.StartNew(
                         (x) => DoChild(x),  // lambda function
                         taskNo, // state object
-                        TaskCreationOptions.AttachedToParent);
+                        TaskCreationOptions.AttachedToParent); // DenyChildAttach is used when using Task.Run
+
+                    // https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.taskcreationoptions?view=netframework-4.7.2
                 }
             });
 

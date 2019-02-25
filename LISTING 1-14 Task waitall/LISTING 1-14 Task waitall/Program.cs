@@ -22,10 +22,16 @@ namespace LISTING_1_14_Task_waitall
                 int taskNum = i;  // make a local copy of the loop counter so that the 
                                   // correct task number is passed into the lambda function
                 Tasks[i] = Task.Run(() => DoWork(taskNum));
+                //Tasks[i] = Task.Run(() => DoWork(i)); // all of the tasks would have number 10, which is the value of 
+                                                        // the limit of the loop
             }
 
+            // The Task.WaitAll method can be used to pause a program until a number of tasks have completed.
             Task.WaitAll(Tasks);
- 
+
+            //  The Task.WaitAny method can be used to pause a program until any of the tasks have completed.
+            //Task.WaitAny(Tasks);
+
             Console.WriteLine("Finished processing. Press a key to end.");
             Console.ReadKey();
         }

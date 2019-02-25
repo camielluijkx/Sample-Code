@@ -13,10 +13,26 @@ namespace LISTING_1_12_Run_a_task
             Console.WriteLine("Work finished");
         }
 
+        // Run a task (create and start) and wait for it to complete.
         static void Main(string[] args)
         {
+            Console.WriteLine("Task start (begin)");
             Task newTask = Task.Run(() => DoWork());
+            Console.WriteLine("Task start (end)");
+            Console.WriteLine("Task wait (begin)");
             newTask.Wait();
+            Console.WriteLine("Task wait (end)");
+
+            /*
+             
+            Task start (begin)
+            Task start (end)
+            Task wait (begin)
+            Work starting
+            Work finished
+            Task wait (end)
+            
+            */
         }
     }
 }

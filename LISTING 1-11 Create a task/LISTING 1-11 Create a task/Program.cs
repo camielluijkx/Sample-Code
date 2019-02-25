@@ -15,9 +15,25 @@ namespace LISTING_1_11_Create_a_task
 
         static void Main(string[] args)
         {
+            // Create a task, start it and wait for it to complete.
             Task newTask = new Task(() => DoWork());
+            Console.WriteLine("Task start (begin)");
             newTask.Start();
+            Console.WriteLine("Task start (end)");
+            Console.WriteLine("Task wait (begin)");
             newTask.Wait();
+            Console.WriteLine("Task wait (end)");
+
+            /*
+            
+            Task start (begin)
+            Task start (end)
+            Task wait (begin)
+            Work starting
+            Work finished
+            Task wait (end)
+
+            */
         }
     }
 }
