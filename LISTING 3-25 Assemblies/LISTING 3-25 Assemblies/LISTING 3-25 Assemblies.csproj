@@ -49,9 +49,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MusicStorage\MusicStorage.csproj">
+    <ProjectReference Include="..\LISTING 3-25 MusicStorage\LISTING 3-25 MusicStorage.csproj">
       <Project>{6cc71e3f-4460-41d9-ba76-b22230ecef07}</Project>
-      <Name>MusicStorage</Name>
+      <Name>LISTING 3-25 MusicStorage</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
