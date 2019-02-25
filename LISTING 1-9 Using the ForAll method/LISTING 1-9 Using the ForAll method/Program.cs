@@ -30,6 +30,9 @@ namespace LISTING_1_9_Using_the_ForAll_method
                          where person.City == "Seattle"
                          select person;
 
+            // The ForAll method can be used to iterate through all of the elements in a query.
+            // The iteration takes place in parallel and will start before the query is complete.
+            // Note that the order of the printed output will not reflect the ordering of the input data.
             result.ForAll(person => Console.WriteLine(person.Name));
 
             Console.WriteLine("Finished processing. Press a key to end.");

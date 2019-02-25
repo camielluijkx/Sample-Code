@@ -25,6 +25,13 @@ namespace LISTING_1_5_A_parallel_LINQ_query
                 new Person { Name = "Isaac", City = "Seattle" },
                 new Person { Name = "James", City = "London" }};
 
+            // The AsParallel method examines the query to determine if using a parallel version would speed it up.
+            // The query is broken down into a number of processes and each is run concurrently when it is decided that 
+            // executing elements of the query in parallel would improve performance.
+            // The query is not executed in parallel if the AsParallel method couldn't decide whether parallelization 
+            // would improve performance.
+            // A non parallel query produces output data that has the same order as the input data.
+            // A parallel query, however, may process data in a different order from the input data.
             var result = from person in people.AsParallel()
                          where person.City == "Seattle"
                          select person;

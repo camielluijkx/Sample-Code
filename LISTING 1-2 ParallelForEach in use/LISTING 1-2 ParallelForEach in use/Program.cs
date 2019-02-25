@@ -17,6 +17,11 @@ namespace LISTING_1_2_ParallelForEach_in_use
         static void Main(string[] args)
         {
             var items = Enumerable.Range(0, 500);
+
+            // The Parallel.ForEach method accepts two parameters.
+            // The first parameter is an IEnumerable collection.
+            // The second parameter provides the action to be performed on each item in the collection.
+            // Note that the tasks are not completed in the same order that they were started.
             Parallel.ForEach(items, item =>
             {
                 WorkOnItem(item);

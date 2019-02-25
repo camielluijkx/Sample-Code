@@ -2,7 +2,6 @@
 using System.Linq;
 
 namespace LISTING_1_7_Using_AsOrdered
-
 {
     class Program
     {
@@ -26,6 +25,9 @@ namespace LISTING_1_7_Using_AsOrdered
                 new Person { Name = "Isaac", City = "Seattle" },
                 new Person { Name = "James", City = "London" }};
 
+            // The AsOrdered method can be used to request the query to preserve the order of the original data.
+            // The AsOrdered method doesn't prevent the parallelization of the query, instead it organizes the output 
+            // so that it is in the same order as the original data which can slow down the query.
             var result = from person in people.AsParallel().AsOrdered()
                          where person.City == "Seattle"
                          select person;
