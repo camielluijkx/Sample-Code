@@ -5,7 +5,6 @@ namespace LISTING_1_28_Thread_pool
 {
     class Program
     {
-
         [ThreadStatic]
         static int LocalState;
 

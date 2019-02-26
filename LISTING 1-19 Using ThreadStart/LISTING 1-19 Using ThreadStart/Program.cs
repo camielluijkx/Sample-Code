@@ -13,9 +13,25 @@ namespace LISTING_1_19_Using_ThreadStart
 
         static void Main(string[] args)
         {
+            // Use ThreadStart delegate to specify the method to be executed by the thread.
             ThreadStart ts = new ThreadStart(ThreadHello);
             Thread thread = new Thread(ts);
             thread.Start();
+
+            Console.WriteLine("Press a key to end.");
+            Console.ReadKey();
+
+            /*
+             
+            Hello from the thread
+            Press a key to end.
+
+            OR
+
+            Press a key to end.
+            Hello from the thread
+
+            */
         }
     }
 }
