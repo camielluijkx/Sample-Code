@@ -23,7 +23,7 @@ namespace Listing_1._1Parallel_Invoke
 
         static void Main(string[] args)
         {
-            // The Task.Parallel class can be found in the Ssystem.Threding.Tasks namespace.
+            // The Task.Parallel class can be found in the System.Threading.Tasks namespace.
             // The Parallel.Invoke method accepts a number of Action delegates and creates a Task for each of them.
             // An action delegate is an encapsulation of a method that accepts no parameters and does not return a 
             // result. 
