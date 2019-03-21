@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 
-
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace Webpage_Viewer
@@ -33,6 +32,19 @@ namespace Webpage_Viewer
             return await Task.WhenAll(tasks);
         }
 
+        /*
+        
+        An async method can contain a number of awaited actions which will be completed in sequence.
+
+        You can use the Task.WhenAll method to create an "awaitable" task that returns when a number of parallel tasks 
+        have completed.
+
+        The Task.enAll method is given a list of tasks and returns a collection which contains their results when they 
+        have completed.
+
+        There is also a WhenAny method that will return when any one of the given tasks completes.
+
+        */
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             try

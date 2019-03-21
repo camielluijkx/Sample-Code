@@ -31,6 +31,15 @@ namespace Random_Averages
             return total / noOfValues;
         }
 
+        /*
+        
+        Each component on a display has a Dispatcher property that can be used to run tasks in the context of the 
+        display.
+
+        The RunAsync method is given a priority level for the task, followed by the action that is to be performed on 
+        the thread.
+
+        */
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             long noOfValues = long.Parse(NumberOfValuesTextBox.Text);

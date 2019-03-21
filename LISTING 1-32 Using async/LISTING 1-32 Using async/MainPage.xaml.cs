@@ -41,6 +41,25 @@ namespace Random_Averages
             });
         }
 
+        /*
+        
+        The StartButton_Click event handler method is marked as async.
+
+        This tells the compiler to treat this method as special.
+
+        It means that the method will contain one or more uses of the await keyword.
+
+        The await keyword represents "a statement of intent" to perform an action.
+
+        The keyword precedes a call of a method that will return the task to be performed.
+
+        The compiler will generate code that will cause the async method to return to the caller at the point the await 
+        is reached.
+
+        It will then go on to generate code that will perform the awaited action asynchronously and then continue with
+        the body of the async method.
+         
+        */
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
             long noOfValues = long.Parse(NumberOfValuesTextBox.Text);

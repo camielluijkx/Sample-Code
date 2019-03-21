@@ -32,6 +32,16 @@ namespace Random_Averages
             return total / noOfValues;
         }
 
+        /*
+        
+        Entering a very large number of averages causes the entire user interface to lock up while the program runs the
+        event handler behind the "Start" button.
+
+        The button appears to be "stuck down" for the time it takes the event handler to run and interactions with the 
+        user interface, for example resizing the application screen, are not possible until the button "pops back up"
+        and the answer is displayed.
+
+        */
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             long noOfValues = long.Parse(NumberOfValuesTextBox.Text);
