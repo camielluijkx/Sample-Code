@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.Concurrent;
 
 namespace LISTING_1_38_Concurrent_stack
@@ -14,12 +10,22 @@ namespace LISTING_1_38_Concurrent_stack
             ConcurrentStack<string> stack = new ConcurrentStack<string>();
             stack.Push("Rob");
             stack.Push("Miles");
+
             string str;
+
             if (stack.TryPeek(out str))
-                Console.WriteLine("Peek: {0}", str);
+                Console.WriteLine($"Peek: {str}.");
             if (stack.TryPop(out str))
-                Console.WriteLine("Pop: {0}", str);
+                Console.WriteLine($"Pop: {str}.");
+
             Console.ReadKey();
+
+            /*
+            
+            Peek: Miles.
+            Pop: Miles.
+
+            */
         }
     }
 }
