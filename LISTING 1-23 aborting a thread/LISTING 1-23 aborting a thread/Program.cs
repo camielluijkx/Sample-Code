@@ -7,7 +7,6 @@ namespace LISTING_1_23_aborting_a_thread
     {
         static void Main(string[] args)
         {
-
             Thread tickThread = new Thread(() =>
             {
                 while (true)
@@ -18,22 +17,29 @@ namespace LISTING_1_23_aborting_a_thread
             });
             tickThread.Start();
 
-            Console.WriteLine("Press a key to stop the clock");
+            Console.WriteLine("Press a key to stop the clock.");
             Console.ReadKey();
 
-            // A Thread object exposes an Abort method, which can be called on the thread to abort it.
-            // The thread is terminated instantly, which might mean that it leaves the program in an ambigious state, 
-            // with files open and resources assigned.
+            /*
+            
+            A Thread object exposes an Abort method, which can be called on the thread to abort it.
+            
+            The thread is terminated instantly, which might mean that it leaves the program in an ambigious state, with 
+            files open and resources assigned.
+            
+            */
             tickThread.Abort();
 
-            Console.WriteLine("Press a key to exit");
+            Console.WriteLine("Press a key to exit.");
             Console.ReadKey();
 
             /*
              
-            Press a key to stop the clock
-            Tick x?
-            Press a key to exit
+            Press a key to stop the clock.
+            Tick
+            ...
+            Tick
+            Press a key to exit.
 
             */
         }

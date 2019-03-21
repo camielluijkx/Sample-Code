@@ -45,7 +45,11 @@ namespace LISTING_1_10_Exceptions_in_PLINQ
 
             try
             {
-                // An AggregateException is thrown when all queries are completed if any query generates an exception.
+                /* 
+                
+                An AggregateException is thrown when all queries are completed if any query generates an exception.
+
+                */
                 var result = from person in
                     people.AsParallel()
                              //where CheckCity(person.City)

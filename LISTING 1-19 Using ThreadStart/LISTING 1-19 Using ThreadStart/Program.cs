@@ -7,13 +7,17 @@ namespace LISTING_1_19_Using_ThreadStart
     {
         static void ThreadHello()
         {
-            Console.WriteLine("Hello from the thread");
+            Console.WriteLine("Hello from the thread.");
             Thread.Sleep(2000);
         }
 
         static void Main(string[] args)
         {
-            // Use ThreadStart delegate to specify the method to be executed by the thread.
+            /*
+            
+            Use ThreadStart delegate to specify the method to be executed by the thread.
+            
+            */
             ThreadStart ts = new ThreadStart(ThreadHello);
             Thread thread = new Thread(ts);
             thread.Start();
@@ -23,13 +27,13 @@ namespace LISTING_1_19_Using_ThreadStart
 
             /*
              
-            Hello from the thread
+            Hello from the thread.
             Press a key to end.
 
             OR
 
             Press a key to end.
-            Hello from the thread
+            Hello from the thread.
 
             */
         }

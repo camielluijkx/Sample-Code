@@ -8,25 +8,32 @@ namespace LISTING_1_17_Attached_child_tasks
     {
         public static void DoChild(object state)
         {
-            Console.WriteLine("Child {0} starting", state);
+            Console.WriteLine($"Child {state}B starting.");
             Thread.Sleep(2000);
-            Console.WriteLine("Child {0} finished", state);
+            Console.WriteLine($"Child {state} finished.");
         }
 
         static void Main(string[] args)
         {
             var parent = Task.Factory.StartNew(() => {
-                Console.WriteLine("Parent starts");
+                Console.WriteLine("Parent starts.");
                 for (int i = 0; i < 10; i++)
                 {
                     int taskNo = i;
 
-                    // Code running inside a parent Task can create other tasks, but these "child" tasks will execute 
-                    // indepently of the parent in which they were created.
-                    // Such tasks are called detached child tasks or detached nested tasks.
-                    // A parent task can create child tasks with a task creation option that specifies that the child 
-                    // task is attached to the parent.
-                    // The parent task will not complete until all of the attached child tasks have completed.
+                    /*
+                    
+                    Code running inside a parent Task can create other tasks, but these "child" tasks will execute 
+                    indepently of the parent in which they were created.
+                    
+                    Such tasks are called detached child tasks or detached nested tasks.
+                    
+                    A parent task can create child tasks with a task creation option that specifies that the child task 
+                    is attached to the parent.
+                    
+                    The parent task will not complete until all of the attached child tasks have completed.
+                    
+                    */
                     Task.Factory.StartNew(
                         (x) => DoChild(x),  // lambda function
                         taskNo, // state object
