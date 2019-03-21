@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace LISTING_1_43_Using_locking
 {
+    /*
+    
+    A program can use locking to ensure that a given action is atomic.
+
+    Atomic actions are preformed to completion, so they cannot be interrupted.
+
+    */
     class Program
     {
         static long sharedTotal;
@@ -19,7 +25,7 @@ namespace LISTING_1_43_Using_locking
         {
             while (start < end)
             {
-                lock (sharedTotalLock)
+                lock (sharedTotalLock) // tasks are not executing in parallel anymore
                 {
                     sharedTotal = sharedTotal + items[start];
                 }
@@ -37,9 +43,10 @@ namespace LISTING_1_43_Using_locking
             while (rangeStart < items.Length)
             {
                 int rangeEnd = rangeStart + rangeSize;
-
                 if (rangeEnd > items.Length)
+                {
                     rangeEnd = items.Length;
+                }
 
                 // create local copies of the parameters
                 int rs = rangeStart;
@@ -51,8 +58,14 @@ namespace LISTING_1_43_Using_locking
 
             Task.WaitAll(tasks.ToArray());
 
-            Console.WriteLine("The total is: {0}", sharedTotal);
+            Console.WriteLine($"The total is: {sharedTotal}.");
             Console.ReadKey();
+
+            /*
+            
+            The total is: 125000250000.
+
+            */
         }
     }
 }
