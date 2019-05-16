@@ -5,7 +5,7 @@ namespace LISTING_1_24_shared_flag_variable
 {
     class Program
     {
-        static bool tickRunning = true;  // flag variable 
+        static bool tickRunning = true; // flag variable 
 
         static void Main(string[] args)
         {
@@ -13,7 +13,11 @@ namespace LISTING_1_24_shared_flag_variable
 
             Thread tickThread = new Thread(() =>
             {
-                // A better way to abort a thread is to use a shared flag variable.
+                /*
+                
+                A better way to abort a thread is to use a shared flag variable.
+                
+                */
                 while (tickRunning)
                 {
                     Console.WriteLine("Tick");
@@ -27,19 +31,21 @@ namespace LISTING_1_24_shared_flag_variable
             });
             tickThread.Start();
 
-            Console.WriteLine("Press a key to stop the clock");
+            Console.WriteLine("Press a key to stop the clock.");
             Console.ReadKey();
 
             tickRunning = false;
 
-            Console.WriteLine("Press a key to exit");
+            Console.WriteLine("Press a key to exit.");
             Console.ReadKey();
 
             /*
              
-            Press a key to stop the clock
-            Tick x?
-            Press a key to exit
+            Press a key to stop the clock.
+            Tick
+            ...
+            Tick
+            Press a key to exit.
             Terminated
 
             */

@@ -6,9 +6,22 @@ namespace LISTING_1_36_Block_ConcurrentStack
 {
     class Program
     {
+        /*
+        
+        The BlockingCollection class can act as a wrapper around the other concurrent collection classes, including
+        ConcurrentQueue, ConcurrentStack and ConcurrentBag.
+
+        The collection class to be used is given as the first parameter of the BlockingCollection constructor.
+
+        If you don't provide a collection class the BlockingCollection class uses a ConcurrentQueue, which operates on 
+        a "first in-first out" basis.
+
+        Items are added and taken from the stack on a "last in-first out" basis when a ConcurrentStack is used.
+        
+        */
         static void Main(string[] args)
         {
-            // Blocking collection that can hold 5 items
+            // blocking collection that can hold 5 items
             BlockingCollection<int> data = new BlockingCollection<int>(new ConcurrentStack<int>(), 5);
 
             Task.Run(() =>
@@ -17,14 +30,15 @@ namespace LISTING_1_36_Block_ConcurrentStack
                 for (int i = 0; i < 10; i++)
                 {
                     data.Add(i);
-                    Console.WriteLine("Data {0} added successfully.", i);
+                    Console.WriteLine($"Data {i} added successfully.");
                 }
+
                 // indicate we have no more to add
                 data.CompleteAdding();
             });
 
             Console.ReadKey();
-            Console.WriteLine("Reading collection");
+            Console.WriteLine("Reading collection.");
 
             Task.Run(() =>
             {
@@ -33,7 +47,7 @@ namespace LISTING_1_36_Block_ConcurrentStack
                     try
                     {
                         int v = data.Take();
-                        Console.WriteLine("Data {0} taken successfully.", v);
+                        Console.WriteLine($"Data {v} taken successfully.");
                     }
                     catch (InvalidOperationException) { }
                 }

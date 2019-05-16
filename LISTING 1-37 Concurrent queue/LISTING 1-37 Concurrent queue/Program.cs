@@ -10,12 +10,22 @@ namespace LISTING_1_37_Concurrent_queue
             ConcurrentQueue<string> queue = new ConcurrentQueue<string>();
             queue.Enqueue("Rob");
             queue.Enqueue("Miles");
+
             string str;
+
             if (queue.TryPeek(out str))
-                Console.WriteLine("Peek: {0}", str);
+                Console.WriteLine($"Peek: {str}.");
             if (queue.TryDequeue(out str))
-                Console.WriteLine("Dequeue: {0}", str);
+                Console.WriteLine($"Dequeue: {str}.");
+
             Console.ReadKey();
+
+            /*
+            
+            Peek: Rob.
+            Dequeue: Rob.
+
+            */
         }
     }
 }

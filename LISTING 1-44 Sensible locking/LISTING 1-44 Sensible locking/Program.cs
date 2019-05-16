@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace LISTING_1_44_Sensible_locking
 {
+    /*
+        
+    Method addRangeOfValues now calculates a sub-total in the loop and works down the array adding up array elements. 
+    The sub-total is then added to the total value once this loop has completed. Rather than updating the shared total 
+    every time it adds a new element of the array; this version of the method only updates the shared total once. So 
+    there is now a thousandth of the amount of use of the shared variables, and the program now performs a lot better.
+            
+    */
     class Program
     {
         static long sharedTotal;
@@ -24,13 +31,14 @@ namespace LISTING_1_44_Sensible_locking
                 subTotal = subTotal + items[start];
                 start++;
             }
+
             lock (sharedTotalLock)
             {
                 sharedTotal = sharedTotal + subTotal;
             }
         }
 
-    static void Main(string[] args)
+        static void Main(string[] args)
         {
             List<Task> tasks = new List<Task>();
 
@@ -40,9 +48,10 @@ namespace LISTING_1_44_Sensible_locking
             while (rangeStart < items.Length)
             {
                 int rangeEnd = rangeStart + rangeSize;
-
                 if (rangeEnd > items.Length)
+                {
                     rangeEnd = items.Length;
+                }
 
                 // create local copies of the parameters
                 int rs = rangeStart;
@@ -54,8 +63,14 @@ namespace LISTING_1_44_Sensible_locking
 
             Task.WaitAll(tasks.ToArray());
 
-            Console.WriteLine("The total is: {0}", sharedTotal);
+            Console.WriteLine($"The total is: {sharedTotal}.");
             Console.ReadKey();
+
+            /*
+            
+            The total is: 125000250000.
+
+            */
         }
     }
 }

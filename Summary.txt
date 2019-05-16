@@ -1,0 +1,27 @@
+Action
+Parallel.Invoke
+Parallel.ForEach
+Parallel.For
+ParallelLoopState (Break vs Stop)
+ParallelLoopResult
+AsParallel
+WithExecutionMode (ParallelExecutionMode)
+WithDegreeOfParallelism
+AsOrdered
+AsSequential
+ForAll
+AggregateException
+Task (Start and Wait)
+Task (Run and Wait)
+Task<T>
+TaskFactory (StartNew)
+TaskCreationOptions
+TaskContinuationOptions
+CancellationTokenSource
+CancellationToken
+WaitAll
+WaitAny
+WhenAll
+ContinueWith (when antecedent task finishes)
+TaskContinuationOptions (OnlyOnRanToCompletion + OnlyOnFaulted)
+TaskCreationOptions (AttachedToParent vs DenyChildAttach)

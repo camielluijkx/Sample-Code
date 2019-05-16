@@ -5,7 +5,11 @@ namespace LISTING_1_27_ThreadLocal
 {
     class Program
     {
-        // You can use the ThreadStatic attribute to specify that the given variable should be created for each thread.
+        /*
+        
+        You can use the ThreadStatic attribute to specify that the given variable should be created for each thread.
+        
+        */
         [ThreadStatic]
         private static int x = 99; // initialization will not matter as it will be defaulted for each thread
 
@@ -15,9 +19,14 @@ namespace LISTING_1_27_ThreadLocal
                 return 99;
             });
 
-        // If your program needs to initialize the local data for each thread you can use the ThreadLocal<T> class.
-        // When an instance of ThreadLocal is created it gives a delegate to the code that will initialize attributes 
-        // of threads.
+        /* 
+        
+        If your program needs to initialize the local data for each thread you can use the ThreadLocal<T> class.
+        
+        When an instance of ThreadLocal is created it gives a delegate to the code that will initialize attributes of 
+        threads.
+
+        */
         public static ThreadLocal<Random> RandomGenerator =
             new ThreadLocal<Random>(() =>
             {

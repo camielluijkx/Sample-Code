@@ -13,10 +13,18 @@ namespace LISTING_1_41_Single_task_summing
             long total = 0;
 
             for (int i = 0; i < items.Length; i++)
+            {
                 total = total + items[i];
+            }
 
-            Console.WriteLine("The total is: {0}", total);
+            Console.WriteLine($"The total is: {total}.");
             Console.ReadKey();
+
+            /*
+            
+            The total is: 125000250000.
+
+            */
         }
     }
 }

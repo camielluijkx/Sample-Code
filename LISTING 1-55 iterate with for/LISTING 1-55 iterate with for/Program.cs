@@ -9,7 +9,9 @@ namespace LISTING_1_55_iterate_with_for
             string[] names = { "Rob", "Mary", "David", "Jenny", "Chris", "Imogen" };
 
             for (int index = 0; index < names.Length; index++)
+            {
                 Console.WriteLine(names[index]);
+            }
 
             Console.ReadKey();
         }

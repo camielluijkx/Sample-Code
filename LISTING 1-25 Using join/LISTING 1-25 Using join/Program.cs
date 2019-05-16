@@ -13,31 +13,35 @@ namespace LISTING_1_25_Using_join
         {
             Thread threadToWaitFor = new Thread(() =>
             {
-                Console.WriteLine("Thread starting");
+                Console.WriteLine("Thread starting.");
                 Thread.Sleep(2000);
-                Console.WriteLine("Thread done");
+                Console.WriteLine("Thread done.");
             });
             threadToWaitFor.Start();
 
-            Console.WriteLine("Joining thread");
+            Console.WriteLine("Joining thread.");
 
-            // The join method allows two threads to synchronize. 
-            // When a thread calls the join method on another thread, the caller of join is held until the other thread
-            // completes.
-            threadToWaitFor.Join(); // threadMain calls join on (thus wait for) threadToWaitFor
+            /*
+            
+            The join method allows two threads to synchronize. 
+            
+            When a thread calls the join method on another thread, the caller of join is held until the other thread
+            completes.
 
-            Console.WriteLine("Press a key to exit");
+            */
+            threadToWaitFor.Join(); // threadMain calls join on (thus waits for) threadToWaitFor
+
+            Console.WriteLine("Press a key to exit.");
             Console.ReadKey();
 
             /*
             
-            Joining thread
-            Thread starting
-            Thread done
-            Press a key to exit
+            Joining thread.
+            Thread starting.
+            Thread done.
+            Press a key to exit.
 
             */
         }
     }
 }
-

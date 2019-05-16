@@ -28,8 +28,12 @@ namespace LISTING_1_16_Continuation_options
         {
             Task task = Task.Run(() => HelloTask());
 
-            // The ContinueWith method has an overload that you can use to specify when a given continuation task can
-            // run (TaskContinuationOptions).
+            /*
+            
+            The ContinueWith method has an overload that you can use to specify when a given continuation task can run 
+            (TaskContinuationOptions).
+
+            */
             task.ContinueWith((prevTask) => WorldTask(), TaskContinuationOptions.OnlyOnRanToCompletion);
             task.ContinueWith((prevTask) => ExceptionTask(), TaskContinuationOptions.OnlyOnFaulted);
 
