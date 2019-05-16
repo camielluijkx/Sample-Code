@@ -16,16 +16,18 @@ namespace LISTING_1_3_ParallelFor_in_use
 
         static void Main(string[] args)
         {
-            var items = Enumerable.Range(0, 500).ToArray();
+            //var items = Enumerable.Range(0, 10).ToArray();
+            int[] items = Enumerable.Range(0, 10).ToArray();
 
             // The Parallel.For method accepts three parameters.
             // The first and second parameter represent start and end index for iteration of the collection.
             // The third parameter represents the delegate that is invoked once per iteration.
             // Note that the tasks are not completed in the same order that they were started.
-            Parallel.For(0, items.Length, i =>
-            {
-                WorkOnItem(items[i]);
-            });
+
+            Action<int> itemAction = new Action<int>((item) => WorkOnItem(item));
+            //Parallel.For(0, items.Length, itemAction);
+
+            Parallel.For(0, items.Length, i => { WorkOnItem(items[i]); });
 
             Console.WriteLine("Finished processing. Press a key to end.");
             Console.ReadKey();

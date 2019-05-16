@@ -575,6 +575,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LISTING 1-31 Updating the
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LISTING 1-32 Using async", "LISTING 1-32 Using async\LISTING 1-32 Using async\LISTING 1-32 Using async.csproj", "{A9B754B1-55F5-46EE-943E-D0407EEB484A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{79A31FC8-3FD2-4ACF-9C61-7F54B46F6854}"
+	ProjectSection(SolutionItems) = preProject
+		Summary.txt = Summary.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Custom|Any CPU = Custom|Any CPU

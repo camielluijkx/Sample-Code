@@ -8,32 +8,37 @@ namespace LISTING_1_9_Using_the_ForAll_method
         class Person
         {
             public string Name { get; set; }
+
             public string City { get; set; }
         }
 
         static void Main(string[] args)
         {
-            Person[] people = new Person[] {
+            Person[] people = new Person[]
+            {
                 new Person { Name = "Alan", City = "Hull" },
-                new Person { Name = "Beryl", City = "Seattle" },
+                new Person { Name = "Henry", City = "Seattle" },
                 new Person { Name = "Charles", City = "London" },
+                new Person { Name = "Isaac", City = "Seattle" },
+                new Person { Name = "Gordon", City = "Hull" },
                 new Person { Name = "David", City = "Seattle" },
                 new Person { Name = "Eddy", City = "Paris" },
                 new Person { Name = "Fred", City = "Berlin" },
-                new Person { Name = "Gordon", City = "Hull" },
-                new Person { Name = "Henry", City = "Seattle" },
-                new Person { Name = "Isaac", City = "Seattle" },
-                new Person { Name = "James", City = "London" }};
+                new Person { Name = "Beryl", City = "Seattle" },
+                new Person { Name = "James", City = "London" }
+            };
 
-            var result = from person in
-                people.AsParallel()
-                         where person.City == "Seattle"
-                         select person;
+            Console.WriteLine("parallel query:");
+            var resultP = from person in people.AsParallel()
+                          where person.City == "Seattle"
+                          //orderby person.Name
+                          select person;
 
             // The ForAll method can be used to iterate through all of the elements in a query.
             // The iteration takes place in parallel and will start before the query is complete.
             // Note that the order of the printed output will not reflect the ordering of the input data.
-            result.ForAll(person => Console.WriteLine(person.Name));
+
+            resultP.ForAll(person => Console.WriteLine(person.Name));
 
             Console.WriteLine("Finished processing. Press a key to end.");
             Console.ReadKey();

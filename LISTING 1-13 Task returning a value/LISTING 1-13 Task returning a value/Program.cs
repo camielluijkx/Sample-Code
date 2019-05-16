@@ -24,16 +24,30 @@ namespace LISTING_1_13_Task_returning_a_value
             // You can create your own task scheduler or run a task scheduler in the synchronization context of another
             // processor. 
             // You can also create your own TaskFactory if you want to create a number of tasks with the same 
-            // configuration. 
+            // configuration.
+
+            Console.WriteLine("Task run (begin)");
             Task<int> task = Task.Run(() =>
             {
                 return CalculateResult();
             });
+            Console.WriteLine("Task run (end)");
 
-            Console.WriteLine(task.Result);
-
+            Console.WriteLine(task.Result); // await
+            
             Console.WriteLine("Finished processing. Press a key to end.");
             Console.ReadKey();
+
+            /*
+            
+            Task run (begin)
+            Task run (end)
+            Work starting
+            Work finished
+            99
+            Finished processing. Press a key to end.
+
+            */
         }
     }
 }
