@@ -13,8 +13,7 @@ namespace LISTING_1_73_Closures
             // Local variable set to 99
             int localInt = 99;
 
-            // Set delegate getLocalInt to a lambda function that
-            // returns the value of localInt
+            // Set delegate getLocalInt to a lambda function that returns the value of localInt
             getLocalInt = () => localInt;
         }
 

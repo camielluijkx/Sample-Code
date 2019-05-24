@@ -15,7 +15,7 @@ namespace LISTING_1_18_Creating_threads
         {
             /*
             
-            task vs Thread:
+            Task vs Thread:
 
                 • A Task object represents an item of work to be performed.       
                 • A Thread object represents a process running within the Operating System.
@@ -61,18 +61,6 @@ namespace LISTING_1_18_Creating_threads
 
             Console.WriteLine("Press a key to end.");
             Console.ReadKey();
-
-            /*
-             
-            Hello from the thread.
-            Press a key to end.
-
-            OR
-
-            Press a key to end.
-            Hello from the thread.
-
-            */
         }
     }
 }

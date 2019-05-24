@@ -16,7 +16,7 @@ namespace LISTING_1_57_uppercase_Person
     Note that the iteration can be implemented in a "lazy" way; the next item to be iterated only needs to be fetched
     when requested. The result of database queries can be returned as objects that implement the IEnumerable interface
     and then only fetch the actual data items when needed. It is important that the item being iterated is not changed
-    during iteration, if the iterating code tried to remove items from the list it was iteraqting through this would 
+    during iteration, if the iterating code tried to remove items from the list it was iterating through this would 
     cause the program to throw an exception when it ran.
     
     */

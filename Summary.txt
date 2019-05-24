@@ -11,8 +11,7 @@ AsOrdered
 AsSequential
 ForAll
 AggregateException
-Task (Start and Wait)
-Task (Run and Wait)
+Task (Start, Run, Wait)
 Task<T>
 TaskFactory (StartNew)
 TaskCreationOptions
@@ -25,3 +24,54 @@ WhenAll
 ContinueWith (when antecedent task finishes)
 TaskContinuationOptions (OnlyOnRanToCompletion + OnlyOnFaulted)
 TaskCreationOptions (AttachedToParent vs DenyChildAttach)
+Thread
+ThreadStart
+ParameterizedThreadStart
+Thread.Start + Thread.Abort (shared flag variable)
+Thread.Join
+ThreadStatic
+context (CurrentCulture, Priority, ExecutionContext, IsThreadPoolThread, IsBackground)
+ThreadPool (QueueUserWorkItem + WaitCallBack)
+Dispatcher.RunAsync
+async + await
+BlockingCollection (Add, TryAdd + Take, TryTake + CompleteAdding, IsCompleted)
+ConcurrentQueue (Enqueue, TryPeek, TryDequeue, Count + IsEmpty)
+ConcurrentStack (Push + PushRange, TryPeek, TryPop + TryPopRange, Count + IsEmpty)
+ConcurrentBag (Add, TryPeek, TryTake, Count + IsEmpty)
+ConcurrentDictionary (GetOrAdd, AddOrUpdate, TryAdd + TryUpdate, TryGetValue, TryRemove)
+Enumerable.Range (start, count)
+lock
+Monitor.Enter, Monitor.TryEnter + Monitor.Exit
+Interlocked (Add, Decrement, Increment)
+volatile
+CancellationToken (CanBeCancelled, IsCancellationRequested, ThrowIfCancellationRequested, WaitHandle)
+while
+do while
+for (initalize(); test(); update())
+for (index, length)
+foreach
+IEnumerable (IEnumerator.GetEnumerator())
+break vs continue
+if, else, else if
+cand (&&)
+cor (||)
+xor (^)
+switch (case, default, goto case)
+operators (unary / monadic, binary, ternary)
+null conditional operator (.?)
+coalesce operator
+publish and subscribe vs unsubscribe (+= vs -=)
+event
+EventHandler
+custom event args
+delegate (lambda expressions)
+closures ()
+Funct vs Action vs Predicate delegates
+exception (Message, StackTrace, HelpLink, TargetSite, Source)
+exception types
+try (catch) finally
+throw (throw vs throw ex vs throw new)
+custom exception
+conditional exception (catch + when)
+InnerException (throw vs throw ex)
+AggregateException

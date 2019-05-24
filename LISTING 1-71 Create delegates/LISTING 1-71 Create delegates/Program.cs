@@ -27,8 +27,7 @@ namespace LISTING_1_71_Create_delegates
 
             Console.WriteLine(op(2, 2));
 
-            // Delegate is created automatically
-            // from method 
+            // Delegate is created automatically from method 
 
             op = Subtract;
             Console.WriteLine(op(2, 2));

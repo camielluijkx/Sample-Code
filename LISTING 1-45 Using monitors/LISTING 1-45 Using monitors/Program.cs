@@ -13,8 +13,8 @@ namespace LISTING_1_45_Using_monitors
     statement or block of code, as the lock keyword does, the atomic code is enclosed in calls of Monitor.Enter and 
     Monitor.Exit. The Enter and Exit methods are passed a reference to an object that is used as the lock.
 
-    If atomic code throws an exception, you need ri be sure that any locks that have been claimed to enter the code are 
-    released. In statements managed by the lock keyword this happens automaticallyt. If you use a monitor, make sure 
+    If atomic code throws an exception, you need to be sure that any locks that have been claimed to enter the code are 
+    released. In statements managed by the lock keyword this happens automatically. If you use a monitor, make sure 
     the lock is released.
 
         lock is similar to Monitor.Enter with try + finally and Monitor.Exit

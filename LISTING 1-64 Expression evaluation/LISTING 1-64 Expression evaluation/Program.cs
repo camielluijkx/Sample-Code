@@ -4,7 +4,7 @@ namespace LISTING_1_64_Expression_evaluation
 {
     /*
     
-    C# expressions are comprised of operatrs and operands. Operators specify the action to be performed, and er either 
+    C# expressions are comprised of operators and operands. Operators specify the action to be performed, and er either 
     literal values or variables. An operator can work on one operand, and such operands are called unary or monadic.
 
     Monadic operators are either prefix (given before the operand) or postfix (given after the operand). Alternatively,

@@ -23,7 +23,7 @@ namespace LISTING_1_84_Aggregate_exceptions
 
                 Console.WriteLine(getpage.Result);
             }
-            catch ( AggregateException ag)
+            catch (AggregateException ag)
             {
                 foreach(Exception e in ag.InnerExceptions)
                 {

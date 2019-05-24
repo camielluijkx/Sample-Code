@@ -20,7 +20,6 @@ namespace LISTING_1_81_Custom_exceptions
 
     class Program
     {
-
         static void Main(string[] args)
         {
             try

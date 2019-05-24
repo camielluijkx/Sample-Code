@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_1_65_Null_conditional
 {
+    /*
+    
+    The null conditional operator ".?" means, "only access this member of the class if the reference is not null".
+
+    A delegate exposes an Invoke method to invoke the methods bound to the delegate.
+
+    */
     class Alarm
     {
         // Delegate for the alarm event
@@ -14,8 +17,7 @@ namespace LISTING_1_65_Null_conditional
         // Called to raise an alarm
         public void RaiseAlarm()
         {
-            // Only raise the alarm if someone has
-            // subscribed. 
+            // Only raise the alarm if someone has subscribed
             OnAlarmRaised?.Invoke();
         }
     }
@@ -25,13 +27,13 @@ namespace LISTING_1_65_Null_conditional
         // Method that must run when the alarm is raised
         static void AlarmListener1()
         {
-            Console.WriteLine("Alarm listener 1 called");
+            Console.WriteLine("Alarm listener 1 called.");
         }
 
         // Method that must run when the alarm is raised
         static void AlarmListener2()
         {
-            Console.WriteLine("Alarm listener 2 called");
+            Console.WriteLine("Alarm listener 2 called.");
         }
 
         static void Main(string[] args)
@@ -44,7 +46,16 @@ namespace LISTING_1_65_Null_conditional
             alarm.OnAlarmRaised += AlarmListener2;
 
             alarm.RaiseAlarm();
-            Console.WriteLine("Alarm raised");
+            Console.WriteLine("Alarm raised.");
+            Console.ReadKey();
+
+            // coalesce operator
+            int? x = null;
+
+            // Set y to the value of x if x is NOT null; otherwise,
+            // if x == null, set y to -1.
+            int y = x ?? -1;
+
             Console.ReadKey();
         }
     }

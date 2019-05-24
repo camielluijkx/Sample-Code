@@ -24,11 +24,11 @@ namespace Webpage_Viewer
         It is very important to note that exceptions can only be caught in this way because the FetchWebPage method 
         returns a result; the text of the web page.
 
-        It is possible to create an async method of type void that does not retrurn a value.
+        It is possible to create an async method of type void that does not return a value.
 
         These are to be avoided as there is no way of catching any exceptions that they generate.
         
-        The only async void methods that a program should contain atre the event handlers themselves.
+        The only async void methods that a program should contain are the event handlers themselves.
 
         Even a method that just performs an action should return a status value so that exceptions can be caught and 
         dealt with.

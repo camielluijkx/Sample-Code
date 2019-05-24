@@ -17,7 +17,7 @@ namespace LISTING_1_28_Thread_pool
 
     When the thread completes, the thread is returned to the pool for use by another process.
 
-    The ThreadPool provides a method QueueUserWOrkItem, which allocates a thread to run the supplied item of work.
+    The ThreadPool provides a method QueueUserWorkItem, which allocates a thread to run the supplied item of work.
 
     The item of work is supplied as a WaitCallBack delegate.
 
@@ -36,7 +36,7 @@ namespace LISTING_1_28_Thread_pool
     There are some situations when using the ThreadPool is not an good idea:
     
         • If you create a large number of threads that may be idle for a very long time, this may block the ThreadPool, 
-          because the ThreadPool only contains a fiinite number of threads.
+          because the ThreadPool only contains a finite number of threads.
         • You cannot manage the priority of threads in the ThreadPool.
         • Threads in the ThreadPool have background priority. You cannot obtain a thread with foreground priority from 
           the ThreadPool.

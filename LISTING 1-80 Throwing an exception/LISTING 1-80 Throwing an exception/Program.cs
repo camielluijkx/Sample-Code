@@ -8,6 +8,7 @@ namespace LISTING_1_80_Throwing_an_exception
         {
             try
             {
+                //throw;
                 throw new Exception("I think you should know that I'm feeling very depressed.");
             }
             catch(Exception ex)

@@ -17,6 +17,7 @@ namespace LISTING_1_20_Threads_and_lambda_expressions
                 • After that the background thread gets control and prints "Hello from the thread.".
 
             */
+
             Thread thread = new Thread(() =>
             {
                 Console.WriteLine("Hello from the thread.");
@@ -26,13 +27,6 @@ namespace LISTING_1_20_Threads_and_lambda_expressions
 
             Console.WriteLine("Press a key to end.");
             Console.ReadKey();
-
-            /*
-             
-            Press a key to end.
-            Hello from the thread.
-
-            */
         }
     }
 }

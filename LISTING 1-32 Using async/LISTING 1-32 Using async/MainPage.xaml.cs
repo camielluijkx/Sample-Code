@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -18,7 +17,6 @@ namespace Random_Averages
             this.InitializeComponent();
         }
 
-
         private double computeAverages(long noOfValues)
         {
             double total = 0;
@@ -31,7 +29,6 @@ namespace Random_Averages
 
             return total / noOfValues;
         }
-
 
         private Task<double> asyncComputeAverages(long noOfValues)
         {

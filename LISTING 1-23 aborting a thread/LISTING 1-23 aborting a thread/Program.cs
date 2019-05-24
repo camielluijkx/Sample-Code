@@ -28,6 +28,7 @@ namespace LISTING_1_23_aborting_a_thread
             files open and resources assigned.
             
             */
+
             tickThread.Abort();
 
             Console.WriteLine("Press a key to exit.");

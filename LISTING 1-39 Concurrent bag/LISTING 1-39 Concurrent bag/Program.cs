@@ -23,8 +23,8 @@ namespace LISTING_1_39_Concurrent_bag
 
             /*
             
-            Peek: ???.
-            Take: ???.
+            Peek: Hull.
+            Take: Hull.
 
             */
         }

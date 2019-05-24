@@ -10,6 +10,7 @@ namespace LISTING_1_21_ParameterizedThreadStart
             Console.WriteLine($"Working on: {data}.");
             Thread.Sleep(1000);
         }
+
         static void Main(string[] args)
         {
             /*
@@ -20,19 +21,13 @@ namespace LISTING_1_21_ParameterizedThreadStart
                 • The object to be passed into the thread is then placed in the Start method.
             
             */
+
             ParameterizedThreadStart ps = new ParameterizedThreadStart(WorkOnData);
             Thread thread = new Thread(ps);
             thread.Start(99);
 
             Console.WriteLine("Press a key to end.");
             Console.ReadKey();
-
-            /*
-             
-            Press a key to end.
-            Working on: 99.
-
-            */
         }
     }
 }

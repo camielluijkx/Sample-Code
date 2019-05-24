@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace LISTING_1_22_thread_lambda_parameters
 {
@@ -30,22 +26,15 @@ namespace LISTING_1_22_thread_lambda_parameters
             with a particular type of data.
 
             */
+
             Thread thread = new Thread((data) =>
             {
                 WorkOnData(data);
             });
             thread.Start(99);
-            //thread.Start("99"); 
 
             Console.WriteLine("Press a key to end.");
             Console.ReadKey();
-
-            /*
-             
-            Press a key to end.
-            Working on: 99
-
-            */
         }
     }
 }

@@ -18,6 +18,7 @@ namespace LISTING_1_24_shared_flag_variable
                 A better way to abort a thread is to use a shared flag variable.
                 
                 */
+
                 while (tickRunning)
                 {
                     Console.WriteLine("Tick");

@@ -39,7 +39,7 @@ namespace Webpage_Viewer
         You can use the Task.WhenAll method to create an "awaitable" task that returns when a number of parallel tasks 
         have completed.
 
-        The Task.enAll method is given a list of tasks and returns a collection which contains their results when they 
+        The Task.WhenAll method is given a list of tasks and returns a collection which contains their results when they 
         have completed.
 
         There is also a WhenAny method that will return when any one of the given tasks completes.

@@ -17,6 +17,7 @@ namespace LISTING_1_83_Inner_exceptions
                 }
                 catch (Exception ex)
                 {
+                    //throw;
                     throw new Exception("Calculator failure", ex);
                 }
             }

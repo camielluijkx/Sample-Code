@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace LISTING_1_25_Using_join
 {
@@ -29,7 +25,8 @@ namespace LISTING_1_25_Using_join
             completes.
 
             */
-            threadToWaitFor.Join(); // threadMain calls join on (thus waits for) threadToWaitFor
+
+            threadToWaitFor.Join(); // Thread.Current calls join on (thus waits for) threadToWaitFor
 
             Console.WriteLine("Press a key to exit.");
             Console.ReadKey();

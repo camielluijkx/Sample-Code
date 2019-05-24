@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace LISTING_1_27_ThreadLocal
+namespace LISTING_1_26_ThreadLocal
 {
     class Program
     {

@@ -15,7 +15,7 @@ namespace LISTING_1_35_Using_BlockingCollection
 
         The program also creates a thread that takes items out of the collection.
 
-        As soon as the read thread starts running, and takes some items out of the collectionb, the writing thread can 
+        As soon as the read thread starts running, and takes some items out of the collection, the writing thread can 
         continue.
 
         The adding task calls the CompleteAdding on the collection when it has added the last item.

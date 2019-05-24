@@ -24,13 +24,13 @@ namespace LISTING_1_42_Bad_task_interaction
            into the CPU and adds the contents of an array element to the value of sharedTotal. Just as the CPU is about 
            to write the result back into memory, the operating system stops task number 1 and switches to task number 
            2.
-        2. Task number 2 also wants to update sharedTotal.q It fetches the content of sharedTotal, adds the value of an 
+        2. Task number 2 also wants to update sharedTotal. It fetches the content of sharedTotal, adds the value of an 
            array element to it, and then writes the reuslt back into memory. Now the operating system returns control 
            to task number 1.
         3. Task number 1 writes the sharedTotal value it was working on from the CPU back into memory. This means that 
            the update performed by task number 2 has been lost.
 
-    Note this threading iisue can arise even if you se C# statements that look like they are atomic:
+    Note this threading issue can arise even if you se C# statements that look like they are atomic:
 
         x += 1; // this is not an atomic operation, it involves reading, updating and storing the result 
 
