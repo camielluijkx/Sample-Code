@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_2_17_Indexing_on_strings
 {
@@ -11,7 +7,7 @@ namespace LISTING_2_17_Indexing_on_strings
         // Create an array to store the values
         private int[] array = new int[100];
 
-        // Decleare an indexer property
+        // Declare an indexer property
         public int this[string name]
         {
             get

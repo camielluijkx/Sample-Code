@@ -20,7 +20,7 @@ namespace LISTING_2_19_Method_overriding
     }
 
     // The Invoice class derives from the Document class
-    class Invoice:Document
+    class Invoice : Document
     {
         // Override the DoPrint method in the base class
         // to provide custom printing behaviour for an Invoice

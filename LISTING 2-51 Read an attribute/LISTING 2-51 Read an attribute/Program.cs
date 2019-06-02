@@ -21,14 +21,14 @@ namespace LISTING_2_51_Read_an_attribute
         }
     }
 
-[ProgrammerAttribute(programmer: "Fred")]
-class Person
-{
-    // This would cause a compilation error as we 
-    // are only allowed to apply this attribute to classes
-    // [ProgrammerAttribute(programmer: "Fred")]
-    public string Name { get; set; }
-}
+    [ProgrammerAttribute(programmer: "Fred")]
+    class Person
+    {
+        // This would cause a compilation error as we 
+        // are only allowed to apply this attribute to classes
+        // [ProgrammerAttribute(programmer: "Fred")]
+        public string Name { get; set; }
+    }
 
     class Program
     {

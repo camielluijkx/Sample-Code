@@ -7,7 +7,7 @@ namespace LISTING_2_16_Indexed_properties
         // Create an array to store the values
         private int[] array = new int[100];
 
-        // Decleare an indexer property
+        // Declare an indexer property
         public int this[int i]
         {
             get { return array[i]; }

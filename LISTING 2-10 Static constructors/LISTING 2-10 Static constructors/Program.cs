@@ -4,6 +4,8 @@ namespace LISTING_2_10_Static_constructors
 {
     class Alien
     {
+        public static int MaxLives = 99; // static variables
+
         public int X;
         public int Y;
         public int Lives;
@@ -18,12 +20,16 @@ namespace LISTING_2_10_Static_constructors
             if (x < 0 || y < 0)
                 throw new Exception("Invalid position");
 
+            if (lives > MaxLives)
+                throw new Exception("Invalid lives");
+
             X = x;
             Y = y;
             Lives = lives;
         }
 
-        public Alien(int x, int y) : this(x, y, 3)
+        public Alien(int x, int y) 
+            : this(x, y, 3)
         {
         }
 

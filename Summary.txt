@@ -1,3 +1,4 @@
+LISTING 1:
 Action
 Parallel.Invoke
 Parallel.ForEach
@@ -29,7 +30,7 @@ ThreadStart
 ParameterizedThreadStart
 Thread.Start + Thread.Abort (shared flag variable)
 Thread.Join
-ThreadStatic
+ThreadStatic vs ThreadLocal
 context (CurrentCulture, Priority, ExecutionContext, IsThreadPoolThread, IsBackground)
 ThreadPool (QueueUserWorkItem + WaitCallBack)
 Dispatcher.RunAsync
@@ -74,4 +75,67 @@ throw (throw vs throw ex vs throw new)
 custom exception
 conditional exception (catch + when)
 InnerException (throw vs throw ex)
-AggregateException
+AggregateException (Flatten)
+
+LISTING 2:
+Value Type vs Reference Type
+Class vs Struct
+Immutable (DateTime, String)
+enum
+Generic Type (T)
+Constructor (default, overload, base, this, static)
+Member (Field, Property, Method)
+Property (indexer: this + identifier, backing fields for custom validation, get + set accessors)
+Method (abstract vs virtual + override, base)
+Extension Method
+Parameter (named, optional)
+Boxing vs Unboxing (value is boxed into object vs value is unboxed from object)
+Type conversion (implicit vs explicit)
+dynamic
+access modifiers (members: private vs public vs protected, class: private vs public vs protected)
+interface (explicit implementation)
+inheritance
+IComparable + IComparabe<T> (CompareTo(object|T) => int)
+IEnumerable + IEnumerable<T> (GetEnumerator, yield, foreach)
+IEnumerator + IEnumerator<T> (Current, MoveNext, Reset)
+IDisposable (Dispose, using)
+Serializable (NonSerialized)
+Conditional (#define)
+Attribute (positional vs named, AttributeUsage: AttributeTargets, Attribute.IsDefined, Attribute.GetCustomAttribute)
+type (GetType, MemberInfo)
+dynamic vs DynamicObject vs ExpandoObject
+
+LISTING 3:
+TODO
+
+LISTING 4:
+TODO
+
+MISC:
+EventLog (Source, SourceExists, CreateEventSource, WriteEntry)
+TraceSwitch (1 = error, 2 = error and warning, 3 = error, warning and information, 4 = error, warning, information and verbose)
+Interpolation (${,allignment}: + alligned to right, - alligned to left)
+Assembly (GetAssembly(Type), GetEntryAssembly, GetExecutingAssembly, GetCallingAssembly, LoadFrom)
+self-signed certificates (Makecert)
+Regex (^ start search, $ stop search, top level domain, escape \, ?)
+	example => https://regex101.com: ^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9]+\.([a-z]{1,6}\.)?[a-z]{2,6}$
+WeakReference
+PerformanceCounter
+hit count
+framework tools
+	https://docs.microsoft.com/en-us/dotnet/framework/tools
+MulticastDelegate
+SafeHandle
+PrincipalPermission
+WaitHandle
+IDataContractSurrogate
+StringCollection
+array (GetLength, GetUpperBound, Rank)
+DebuggerDisplay
+expression body definition (=>)
+Comparable (CompareBy)
+unsafe
+Mutex vs Semaphore vs SemaphoreSlim vs ReaderWriterLockSlim
+Lazy
+Flags
+DataProtectionScope vs MemoryProtectionScope

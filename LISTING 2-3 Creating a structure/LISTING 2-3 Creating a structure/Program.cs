@@ -36,6 +36,8 @@ namespace LISTING_2_3_Creating_a_structure
 
             Alien[] swarm = new Alien[100];
             Console.WriteLine("swarm [0] {0}", swarm[0].ToString());
+            //...
+            Console.WriteLine("swarm [99] {0}", swarm[99].ToString());
 
             Console.ReadKey();
         }

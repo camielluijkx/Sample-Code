@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_2_5_Creating_a_reference
 {
@@ -11,6 +7,11 @@ namespace LISTING_2_5_Creating_a_reference
         public int X;
         public int Y;
         public int Lives;
+
+        public Alien()
+        {
+
+        }
 
         public Alien(int x, int y)
         {
@@ -29,6 +30,12 @@ namespace LISTING_2_5_Creating_a_reference
     {
         static void Main(string[] args)
         {
+            Alien a = new Alien();
+            a.X = 50;
+            a.Y = 50;
+            a.Lives = 3;
+            Console.WriteLine("a {0}", a.ToString());
+
             Alien x = new Alien(100, 100);
             Console.WriteLine("x {0}", x);
 
@@ -38,6 +45,8 @@ namespace LISTING_2_5_Creating_a_reference
                 swarm[i] = new Alien(0, 0);
 
             Console.WriteLine("swarm [0] {0}", swarm[0]);
+            //...
+            Console.WriteLine("swarm [99] {0}", swarm[99]);
 
             Console.ReadKey();
         }

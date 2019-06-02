@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_2_46_The_serializable_attribute
 {
-
     [Serializable]
     public class Person
     {

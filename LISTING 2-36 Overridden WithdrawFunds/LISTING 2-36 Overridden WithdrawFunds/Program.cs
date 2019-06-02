@@ -5,7 +5,9 @@ namespace LISTING_2_36_Overridden_WithdrawFunds
     public interface IAccount
     {
         void PayInFunds(decimal amount);
+
         bool WithdrawFunds(decimal amount);
+
         decimal GetBalance();
     }
 

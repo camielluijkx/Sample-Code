@@ -6,7 +6,9 @@ namespace LISTING_2_39_Comparing_bank_accounts
     public interface IAccount
     {
         void PayInFunds(decimal amount);
+
         bool WithdrawFunds(decimal amount);
+
         decimal GetBalance();
     }
 
@@ -63,7 +65,7 @@ namespace LISTING_2_39_Comparing_bank_accounts
             // Create 20 accounts with random balances
             List<IAccount> accounts = new List<IAccount>();
             Random rand = new Random(1);
-            for(int i=0; i<20; i++)
+            for(int i = 0; i < 20; i++)
             {
                 IAccount account = new BankAccount(rand.Next(0, 10000));
                 accounts.Add(account);

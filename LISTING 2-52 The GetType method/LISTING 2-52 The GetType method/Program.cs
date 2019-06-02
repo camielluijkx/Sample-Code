@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_2_52_The_GetType_method
 {
@@ -38,7 +34,7 @@ namespace LISTING_2_52_The_GetType_method
     {
         static void Main(string[] args)
         {
-            System.Type type;
+            Type type;
 
             Person p = new Person();
             type = p.GetType();

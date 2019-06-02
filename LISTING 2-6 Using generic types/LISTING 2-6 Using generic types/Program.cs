@@ -4,7 +4,7 @@ namespace LISTING_2_6_Using_generic_types
 {
     class Program
     {
-        class MyStack<T> where T:class
+        class MyStack<T> where T : class
         { 
             int stackTop = 0;
             T[] items = new T[100];

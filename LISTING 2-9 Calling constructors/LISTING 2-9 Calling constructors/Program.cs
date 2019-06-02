@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_2_9_Calling_constructors
 {
@@ -22,7 +18,8 @@ namespace LISTING_2_9_Calling_constructors
             Lives = lives;
         }
 
-        public Alien(int x, int y) : this(x, y, 3)
+        public Alien(int x, int y) 
+            : this(x, y, 3)
         {
         }
 

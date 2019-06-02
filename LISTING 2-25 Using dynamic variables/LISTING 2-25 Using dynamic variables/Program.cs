@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Dynamic;
 
 namespace LISTING_2_25_Using_dynamic_variables

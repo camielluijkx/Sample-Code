@@ -5,8 +5,10 @@ namespace LISTING_2_33_iPrintable_interface
     interface IPrintable
     {
         string GetPrintableText(int pageWidth, int pageHeight);
+
         string GetTitle();
     }
+
     class Report : IPrintable
     {
         public string GetPrintableText(int pageWidth, int pageHeight)

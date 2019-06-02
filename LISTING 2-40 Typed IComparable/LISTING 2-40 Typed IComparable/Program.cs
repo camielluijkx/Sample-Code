@@ -6,7 +6,9 @@ namespace LISTING_2_40_Typed_IComparable
     public interface IAccount : IComparable<IAccount>
     {
         void PayInFunds(decimal amount);
+
         bool WithdrawFunds(decimal amount);
+
         decimal GetBalance();
     }
 

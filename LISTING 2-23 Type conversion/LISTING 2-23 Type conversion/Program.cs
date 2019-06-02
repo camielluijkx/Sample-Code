@@ -6,11 +6,11 @@ namespace LISTING_2_23_Type_conversion
     {
         public double Distance { get; }
 
-        // Conversion operator for implicit converstion to Kilometers
+        // Conversion operator for implicit conversion to Kilometers
         public static implicit operator Kilometers(Miles t)
         {
             Console.WriteLine("Implicit conversion from miles to kilometers");
-            return new Kilometers( t.Distance * 1.6);
+            return new Kilometers(t.Distance * 1.6);
         }
 
         public static explicit operator int(Miles t)

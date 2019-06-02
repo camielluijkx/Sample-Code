@@ -9,7 +9,7 @@ namespace LISTING_2_41_Get_an_enumerator
             // Get an enumerator that can iterate through a string
             var stringEnumerator = "Hello world".GetEnumerator();
 
-            while(stringEnumerator.MoveNext())
+            while (stringEnumerator.MoveNext())
             {
                 Console.Write(stringEnumerator.Current);
             }

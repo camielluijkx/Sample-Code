@@ -2,7 +2,6 @@
 
 namespace LISTING_2_29_Creating_accessor_methods
 {
-
     class BankAccount
     {
         private decimal _accountBalance = 0;

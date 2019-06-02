@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LISTING_2_31_Protected_class
+﻿namespace LISTING_2_31_Protected_class
 {
     class BankAccount
     {
@@ -17,13 +11,11 @@ namespace LISTING_2_31_Protected_class
         protected decimal accountBalance = 0;
     }
 
-
     class OverdraftAccount : BankAccount
     {
         decimal overdraftLimit = 100;
 
         Address GuarantorAddress;
-
     }
 
     class Program

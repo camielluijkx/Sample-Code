@@ -2,10 +2,10 @@
 
 namespace LISTING_2_32_Printing_interface
 {
-
     interface IPrintable
     {
         string GetPrintableText(int pageWidth, int pageHeight);
+
         string GetTitle();
     }
 

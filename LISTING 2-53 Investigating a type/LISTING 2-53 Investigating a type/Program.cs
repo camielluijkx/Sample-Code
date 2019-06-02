@@ -12,7 +12,7 @@ namespace LISTING_2_53_Investigating_a_type
     {
         static void Main(string[] args)
         {
-            System.Type type;
+            Type type;
 
             Person p = new Person();
             type = p.GetType();

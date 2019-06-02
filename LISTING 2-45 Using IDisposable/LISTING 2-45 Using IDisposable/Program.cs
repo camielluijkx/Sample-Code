@@ -13,8 +13,8 @@ namespace LISTING_2_45_Using_IDisposable
         {
             throw new Exception("Bang");
         }
-
     }
+
     class Program
     {
         static void Main(string[] args)

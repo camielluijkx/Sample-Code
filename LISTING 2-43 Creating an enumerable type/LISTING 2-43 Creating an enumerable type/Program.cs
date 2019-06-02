@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace LISTING_2_43_Creating_an_enumerable_type
 {
-
     class EnumeratorThing : IEnumerator<int>, IEnumerable
     {
         int count;

@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_2_38_BankAccount_constructor
 {
     public interface IAccount
     {
         void PayInFunds(decimal amount);
+
         bool WithdrawFunds(decimal amount);
+
         decimal GetBalance();
     }
 
@@ -45,7 +43,8 @@ namespace LISTING_2_38_BankAccount_constructor
 
     public class BabyAccount : BankAccount, IAccount
     {
-        public BabyAccount(int initialBalance) : base(initialBalance)
+        public BabyAccount(int initialBalance) 
+            : base(initialBalance)
         {
         }
 

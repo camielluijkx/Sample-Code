@@ -5,7 +5,9 @@ namespace LISTING_2_35_BabyAccount
     public interface IAccount
     {
         void PayInFunds(decimal amount);
+
         bool WithdrawFunds(decimal amount);
+
         decimal GetBalance();
     }
 
