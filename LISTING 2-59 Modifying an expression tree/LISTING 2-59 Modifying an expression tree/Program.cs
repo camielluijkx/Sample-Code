@@ -1,34 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Linq.Expressions;
 
 namespace LISTING_2_59_Modifying_an_expression_tree
 {
-
-public class MultiplyToAdd : ExpressionVisitor
-{
-    public Expression Modify(Expression expression)
+    public class MultiplyToAdd : ExpressionVisitor
     {
-        return Visit(expression);
-    }
-
-    protected override Expression VisitBinary(BinaryExpression b)
-    {
-        if (b.NodeType == ExpressionType.Multiply)
+        public Expression Modify(Expression expression)
         {
-            Expression left = this.Visit(b.Left);
-            Expression right = this.Visit(b.Right);
-
-            // Make this binary expression an Add rather than a multiply operation.  
-            return Expression.Add(left, right);
+            return Visit(expression);
         }
 
-        return base.VisitBinary(b);
+        protected override Expression VisitBinary(BinaryExpression b)
+        {
+            if (b.NodeType == ExpressionType.Multiply)
+            {
+                Expression left = this.Visit(b.Left);
+                Expression right = this.Visit(b.Right);
+
+                // Make this binary expression an Add rather than a multiply operation.  
+                return Expression.Add(left, right);
+            }
+
+            return base.VisitBinary(b);
+        }
     }
-}
 
     class Program
     {

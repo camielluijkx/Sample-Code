@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace MusicTracks.Models
 {
@@ -13,6 +9,6 @@ namespace MusicTracks.Models
         {
         }
 
-        public DbSet<MusicTracks.Models.MusicTrack> MusicTrack { get; set; }
+        public DbSet<MusicTrack> MusicTrack { get; set; }
     }
 }

@@ -19,10 +19,10 @@ namespace LISTING_2_61_Property_info
             foreach (PropertyInfo p in type.GetProperties())
             {
                 Console.WriteLine("Property name: {0}", p.Name);
-                if(p.CanRead)
+                if (p.CanRead)
                 {
                     Console.WriteLine("Can read");
-                    Console.WriteLine("Set method: {0}", p.GetMethod);
+                    Console.WriteLine("Get method: {0}", p.GetMethod);
                 }
                 if (p.CanWrite)
                 {

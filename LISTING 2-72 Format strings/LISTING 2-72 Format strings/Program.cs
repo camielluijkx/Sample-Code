@@ -9,7 +9,7 @@ namespace LISTING_2_72_Format_strings
             int i = 99;
             double pi = 3.141592654;
 
-            Console.WriteLine(" {0,-10:D}{0, -10:X}{1,5:N2}", i, pi);
+            Console.WriteLine("{0,-10:D}{0, -10:X}{1,5:N2}", i, pi);
 
             Console.ReadKey();
         }

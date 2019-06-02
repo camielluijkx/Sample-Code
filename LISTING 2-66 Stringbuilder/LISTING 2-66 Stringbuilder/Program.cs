@@ -35,8 +35,6 @@ namespace LISTING_2_66_Stringbuilder
 
             if ((object)a == (object)b)
                 Console.WriteLine("Clever compiler");
-
-
         }
     } 
 }

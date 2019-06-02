@@ -6,7 +6,7 @@ namespace LISTING_2_71_Enumerate_string
     {
         static void Main(string[] args)
         {
-            foreach(char ch in "Hello world")
+            foreach (char ch in "Hello world")
             {
                 Console.WriteLine(ch);
             }

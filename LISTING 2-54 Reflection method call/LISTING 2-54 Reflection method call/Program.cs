@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_2_54_Reflection_method_call
 {
@@ -16,7 +12,7 @@ namespace LISTING_2_54_Reflection_method_call
     {
         static void Main(string[] args)
         {
-            System.Type type;
+            Type type;
 
             Person p = new Person();
             type = p.GetType();

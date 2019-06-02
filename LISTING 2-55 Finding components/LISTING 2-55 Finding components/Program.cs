@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_2_55_Finding_components
 {
     public interface IAccount
     {
         void PayInFunds(decimal amount);
+
         bool WithdrawFunds(decimal amount);
+
         decimal GetBalance();
     }
 
@@ -65,12 +64,12 @@ namespace LISTING_2_55_Finding_components
 
             List<Type> AccountTypes = new List<Type>();
 
-            foreach ( Type t in thisAssembly.GetTypes() )
+            foreach (Type t in thisAssembly.GetTypes())
             {
                 if (t.IsInterface)
                     continue;
 
-                if(typeof(IAccount).IsAssignableFrom(t))
+                if (typeof(IAccount).IsAssignableFrom(t))
                 {
                     AccountTypes.Add(t);
                 }

@@ -12,7 +12,7 @@ namespace LISTING_2_64_The_finalizer
             Console.WriteLine("Finalizer called");
 
             // This will "bring the object back from the dead"
-            // by creating a new refernce to the object from the 
+            // by creating a new reference to the object from the 
             // program
             //Program.zombie = this;
 

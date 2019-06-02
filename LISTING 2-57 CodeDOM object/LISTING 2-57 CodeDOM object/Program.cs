@@ -38,13 +38,16 @@ namespace LISTING_2_57_CodeDOM_object
             // Now we need to send our document somewhere
             // Create a provider to parse the document
             CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
+            
             // Give the provider somewhere to send the parsed output
             StringWriter s = new StringWriter();
+
             // Set some options for the parse - we can use the defaults
             CodeGeneratorOptions options = new CodeGeneratorOptions();
 
             // Generate the C# source from the CodeDOM
             provider.GenerateCodeFromCompileUnit(compileUnit, s, options);
+
             // Close the output stream
             s.Close();
 

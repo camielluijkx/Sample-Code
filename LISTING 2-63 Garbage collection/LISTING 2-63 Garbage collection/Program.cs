@@ -9,7 +9,7 @@
     {
         static void Main(string[] args)
         {
-            for ( long i=0;i<100000000000;i++)
+            for ( long i = 0; i < 100000000000; i++)
             {
                 Person p = new Person();
                 System.Threading.Thread.Sleep(3);

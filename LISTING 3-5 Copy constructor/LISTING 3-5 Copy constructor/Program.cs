@@ -5,7 +5,9 @@ namespace LISTING_3_5_Copy_constructor
     class MusicTrack
     {
         public string Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
 
         public MusicTrack(MusicTrack source)
@@ -13,7 +15,6 @@ namespace LISTING_3_5_Copy_constructor
             Artist = source.Artist;
             Title = source.Title;
             Length = source.Length;
-
         }
 
         public MusicTrack(string artist, string title, int length)

@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_2_56_LINQ_components
 {
     public interface IAccount
     {
         void PayInFunds(decimal amount);
+
         bool WithdrawFunds(decimal amount);
+
         decimal GetBalance();
     }
 
@@ -62,7 +61,6 @@ namespace LISTING_2_56_LINQ_components
         static void Main(string[] args)
         {
             Assembly thisAssembly = Assembly.GetExecutingAssembly();
-
 
             var AccountTypes = from type in thisAssembly.GetTypes()
                                where typeof(IAccount).IsAssignableFrom(type) && !type.IsInterface

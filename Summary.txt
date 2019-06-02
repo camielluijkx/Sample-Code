@@ -102,10 +102,33 @@ IDisposable (Dispose, using)
 Serializable (NonSerialized)
 Conditional (#define)
 Attribute (positional vs named, AttributeUsage: AttributeTargets, Attribute.IsDefined, Attribute.GetCustomAttribute)
-type (GetType, MemberInfo)
+type (GetType -> Type, GetMembers -> MemberInfo, GetMethod -> MethodInfo + Invoke, IsAssignableFrom, PropertyInfo)
+Assembly (GetAssembly(Type), GetEntryAssembly, GetExecutingAssembly, GetCallingAssembly, LoadFrom)
+CodeDomProvider + CodeCompileUnit (CodeNamespace, CodeNamespaceImport, CodeTypeDeclaration, CodeMemberField)
+Expression (ParameterExpression, BinaryExpression, ExpressionVisitor)
+Assembly (FullName, getName, Version, GlobalAssemblyCache, Modules -> Module + GetTypes -> Type + GetMembers)
 dynamic vs DynamicObject vs ExpandoObject
+BindingFlags
+garbage collection (GC: SuppressFinalize)
+Finalizer (~)
+IDisposable (Dispose)
+string (Intern -> reference, Contains, TrimStart, TrimEnd, StartsWith, EndsWith, IndexOf, SubString, Replace, Split, Equals, )
+StringBuilder
+StringWriter
+StringReader
+IFormattable (ToString: format, formatProvider)
+IFormatProvider (GetFormat: formatType)
+interpolation (${,allignment}: + alligned to right, - alligned to left)
 
 LISTING 3:
+JsonConvert (SerializeObject, DeserializeObject<T>, JsonReaderException)
+XmlSerializer (Serialize, Deserialize)
+Regex (IsMatch, Match, Replace)
+Regex (^ start search, $ stop search, top level domain, escape \, ?)
+	example => https://regex101.com: ^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9]+\.([a-z]{1,6}\.)?[a-z]{2,6}$
+Parse vs TryParse (out)
+Convert
+
 TODO
 
 LISTING 4:
@@ -114,14 +137,10 @@ TODO
 MISC:
 EventLog (Source, SourceExists, CreateEventSource, WriteEntry)
 TraceSwitch (1 = error, 2 = error and warning, 3 = error, warning and information, 4 = error, warning, information and verbose)
-Interpolation (${,allignment}: + alligned to right, - alligned to left)
-Assembly (GetAssembly(Type), GetEntryAssembly, GetExecutingAssembly, GetCallingAssembly, LoadFrom)
 self-signed certificates (Makecert)
-Regex (^ start search, $ stop search, top level domain, escape \, ?)
-	example => https://regex101.com: ^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9]+\.([a-z]{1,6}\.)?[a-z]{2,6}$
 WeakReference
 PerformanceCounter
-hit count
+debug (hit count, condition, filter)
 framework tools
 	https://docs.microsoft.com/en-us/dotnet/framework/tools
 MulticastDelegate

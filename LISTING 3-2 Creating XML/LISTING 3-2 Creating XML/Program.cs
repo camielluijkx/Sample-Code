@@ -7,7 +7,9 @@ namespace LISTING_3_2_Creating_XML
     public class MusicTrack
     {
         public string Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
 
         // ToString that overrides the behavior in the base class

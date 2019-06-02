@@ -17,7 +17,7 @@ namespace LISTING_2_53_Investigating_a_type
             Person p = new Person();
             type = p.GetType();
 
-            foreach(MemberInfo member in type.GetMembers() )
+            foreach (MemberInfo member in type.GetMembers() )
             {
                 Console.WriteLine(member.ToString());
             }

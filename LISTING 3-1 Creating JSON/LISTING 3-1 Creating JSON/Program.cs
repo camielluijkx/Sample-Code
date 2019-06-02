@@ -7,7 +7,9 @@ namespace LISTING_3_1_Creating_JSON
     class MusicTrack
     {
         public string Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
 
         // ToString that overrides the behavior in the base class
@@ -24,10 +26,10 @@ namespace LISTING_3_1_Creating_JSON
         }
     }
 
-
     class ShortTrack
     {
         public string Artist { get; set; }
+
         public string Title { get; set; }
 
         // ToString that overrides the behavior in the base class

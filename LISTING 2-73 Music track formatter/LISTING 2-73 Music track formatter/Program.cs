@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_2_73_Music_track_formatter
 {
     class MusicTrack : IFormattable
     {
         string Artist { get; set; }
+
         string Title { get; set; }
 
         // ToString that implements the formatting behavior

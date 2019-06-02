@@ -19,10 +19,9 @@ namespace LISTING_2_66_String_intern
             string s3 = h1 + h2;
 
             if ((object)s1 != (object)s3)
-                Console.WriteLine("s1 and s3 are differnent objects");
+                Console.WriteLine("s1 and s3 are different objects");
 
             // Intern s3
-                
             if ((object)s1 == (object)s3)
                 Console.WriteLine("s1 and s3 are the same object");
 

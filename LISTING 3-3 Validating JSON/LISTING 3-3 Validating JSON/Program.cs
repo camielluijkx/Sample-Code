@@ -6,7 +6,9 @@ namespace LISTING_3_3_Validating_JSON
     class MusicTrack
     {
         public string Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
 
         // ToString that overrides the behavior in the base class
@@ -35,9 +37,9 @@ namespace LISTING_3_3_Validating_JSON
                 Console.Write("Read back: ");
                 Console.WriteLine(trackRead);
             }
-            catch (JsonReaderException e)
+            catch (JsonReaderException ex)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(ex.Message);
             }
             Console.ReadKey();
         }

@@ -4,7 +4,6 @@ namespace LISTING_2_65_The_dispose_pattern
 {
     class ResourceHolder : IDisposable
     {
-
         // Flag to indicate when the object has been
         // disposed
         bool disposed = false;
@@ -23,7 +22,7 @@ namespace LISTING_2_65_The_dispose_pattern
             if (disposed)
                 return;
 
-            if(disposing)
+            if (disposing)
             {
                 // free any managed objects here
             }
