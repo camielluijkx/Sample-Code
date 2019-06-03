@@ -14,7 +14,9 @@ namespace LISTING_4_53_XML_References
     public class MusicTrack
     {
         public Artist Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
     }
 
@@ -71,16 +73,14 @@ namespace LISTING_4_53_XML_References
 
             XmlSerializer formatter = new XmlSerializer(typeof(MusicDataStore));
 
-            using (FileStream outputStream =
-                new FileStream("MusicTracks.xml", FileMode.OpenOrCreate, FileAccess.Write))
+            using (FileStream outputStream = new FileStream("MusicTracks.xml", FileMode.OpenOrCreate, FileAccess.Write))
             {
                 formatter.Serialize(outputStream, musicData);
             }
 
             MusicDataStore inputData;
 
-            using (FileStream inputStream =
-                new FileStream("MusicTracks.xml", FileMode.Open, FileAccess.Read))
+            using (FileStream inputStream = new FileStream("MusicTracks.xml", FileMode.Open, FileAccess.Read))
             {
                 inputData = (MusicDataStore)formatter.Deserialize(inputStream);
             }

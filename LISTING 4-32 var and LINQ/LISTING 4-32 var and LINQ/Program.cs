@@ -8,10 +8,13 @@ namespace LISTING_4_32_var_and_LINQ
     {
         public string Name { get; set; }
     }
+
     class MusicTrack
     {
         public Artist Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
     }
 

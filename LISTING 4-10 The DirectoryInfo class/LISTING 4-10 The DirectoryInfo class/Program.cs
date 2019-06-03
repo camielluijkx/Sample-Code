@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 
-
 namespace LISTING_4_10_The_DirectoryInfo_class
 {
     class Program

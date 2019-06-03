@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
 
-
 namespace LISTING_4_21_Update_with_SQL
 {
     class Program

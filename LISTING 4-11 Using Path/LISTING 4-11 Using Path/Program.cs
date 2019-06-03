@@ -7,7 +7,6 @@ namespace LISTING_4_11_Using_Path
     {
         static void Main(string[] args)
         {
-
             string fullName = @"c:\users\rob\Documents\test.txt";
 
             string dirName = Path.GetDirectoryName(fullName);
@@ -24,7 +23,6 @@ namespace LISTING_4_11_Using_Path
             Console.WriteLine("New test: {0}", newTest);
 
             Console.ReadKey();
-
         }
     }
 }

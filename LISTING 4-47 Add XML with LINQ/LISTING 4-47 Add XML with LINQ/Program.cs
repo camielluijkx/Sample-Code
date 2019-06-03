@@ -40,4 +40,3 @@ namespace LISTING_4_47_Add_XML_with_LINQ
         }
     }
 }
-

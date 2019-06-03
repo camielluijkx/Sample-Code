@@ -12,8 +12,11 @@ namespace LISTING_4_34_Anonymous_type
     class MusicTrack
     {
         public Artist Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
+
         public string test { get; set; }
     }
 

@@ -7,14 +7,18 @@ namespace LISTING_4_38_LINQ_aggregate
     class Artist
     {
         public int ID { get; set; }
+
         public string Name { get; set; }
     }
 
     class MusicTrack
     {
         public int ID { get; set; }
+
         public int ArtistID { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
     }
 
@@ -49,14 +53,14 @@ namespace LISTING_4_38_LINQ_aggregate
             }
 
             var artistSummary = from track in musicTracks
-                                    join artist in artists on track.ArtistID equals artist.ID
-                                    group track by artist.Name
-                                    into artistTrackSummary
-                                    select new
-                                    {
-                                        ID = artistTrackSummary.Key,
-                                        Length = artistTrackSummary.Sum(x => x.Length)
-                                    };
+                                join artist in artists on track.ArtistID equals artist.ID
+                                group track by artist.Name
+                                into artistTrackSummary
+                                select new
+                                {
+                                    ID = artistTrackSummary.Key,
+                                    Length = artistTrackSummary.Sum(x => x.Length)
+                                };
 
             foreach (var summary in artistSummary)
             {

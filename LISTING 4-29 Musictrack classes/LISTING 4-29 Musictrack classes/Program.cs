@@ -11,7 +11,9 @@ namespace LISTING_4_29_Musictrack_classes
     class MusicTrack
     {
         public Artist Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
     }
 

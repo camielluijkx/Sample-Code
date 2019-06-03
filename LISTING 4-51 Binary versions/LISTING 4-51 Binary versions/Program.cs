@@ -17,7 +17,9 @@ namespace LISTING_4_51_Binary_versions
     class MusicTrack
     {
         public Artist Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
 
         [OptionalField]
@@ -83,16 +85,14 @@ namespace LISTING_4_51_Binary_versions
             MusicDataStore musicData = MusicDataStore.TestData();
 
             BinaryFormatter formatter = new BinaryFormatter();
-            using (FileStream outputStream =
-                new FileStream("MusicTracks.bin", FileMode.OpenOrCreate, FileAccess.Write))
+            using (FileStream outputStream = new FileStream("MusicTracks.bin", FileMode.OpenOrCreate, FileAccess.Write))
             {
                 formatter.Serialize(outputStream, musicData);
             }
 
             MusicDataStore inputData;
 
-            using (FileStream inputStream =
-                new FileStream("MusicTracks.bin", FileMode.Open, FileAccess.Read))
+            using (FileStream inputStream = new FileStream("MusicTracks.bin", FileMode.Open, FileAccess.Read))
             {
                 inputData = (MusicDataStore)formatter.Deserialize(inputStream);
             }

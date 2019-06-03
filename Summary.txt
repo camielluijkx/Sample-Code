@@ -114,8 +114,7 @@ Finalizer (~)
 IDisposable (Dispose)
 string (Intern -> reference, Contains, TrimStart, TrimEnd, StartsWith, EndsWith, IndexOf, SubString, Replace, Split, Equals, )
 StringBuilder
-StringWriter
-StringReader
+StringReader + StringWriter
 IFormattable (ToString: format, formatProvider)
 IFormatProvider (GetFormat: formatType)
 interpolation (${,allignment}: + alligned to right, - alligned to left)
@@ -149,30 +148,71 @@ Stopwatch (STart, Stop, Pause, Restart)
 PerformanceCounter (NextValue, NextSample, Increment, Decrement)
 CounterCreationDataCollection (PerformanceCounterCategory, PerformanceCounterType)
 EventLog (Source, SourceExists, CreateEventSource, WriteEntry, EntryWritten, EnableRaisingEvents)
-TODO
 
 LISTING 4:
-TODO
+FileStream (FileMode, FileAccess, Read, Write, ReadAsync, WriteAsync)
+StreamReader (ReadToEnd) + StreamWriter
+GZipStream (CompressionMode)
+File (WriteAllText, AppendAllText, ReadAllText, Exists, Delete, Copy, OpenText, ReadToEnd)
+DriveInfo (GetDrives -> DriveInfo[], Name, DriveType, DriveFormat, TotalFreeSpace)
+FileInfo (Name, FullName, LastAccessTime, Length, Attributes, IsReadOnly)
+Directory (Exists, CreateDirectory, Delete)
+DirectoryInfo (Create, Exists, Delete)
+Path (GetDirectoryName, GetFileName, GetExtension, ChangeExtension, Combine, GetDirectories, GetFiles)
+WebRequest + WebResponse (Create, GetResponse)
+WebClient (DownloadStringTaskAsync, DownloadStringAsync, DownloadDataAsync)
+HttpClient (GetStringAsync)
+SqlConnection (Open, Close)
+SqlCommand (ExecuteReader, ExecuteReaderAsync, ExecuteNonQuery, ExecuteScalar, Parameters)
+SqlDataReader (Read, ReadAsync)
+XmlTextReader (Read)
+XmlDocument (LoadXml, XmlElement, Element, Attribute, FirstChild)
+ServiceContract + OperationContract
+DataContract + DataMember
+LINQ (from in where select)
+LINQ (projection vs anonymous)
+LINQ (join in on equals)
+LINQ (group by into)
+LINQ (orderby, thenby)
+LINQ (Skip + Take)
+LINQ (Sum, Min, Max, Average)
+LINQ (method based: .Where, .Select)
+LINQ (.ToArray, .ToList)
+var
+XDocument (Parse, XElement, Descendants, Element, Attribute, FirstNode, Add, Remove)
+BinaryFormatter (Serialize, Deserialize using Stream)
+ISerializable (GetObjectData: SerializationInfo, StreamingContext)
+SerializationInfo (GetString, AddValue)
+OnSerializing + OnSerialized, OnDeserializing + OnDeserialized attributes
+OptionalField
+XmlSerializer (Serialize, Deserialize using Stream)
+DataContractSerializer (ReadObject, WriteObject using Stream)
+array (GetLength, GetUpperBound, Rank)
+ArrayList
+LinkedList
+List (Add, Insert, InsertRange, Remove, RemoveAt, RemoveRange, Clear)
+Dictionary (key, value, Add, Remove, ContainsKey, ContainsValue, Keys, Values)
+HashSet (Add, IsSubsetOf, Remove, RemoveWhere)
+Queue (Enqueue, Dequeue)
+Stack (Push, Pop)
+ICollection (Count, SyncRoot: object used used to synchronise access, IsSynchronized: whether it is thread safe, CopyTo, GetEnumerator)
 
 MISC:
 self-signed certificates (Makecert)
 WeakReference
-PerformanceCounter
 debug (hit count, condition, filter)
 framework tools
 	https://docs.microsoft.com/en-us/dotnet/framework/tools
 MulticastDelegate
-SafeHandle
+SafeHandle vs WaitHandle
 PrincipalPermission
-WaitHandle
 IDataContractSurrogate
 StringCollection
-array (GetLength, GetUpperBound, Rank)
 DebuggerDisplay
 expression body definition (=>)
-Comparable (CompareBy)
 unsafe
 Mutex vs Semaphore vs SemaphoreSlim vs ReaderWriterLockSlim
 Lazy
 Flags
 DataProtectionScope vs MemoryProtectionScope
+ManualResetEvent (Reset, WaitOne) vs AutoResetEvent

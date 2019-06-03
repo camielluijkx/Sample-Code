@@ -31,6 +31,5 @@ namespace LISTING_4_19_Read_with_SQL
 
             Console.ReadKey();
         }
-
     }
 }

@@ -8,7 +8,9 @@ namespace LISTING_4_58_Dictionary_example
         class BankAccount
         {
             public int AccountNo { get; set; }
+
             public string Name { get; set; }
+
             public decimal Balance { get; set; }
 
             public override string ToString()

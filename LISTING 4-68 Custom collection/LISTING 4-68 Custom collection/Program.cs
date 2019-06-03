@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_4_68_Custom_collection
 {
-
     class MusicTrack
     {
         public string Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
+
         public string test { get; set; }
     }
 
-class TrackStore : List<MusicTrack>
-{
-    public int RemoveArtist(string removeName)
+    class TrackStore : List<MusicTrack>
     {
-        List<MusicTrack> removeList = new List<MusicTrack>();
-        foreach (MusicTrack track in this)
-            if (track.Artist == removeName)
-                removeList.Add(track);
+        public int RemoveArtist(string removeName)
+        {
+            List<MusicTrack> removeList = new List<MusicTrack>();
+            foreach (MusicTrack track in this)
+                if (track.Artist == removeName)
+                    removeList.Add(track);
 
-        foreach (MusicTrack track in removeList)
-            this.Remove(track);
+            foreach (MusicTrack track in removeList)
+                this.Remove(track);
 
-        return removeList.Count;
-    }
+            return removeList.Count;
+        }
 
         public override string ToString()
         {
@@ -37,7 +37,7 @@ class TrackStore : List<MusicTrack>
                 output.AppendFormat("Title:{0} Artist:{1} Length:{2}\n",
                     track.Title, track.Artist, track.Length);
 
-                return output.ToString();
+            return output.ToString();
         }
 
         public static TrackStore GetTestTrackStore()

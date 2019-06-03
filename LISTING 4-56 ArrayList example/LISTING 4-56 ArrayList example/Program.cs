@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_4_56_ArrayList_example
 {
@@ -19,7 +15,6 @@ namespace LISTING_4_56_ArrayList_example
             for (int i = 0; i < arrayList.Count; i++)
                 Console.WriteLine(arrayList[i]);
 
-
             ArrayList messyList = new ArrayList();
             messyList.Add(1); // add an integer to the list
             messyList.Add("Rob Miles"); // add a string to the list
@@ -28,7 +23,6 @@ namespace LISTING_4_56_ArrayList_example
             int messyInt = (int)messyList[0];
             
             Console.ReadKey();
-
         }
     }
 }

@@ -7,14 +7,18 @@ namespace LISTING_4_37_LINQ_take_and_skip
     class Artist
     {
         public int ID { get; set; }
+
         public string Name { get; set; }
     }
 
     class MusicTrack
     {
         public int ID { get; set; }
+
         public int ArtistID { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
     }
 
@@ -54,7 +58,7 @@ namespace LISTING_4_37_LINQ_take_and_skip
             while(true)
             {
                 // Get the track information
-                var trackList = from musicTrack in musicTracks.Skip(pageNo*pageSize).Take(pageSize)
+                var trackList = from musicTrack in musicTracks.Skip(pageNo * pageSize).Take(pageSize)
                                 join artist in artists on musicTrack.ArtistID equals artist.ID
                                 select new
                                 {

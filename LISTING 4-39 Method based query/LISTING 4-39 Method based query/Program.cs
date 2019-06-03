@@ -14,8 +14,11 @@ namespace LISTING_4_39_Method_based_query
     class MusicTrack
     {
         public Artist Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
+
         public string test { get; set; }
     }
 

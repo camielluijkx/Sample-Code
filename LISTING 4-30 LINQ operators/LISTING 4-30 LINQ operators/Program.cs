@@ -12,8 +12,11 @@ namespace LISTING_4_30_LINQ_operators
     class MusicTrack
     {
         public Artist Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
+
         public string test { get; set; }
     }
 

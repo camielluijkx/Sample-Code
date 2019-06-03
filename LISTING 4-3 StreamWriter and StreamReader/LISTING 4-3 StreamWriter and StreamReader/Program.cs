@@ -14,8 +14,8 @@ namespace LISTING_4_3_StreamWriter_and_StreamReader
 
             using (StreamReader readStream = new StreamReader("OutputText.txt"))
             {
-                string readSTring = readStream.ReadToEnd();
-                Console.WriteLine("Text read: {0}", readSTring);
+                string readString = readStream.ReadToEnd();
+                Console.WriteLine("Text read: {0}", readString);
             }
 
             Console.ReadKey();

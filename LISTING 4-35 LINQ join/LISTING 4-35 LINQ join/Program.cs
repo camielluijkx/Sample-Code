@@ -7,14 +7,18 @@ namespace LISTING_4_35_LINQ_join
     class Artist
     {
         public int ID { get; set; }
+
         public string Name { get; set; }
     }
 
     class MusicTrack
     {
         public int ID { get; set; }
+
         public int ArtistID { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
     }
 
@@ -66,4 +70,3 @@ namespace LISTING_4_35_LINQ_join
         }
     }
 }
-    

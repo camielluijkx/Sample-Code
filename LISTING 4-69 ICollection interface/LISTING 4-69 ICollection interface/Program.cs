@@ -14,7 +14,7 @@ namespace LISTING_4_69_ICollection_interface
             get { return compassPoints.Length; }
         }
 
-        // Returns an object that can be used to syncrhonise 
+        // Returns an object that can be used to synchronise 
         // access to this object
         public object SyncRoot
         {
@@ -51,7 +51,6 @@ namespace LISTING_4_69_ICollection_interface
         static void Main(string[] args)
         {
             CompassCollection compass = new CompassCollection();
-
 
             foreach (string point in compass)
                 Console.WriteLine(point);

@@ -12,13 +12,16 @@ namespace LISTING_4_33_LINQ_projection
     class MusicTrack
     {
         public Artist Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
     }
 
     class TrackDetails
     {
         public string ArtistName;
+
         public string Title;
     }
 

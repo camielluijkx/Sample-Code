@@ -60,6 +60,5 @@ namespace FileWriter
                 MessageBox.Show(writeException.Message, "File write failed");
             }
         }
-
     }
 }

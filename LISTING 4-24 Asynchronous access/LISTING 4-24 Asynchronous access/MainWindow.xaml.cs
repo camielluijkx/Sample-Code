@@ -10,7 +10,6 @@ namespace MusicTracks
     /// </summary>
     public partial class MainWindow : Window
     {
-
         // You will need to edit this string to match your database file
         string connectionString = "Server=(localdb)\\mssqllocaldb;" +
             "Database=MusicTracksContext-e0f0cd0d-38fe-44a4-add2-359310ff8b5d;" +

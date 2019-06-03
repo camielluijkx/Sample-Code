@@ -33,6 +33,7 @@ namespace LISTING_4_50_Customization_methods
         {
             Console.WriteLine("Called after the artist is deserialized");
         }
+
         public string Name { get; set; }
     }
 
@@ -40,7 +41,9 @@ namespace LISTING_4_50_Customization_methods
     class MusicTrack
     {
         public Artist Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
     }
 

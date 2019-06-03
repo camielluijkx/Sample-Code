@@ -18,7 +18,7 @@ namespace LISTING_4_27_XML_DOM
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(XMLDocument);
 
-            System.Xml.XmlElement rootElement = doc.DocumentElement;
+            XmlElement rootElement = doc.DocumentElement;
             // make sure it is the right element
             if (rootElement.Name != "MusicTrack")
             {

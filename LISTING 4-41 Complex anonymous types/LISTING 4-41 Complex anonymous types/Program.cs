@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LISTING_4_40_Complex_query
 {
     class Artist
     {
         public int ID { get; set; }
+
         public string Name { get; set; }
     }
 
     class MusicTrack
     {
         public int ID { get; set; }
+
         public int ArtistID { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
     }
 
@@ -73,7 +75,6 @@ namespace LISTING_4_40_Complex_query
                                             Length = artistTrackSummary.Sum(x => x.Length)
                                         }
                                 );
-
 
             foreach (var summary in artistSummary)
             {

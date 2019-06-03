@@ -176,7 +176,6 @@ namespace LISTING_4_14_TCP_over_sockets
             return response;
         }
 
-
         /// <summary>
         /// Closes an open connection
         /// </summary>

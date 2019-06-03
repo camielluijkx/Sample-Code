@@ -7,14 +7,18 @@ namespace LISTING_4_36_LINQ_group
     class Artist
     {
         public int ID { get; set; }
+
         public string Name { get; set; }
     }
 
     class MusicTrack
     {
         public int ID { get; set; }
+
         public int ArtistID { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
     }
 
@@ -57,7 +61,6 @@ namespace LISTING_4_36_LINQ_group
             //                        Count = artistTrackSummary.Count()
             //                    };
 
-
             var artistSummary = from track in musicTracks
                                 group track by track.ArtistID
                                 into artistTrackSummary
@@ -76,7 +79,7 @@ namespace LISTING_4_36_LINQ_group
             var artistSummaryName = from track in musicTracks
                                     join artist in artists on track.ArtistID equals artist.ID
                                     group track by artist.Name
-                            into artistTrackSummary
+                                    into artistTrackSummary
                                     select new
                                     {
                                         ID = artistTrackSummary.Key,
@@ -92,4 +95,3 @@ namespace LISTING_4_36_LINQ_group
         }
     }
 }
-

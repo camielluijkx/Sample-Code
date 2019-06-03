@@ -39,11 +39,17 @@ namespace NASAAstronomyPictureOfTheDay
         public class ImageOfDay
         {
             public string date { get; set; }
+
             public string explanation { get; set; }
+
             public string hdurl { get; set; }
+
             public string media_type { get; set; }
+
             public string service_version { get; set; }
+
             public string title { get; set; }
+
             public string url { get; set; }
         }
 
@@ -51,7 +57,7 @@ namespace NASAAstronomyPictureOfTheDay
         {
             string NASAJson = await readWebpage(imageURL);
 
-            ImageOfDay result = JsonConvert.DeserializeObject< ImageOfDay>(NASAJson);
+            ImageOfDay result = JsonConvert.DeserializeObject<ImageOfDay>(NASAJson);
 
             return result;
         }

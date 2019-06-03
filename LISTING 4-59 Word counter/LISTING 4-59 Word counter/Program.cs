@@ -13,16 +13,16 @@ namespace LISTING_4_59_Word_counter
 
             string text = File.ReadAllText("input.txt");
 
-            string[] words = text.Split(new char[] { ' ', '.', ',' }, 
+            string[] words = text.Split(new char[] { ' ', '.', ',' },
                 StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string word in words)
             {
                 string lowWord = word.ToLower();
                 if (counters.ContainsKey(lowWord))
-                        counters[lowWord]++;
-                    else
-                        counters.Add(lowWord, 1);
+                    counters[lowWord]++;
+                else
+                    counters.Add(lowWord, 1);
             }
 
             var items = from pair in counters

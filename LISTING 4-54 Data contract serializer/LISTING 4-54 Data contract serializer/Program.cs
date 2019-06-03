@@ -12,6 +12,7 @@ namespace LISTING_4_54_Data_contract_serializer
     {
         [DataMember]
         public int ID { get; set; }
+
         [DataMember]
         public string Name { get; set; }
     }
@@ -21,10 +22,13 @@ namespace LISTING_4_54_Data_contract_serializer
     {
         [DataMember]
         public int ID { get; set; }
+
         [DataMember]
         public int ArtistID { get; set; }
+
         [DataMember]
         public string Title { get; set; }
+
         [DataMember]
         public int Length { get; set; }
     }
@@ -34,6 +38,7 @@ namespace LISTING_4_54_Data_contract_serializer
     {
         [DataMember]
         public List<Artist> Artists = new List<Artist>();
+
         [DataMember]
         public List<MusicTrack> MusicTracks = new List<MusicTrack>();
 
@@ -91,21 +96,18 @@ namespace LISTING_4_54_Data_contract_serializer
     {
         static void Main(string[] args)
         {
-
             MusicDataStore musicData = MusicDataStore.TestData();
 
             DataContractSerializer formatter = new DataContractSerializer(typeof(MusicDataStore));
 
-            using (FileStream outputStream =
-                new FileStream("MusicTracks.xml", FileMode.OpenOrCreate, FileAccess.Write))
+            using (FileStream outputStream = new FileStream("MusicTracks.xml", FileMode.OpenOrCreate, FileAccess.Write))
             {
                 formatter.WriteObject(outputStream, musicData);
             }
 
             MusicDataStore inputData;
 
-            using (FileStream inputStream =
-                new FileStream("MusicTracks.xml", FileMode.Open, FileAccess.Read))
+            using (FileStream inputStream = new FileStream("MusicTracks.xml", FileMode.Open, FileAccess.Read))
             {
                 inputData = (MusicDataStore)formatter.ReadObject(inputStream);
             }

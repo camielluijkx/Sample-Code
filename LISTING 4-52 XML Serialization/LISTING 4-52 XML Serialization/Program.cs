@@ -10,14 +10,18 @@ namespace LISTING_4_52_XML_Serialization
     public class Artist
     {
         public int ID { get; set; }
+
         public string Name { get; set; }
     }
 
     public class MusicTrack
     {
         public int ID { get; set; }
+
         public int ArtistID { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
     }
 
@@ -80,20 +84,17 @@ namespace LISTING_4_52_XML_Serialization
     {
         static void Main(string[] args)
         {
-
             MusicDataStore musicData = MusicDataStore.TestData();
 
             XmlSerializer formatter = new XmlSerializer(typeof(MusicDataStore));
-            using (FileStream outputStream =
-                new FileStream("MusicTracks.xml", FileMode.OpenOrCreate, FileAccess.Write))
+            using (FileStream outputStream = new FileStream("MusicTracks.xml", FileMode.OpenOrCreate, FileAccess.Write))
             {
                 formatter.Serialize(outputStream, musicData);
             }
 
             MusicDataStore inputData;
 
-            using (FileStream inputStream =
-                new FileStream("MusicTracks.xml", FileMode.Open, FileAccess.Read))
+            using (FileStream inputStream = new FileStream("MusicTracks.xml", FileMode.Open, FileAccess.Read))
             {
                 inputData = (MusicDataStore)formatter.Deserialize(inputStream);
             }
