@@ -1,4 +1,4 @@
-﻿//#
+﻿#define NORMAL
 #define DIAGNOSTICS
 
 using System;
@@ -10,7 +10,9 @@ namespace LISTING_3_29_Conditional_compilation
         public static bool DebugMode = false;
 
         public string Artist { get; set; }
+
         public string Title { get; set; }
+
         public int Length { get; set; }
 
         // ToString that overrides the behavior in the base class

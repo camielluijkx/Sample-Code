@@ -6,7 +6,7 @@ namespace LISTING_3_14_AES_encryption
 {
     class Program
     {
-        static void DumpBytes(string title, byte [] bytes)
+        static void dumpBytes(string title, byte[] bytes)
         {
             Console.Write(title);
             foreach (byte b in bytes)
@@ -21,7 +21,7 @@ namespace LISTING_3_14_AES_encryption
             string plainText = "This is my super secret data";
 
             // byte array to hold the encrypted message
-            byte[] cypherText;
+            byte[] cipherText;
 
             // byte array to hold the key that was used for encryption
             byte[] key;
@@ -48,8 +48,7 @@ namespace LISTING_3_14_AES_encryption
                 {
                     // create a CryptoStream, tell it the stream to write to
                     // and the encryptor to use. Also set the mode
-                    using (CryptoStream encryptCryptoStream = new CryptoStream(encryptMemoryStream,
-                        encryptor, CryptoStreamMode.Write))
+                    using (CryptoStream encryptCryptoStream = new CryptoStream(encryptMemoryStream, encryptor, CryptoStreamMode.Write))
                     {
                         // make a stream writer from the cryptostream
                         using (StreamWriter swEncrypt = new StreamWriter(encryptCryptoStream))
@@ -57,17 +56,18 @@ namespace LISTING_3_14_AES_encryption
                             //Write the secret message to the stream.
                             swEncrypt.Write(plainText);
                         }
+
                         // get the encrypted message from the stream
-                        cypherText = encryptMemoryStream.ToArray();
+                        cipherText = encryptMemoryStream.ToArray();
                     }
                 }
             }
 
             // Dump out our data
             Console.WriteLine("String to encrypt: {0}", plainText);
-            DumpBytes("Key: ", key);
-            DumpBytes("Initialization Vector: ", initializationVector);
-            DumpBytes("Encrypted: ", cypherText);
+            dumpBytes("Key: ", key);
+            dumpBytes("Initialization Vector: ", initializationVector);
+            dumpBytes("Encrypted: ", cipherText);
 
             Console.ReadKey();
         }

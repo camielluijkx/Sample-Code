@@ -128,15 +128,33 @@ Regex (^ start search, $ stop search, top level domain, escape \, ?)
 	example => https://regex101.com: ^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9]+\.([a-z]{1,6}\.)?[a-z]{2,6}$
 Parse vs TryParse (out)
 Convert
-
+Advanced Encryption Standard (Aes: Create, Key, IV, CreateEncryptor + CreateDecryptor -> ICryptoTransform, CryptoStream)
+Rivest, Shamir, Adleman (Encrypt + Decrypt -> Bytes, fOAEP: pad with extra bytes, ToXmlString + FromXmlString)
+RSACryptoServiceProvider + CspParameters (CspProviderFlags)
+RSACryptoServiceProvider + X509Store (X509Certificate2)
+checksum
+GetHashCode
+HashAlgorithm (SHA1Managed, SHA256)
+#define + #undef
+Conditional
+#line nr + #line default
+nop (no operation, Debug vs Release)
+Debug (WriteLine, Indent, Unindent, WriteLineIf, Assert)
+Trace (WriteLine, Indent, Unindent, TraceInformation, TraceWarning, TraceError)
+TraceListener
+TraceSource + TraceEventType
+TraceSwitch (Level: 1 = error, 2 = error and warning, 3 = error, warning and information, 4 = error, warning, information and verbose)
+SourceSwitch (Level, Switch, TraceEvent, Flush, config: switches -> value)
+Stopwatch (STart, Stop, Pause, Restart)
+PerformanceCounter (NextValue, NextSample, Increment, Decrement)
+CounterCreationDataCollection (PerformanceCounterCategory, PerformanceCounterType)
+EventLog (Source, SourceExists, CreateEventSource, WriteEntry, EntryWritten, EnableRaisingEvents)
 TODO
 
 LISTING 4:
 TODO
 
 MISC:
-EventLog (Source, SourceExists, CreateEventSource, WriteEntry)
-TraceSwitch (1 = error, 2 = error and warning, 3 = error, warning and information, 4 = error, warning, information and verbose)
 self-signed certificates (Makecert)
 WeakReference
 PerformanceCounter

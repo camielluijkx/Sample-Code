@@ -17,7 +17,7 @@ namespace LISTING_3_45_Read_from_the_event_log
             {
                 EventLog imageEventLog = new EventLog();
                 imageEventLog.Source = categoryName;
-                foreach(EventLogEntry entry in imageEventLog.Entries)
+                foreach (EventLogEntry entry in imageEventLog.Entries)
                 {
                     Console.WriteLine("Source: {0} Type: {1} Time: {2} Message: {3}",
                         entry.Source, entry.EntryType, entry.TimeWritten, entry.Message);

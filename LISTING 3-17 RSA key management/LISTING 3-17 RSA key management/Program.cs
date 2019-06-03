@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-
 namespace LISTING_3_17_RSA_key_management
 {
     class Program
@@ -12,6 +11,7 @@ namespace LISTING_3_17_RSA_key_management
 
             CspParameters csp = new CspParameters();
             csp.KeyContainerName = containerName;
+
             // Create a new RSA to encrypt the data
             RSACryptoServiceProvider rsaStore = new RSACryptoServiceProvider(csp);
             Console.WriteLine("Stored keys: {0}", rsaStore.ToXmlString(includePrivateParameters: false));

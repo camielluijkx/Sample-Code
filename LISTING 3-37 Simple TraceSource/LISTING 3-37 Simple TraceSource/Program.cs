@@ -6,7 +6,7 @@ namespace LISTING_3_37_Simple_TraceSource
     {
         static void Main(string[] args)
         {
-            TraceSource trace = new TraceSource("Tracer",SourceLevels.All);
+            TraceSource trace = new TraceSource("Tracer", SourceLevels.All);
             trace.TraceEvent(TraceEventType.Start, 10000);
             trace.TraceEvent(TraceEventType.Warning, 10001);
             trace.TraceEvent(TraceEventType.Verbose, 10002, "At the end of the program");

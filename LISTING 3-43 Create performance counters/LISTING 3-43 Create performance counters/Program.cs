@@ -99,23 +99,20 @@ namespace LISTING_3_43_Create_performance_counters
         static void sequentialTest()
         {
             // sourceDir is a directory of images
-            // destDir is to the destination directory which will be automatically 
-            // created.
+            // destDir is to the destination directory which will be automatically created.
 
-            MakeThumbnailsSeq(sourceDir: @"..\..\..\..\images",
-                destDir: @"..\..\..\..\images\Serial"); ;
+            MakeThumbnailsSeq(sourceDir: @"..\..\..\..\images", destDir: @"..\..\..\..\images\Serial"); ;
         }
 
         static void parallelTest()
         {
-            MakeThumbnailsParallel(sourceDir: @"..\..\..\..\images",
-                destDir: @"..\..\..\..\images\Parallel");
+            MakeThumbnailsParallel(sourceDir: @"..\..\..\..\images", destDir: @"..\..\..\..\images\Parallel");
         }
 
         static void Main(string[] args)
         {
 
-            if(SetupPerformanceCounters() == CreationResult.CreatedCounters)
+            if (SetupPerformanceCounters() == CreationResult.CreatedCounters)
             {
                 Console.WriteLine("Performance counters created");
                 Console.WriteLine("Restart the program");

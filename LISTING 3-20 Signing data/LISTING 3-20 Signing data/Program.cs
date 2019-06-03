@@ -23,7 +23,6 @@ namespace LISTING_3_20_Signing_data
             ASCIIEncoding converter = new ASCIIEncoding();
 
             // Get a crypto provider out of the certificate store
-
             X509Store store = new X509Store("demoCertStore", StoreLocation.CurrentUser);
 
             store.Open(OpenFlags.ReadOnly);
@@ -47,7 +46,7 @@ namespace LISTING_3_20_Signing_data
                 dumpBytes("Hash for message: ", hash);
 
             // Now sign the hash to create a signature
-            byte[] signature = encryptProvider.SignHash(hash,CryptoConfig.MapNameToOID("SHA1"));
+            byte[] signature = encryptProvider.SignHash(hash, CryptoConfig.MapNameToOID("SHA1"));
             dumpBytes("Signature: ", messageToSignBytes);
 
             // We can send the signature along with the message to authenticate it

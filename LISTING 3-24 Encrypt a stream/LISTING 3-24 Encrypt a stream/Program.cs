@@ -47,8 +47,7 @@ namespace LISTING_3_24_Encrypt_a_stream
                 {
                     // create a CryptoStream, tell it the stream to write to
                     // and the encryptor to use. Also set the mode
-                    using (CryptoStream cryptoStream1 = new CryptoStream(encryptMemoryStream,
-                        encryptor1, CryptoStreamMode.Write))
+                    using (CryptoStream cryptoStream1 = new CryptoStream(encryptMemoryStream, encryptor1, CryptoStreamMode.Write))
                     {
                         // Add another layer of encryption
                         using (Aes aes2 = Aes.Create())
@@ -97,8 +96,7 @@ namespace LISTING_3_24_Encrypt_a_stream
 
                 using (MemoryStream decryptStream = new MemoryStream(encryptedText))
                 {
-                    using (CryptoStream decryptCryptoStream1 =
-                        new CryptoStream(decryptStream, decryptor1, CryptoStreamMode.Read))
+                    using (CryptoStream decryptCryptoStream1 = new CryptoStream(decryptStream, decryptor1, CryptoStreamMode.Read))
                     {
                         using (Aes aesd2 = Aes.Create())
                         {

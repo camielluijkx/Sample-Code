@@ -16,7 +16,6 @@ namespace LISTING_3_38_TraceSwitch
             }
 
             Trace.WriteLineIf(control.TraceWarning, "A warning message");
-
         }
     }
 }

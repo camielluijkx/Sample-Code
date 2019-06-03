@@ -10,6 +10,7 @@ namespace LISTING_3_31_Line_numbers
             throw new Exception("Bang");
 #line default
         }
+
         static void Main(string[] args)
         {
             try

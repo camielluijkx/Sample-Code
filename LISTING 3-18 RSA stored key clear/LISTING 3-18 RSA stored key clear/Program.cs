@@ -11,6 +11,7 @@ namespace LISTING_3_18_RSA_stored_key_clear
 
             CspParameters csp = new CspParameters();
             csp.KeyContainerName = containerName;
+
             // Create a new RSA to encrypt the data
             RSACryptoServiceProvider rsaStore = new RSACryptoServiceProvider(csp);
             Console.WriteLine("Stored keys: {0}", rsaStore.ToXmlString(includePrivateParameters: false));

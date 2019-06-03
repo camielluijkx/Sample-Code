@@ -77,17 +77,14 @@ namespace LISTING_3_44_Write_to_the_event_log
         static void sequentialTest()
         {
             // sourceDir is a directory of images
-            // destDir is to the destination directory which will be automatically 
-            // created.
+            // destDir is to the destination directory which will be automatically created.
 
-            MakeThumbnailsSeq(sourceDir: @"..\..\..\..\images",
-                destDir: @"..\..\..\..\images\Serial");
+            MakeThumbnailsSeq(sourceDir: @"..\..\..\..\images", destDir: @"..\..\..\..\images\Serial");
         }
 
         static void parallelTest()
         {
-            MakeThumbnailsParallel(sourceDir: @"..\..\..\..\images",
-                destDir: @"..\..\..\..\images\Parallel");
+            MakeThumbnailsParallel(sourceDir: @"..\..\..\..\images", destDir: @"..\..\..\..\images\Parallel");
         }
 
         static void Main(string[] args)

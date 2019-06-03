@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace LISTING_3_40_Config_file
 {
@@ -12,7 +7,6 @@ namespace LISTING_3_40_Config_file
         static void Main(string[] args)
         {
             TraceSource trace = new TraceSource("configControl");
-
             trace.TraceEvent(TraceEventType.Start, 10000);
             trace.TraceEvent(TraceEventType.Warning, 10001);
             trace.TraceEvent(TraceEventType.Verbose, 10002, "At the end of the program");

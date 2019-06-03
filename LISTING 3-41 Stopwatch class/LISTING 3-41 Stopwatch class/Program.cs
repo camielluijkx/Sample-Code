@@ -52,17 +52,14 @@ namespace LISTING_3_41_Stopwatch_class
         static void sequentialTest()
         {
             // sourceDir is a directory of images
-            // destDir is to the destination directory which will be automatically 
-            // created.
+            // destDir is to the destination directory which will be automatically created.
 
-            MakeThumbnailsSeq(sourceDir: @"..\..\..\..\images",
-                destDir: @"..\..\..\..\images\Serial"); ;
+            MakeThumbnailsSeq(sourceDir: @"..\..\..\..\images", destDir: @"..\..\..\..\images\Serial"); ;
         }
 
         static void parallelTest()
         {
-            MakeThumbnailsParallel(sourceDir: @"..\..\..\..\images",
-                destDir: @"..\..\..\..\images\Parallel");
+            MakeThumbnailsParallel(sourceDir: @"..\..\..\..\images", destDir: @"..\..\..\..\images\Parallel");
         }
 
         static void Main(string[] args)
@@ -74,14 +71,12 @@ namespace LISTING_3_41_Stopwatch_class
             stopwatch.Start();
             sequentialTest();
             stopwatch.Stop();
-            Console.WriteLine("Sequential time in milliseconds: {0}",
-                                            stopwatch.ElapsedMilliseconds);
+            Console.WriteLine("Sequential time in milliseconds: {0}", stopwatch.ElapsedMilliseconds);
 
             stopwatch.Restart();
             parallelTest();
             stopwatch.Stop();
-            Console.WriteLine("Parallel loop time in milliseconds: {0}",
-                                            stopwatch.ElapsedMilliseconds);
+            Console.WriteLine("Parallel loop time in milliseconds: {0}", stopwatch.ElapsedMilliseconds);
 
             Console.WriteLine("Processing complete. Press any key to exit.");
             Console.ReadKey();

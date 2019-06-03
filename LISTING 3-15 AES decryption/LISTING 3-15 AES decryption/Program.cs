@@ -48,8 +48,7 @@ namespace LISTING_3_15_AES_decryption
                 {
                     // create a CryptoStream, tell it the stream to write to
                     // and the encryptor to use. Also set the mode
-                    using (CryptoStream encryptCryptoStream = new CryptoStream(encryptMemoryStream,
-                        encryptor, CryptoStreamMode.Write))
+                    using (CryptoStream encryptCryptoStream = new CryptoStream(encryptMemoryStream, encryptor, CryptoStreamMode.Write))
                     {
                         // make a stream writer from the cryptostream
                         using (StreamWriter swEncrypt = new StreamWriter(encryptCryptoStream))
@@ -57,12 +56,11 @@ namespace LISTING_3_15_AES_decryption
                             //Write the secret message to the stream.
                             swEncrypt.Write(plainText);
                         }
+
                         // get the encrypted message from the stream
                         cipherText = encryptMemoryStream.ToArray();
                     }
                 }
-
-
             }
 
             // Dump out our data
