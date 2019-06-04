@@ -207,7 +207,7 @@ MulticastDelegate
 SafeHandle vs WaitHandle
 PrincipalPermission
 IDataContractSurrogate
-StringCollection
+StringCollection (Add, AddRange, Insert, Remove)
 DebuggerDisplay
 expression body definition (=>)
 unsafe
