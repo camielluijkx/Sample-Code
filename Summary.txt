@@ -199,20 +199,21 @@ ICollection (Count, SyncRoot: object used used to synchronise access, IsSynchron
 
 MISC:
 self-signed certificates (Makecert)
-WeakReference
+* WeakReference
 debug (hit count, condition, filter)
 framework tools
 	https://docs.microsoft.com/en-us/dotnet/framework/tools
-MulticastDelegate
+* MulticastDelegate
+* PrincipalPermission
+* IDataContractSurrogate
+* StringCollection (Add, AddRange, Insert, Remove)
+* DebuggerDisplay
+* expression body definition (=>)
+* unsafe
+* Mutex
+* Lazy
+* Flags
 SafeHandle vs WaitHandle
-PrincipalPermission
-IDataContractSurrogate
-StringCollection (Add, AddRange, Insert, Remove)
-DebuggerDisplay
-expression body definition (=>)
-unsafe
-Mutex vs Semaphore vs SemaphoreSlim vs ReaderWriterLockSlim
-Lazy
-Flags
-DataProtectionScope vs MemoryProtectionScope
+* DataProtectionScope vs MemoryProtectionScope
+Semaphore vs SemaphoreSlim vs ReaderWriterLockSlim
 ManualResetEvent (Reset, WaitOne) vs AutoResetEvent
