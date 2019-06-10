@@ -213,7 +213,13 @@ framework tools
 * Mutex
 * Lazy
 * Flags
-SafeHandle vs WaitHandle
 * DataProtectionScope vs MemoryProtectionScope
-Semaphore vs SemaphoreSlim vs ReaderWriterLockSlim
-ManualResetEvent (Reset, WaitOne) vs AutoResetEvent
+* IEquatable<T> (Equals) vs IComparable<T> (CompareTo)
+* IValidateableObject
+* GC (AddMemoryPressure, Collect, KeepAlive, SuppressFinalize + ReRegisterForFinalize)
+* Access Modifiers
+* SafeHandle (wrapper)
+* WaitHandle (WaitOne, WaitAny, WaitAll)
+* Semaphore vs SemaphoreSlim 
+* ReaderWriterLockSlim
+* ManualResetEvent vs AutoResetEvent (WaitOne, Set, Reset)
