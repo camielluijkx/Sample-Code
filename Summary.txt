@@ -404,6 +404,20 @@ LISTING 2:
 	** supports a simple iteration over a non-generic collection.
 * IDisposable (Dispose, using):
 	** provides a mechanism for releasing unmanaged resources
+	** pattern implementation:
+		*** bool disposed = false
+		*** public void Dispose():
+			**** Dispose(true)
+			**** GC.SuppressFinalize(this)
+		*** protected virtual void Dispose(bool disposing):
+			**** if (disposed) return
+			**** if (disposing) free any other managed objects
+			**** free any other unmanaged objects
+			**** disposed = true
+			**** base.Dispose(disposing) if applicable
+		*** check if objects are != null
+		*** finalizer:
+			**** Dispose(false)
 * Serializable (NonSerialized):
 	** indicates that a class can be serialized
 	** NonSerialized: indicates that a field of a serializable class should not be serialized
@@ -422,10 +436,22 @@ LISTING 2:
 	** GetExecutingAssembly: returns the assembly that contains the code that is currently executing
 	** GetCallingAssembly: returns the assembly of the method that invoked the currently executing method
 	** LoadFrom: loads an assembly
-CodeDomProvider + CodeCompileUnit (CodeNamespace, CodeNamespaceImport, CodeTypeDeclaration, CodeMemberField)
-Expression (ParameterExpression, BinaryExpression, ExpressionVisitor):
+* CodeDomProvider + CodeCompileUnit (CodeNamespace, CodeNamespaceImport, CodeTypeDeclaration, CodeMemberField)
+* Expression (ParameterExpression, BinaryExpression, ExpressionVisitor):
 * Assembly (FullName, getName, Version, GlobalAssemblyCache, Modules -> Module + GetTypes -> Type + GetMembers)
-dynamic vs DynamicObject vs ExpandoObject
+* dynamic vs DynamicObject vs ExpandoObject:
+	** dynamic:
+		*** used to declare variables that should be late-bound
+		*** DLR performs late-bound calls to the instance's normal methods
+		*** IDynamicMetaObjectProvider interface allows a class to take control of its late-bound behavior
+		*** when you use the dynamic keyword to interact with an IDynamicMetaObjectProvider implementation, the DLR calls the IDynamicMetaObjectProvider methods and the object itself decides what to do
+	** DynamicObject: 
+		*** provides a base class for specifying dynamic behavior at run time
+		*** this class must be inherited from; you cannot instantiate it directly
+		*** is a more advanced implementation of IDynamicMetaObjectProvider which can be inherited to easily provide customized behavior
+	** ExpandoObject:
+		*** represents an object whose members can be dynamically added and removed at run time
+		*** is a simple implementation of IDynamicMetaObjectProvider which allows you to add members to an instance and use them dynamically
 * BindingFlags (Default, IgnoreCase, DeclaredOnly, Instance, Static, Public, NonPublic, FlattenHierarchy, InvokeMethod, CreateInstance, GetField, SetField, GetProperty, SetProperty, PutDispProperty, PutRefDispProperty, ExactBinding, SuppressChangeType, OptionalParamBinding, IgnoreReturn):
 	** specifies flags that control binding and the way in which the search for members and types is conducted by reflection
 * garbage collection:
@@ -482,18 +508,41 @@ LISTING 3:
 * XmlSerializer (Serialize, Deserialize):
 	** serializes and deserializes objects into and from XML documents
 	** the XmlSerializer enables you to control how objects are encoded into XML
-* Regex (IsMatch, Match, Replace, RegexOptions.Compiled)
-* Regex (^ start search, $ stop search, top level domain, escape \, ?)
-	example => https://regex101.com: ^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9]+\.([a-z]{1,6}\.)?[a-z]{2,6}$
+* Regex (IsMatch, Match, Replace, RegexOptions.Compiled):
+	** check for repeated occurrences of words in a string:
+		*** \b(?<word>\w+)\s+(\k<word>)\b:
+			**** \b						start the match at a word boundary
+			****(?<word>\w+)			match one or more word characters up to a word boundary, name this captured group word
+			**** \s+					match one or more white-space characters
+			**** (\k<word>)				match the captured group that is named word
+			**** \b						match a word boundary
+	** check whether a string either represents a currency value or has the correct format to represent a currency value:
+		*** ^\s*[\+-]?\s?\$?\s?(\d*\.?\d{2}?){1}$:
+			**** ^						start at the beginning of the string
+			**** \s*					match zero or more white-space characters
+			**** [\+-]?					match zero or one occurrence of either the positive sign or the negative sign
+			**** \s?					match zero or one white-space character
+			**** \$?					match zero or one occurrence of the dollar sign
+			**** \s?					match zero or one white-space character
+			**** \d*					match zero or more decimal digits
+			**** \.?					match zero or one decimal point symbol
+			**** \d{2}?					match two decimal digits zero or one time
+			**** (\d*\.?\d{2}?){1}		match the pattern of integral and fractional digits separated by a decimal point symbol at least one time
+			**** $						match the end of the string
 * Parse vs TryParse (out):
 	** Parse: converts the string representation of a data type to its date type equivalent
 	** TryParse: converts the string representation of a data type to its data type equivalent, a return value indicates whether the operation succeeded
 * Convert:
 	** converts a base data type to another base data type
-Advanced Encryption Standard (Aes: Create, Key, IV, CreateEncryptor + CreateDecryptor -> ICryptoTransform, CryptoStream)
-Rivest, Shamir, Adleman (Encrypt + Decrypt -> Bytes, fOAEP: pad with extra bytes, ToXmlString + FromXmlString)
-RSACryptoServiceProvider + CspParameters (CspProviderFlags)
-RSACryptoServiceProvider + X509Store (X509Certificate2)
+* Advanced Encryption Standard (Aes: Create, Key, IV, CreateEncryptor + CreateDecryptor -> ICryptoTransform, CryptoStream)
+* Rivest, Shamir, Adleman (Encrypt + Decrypt -> Bytes, fOAEP: pad with extra bytes, ToXmlString + FromXmlString)
+* ICryptoTransform:
+	** defines the basic operations of cryptographic transformations
+* CryptoStream:
+	** defines a stream that links data streams to cryptographic transformations
+* RSACryptoServiceProvider:
+	** performs asymmetric encryption and decryption using the implementation of the RSA algorithm provided by the cryptographic service provider (CSP)
+	** this class cannot be inherited.
 * checksum:
 	** a checksum is the outcome of running an algorithm, called a cryptographic hash function, on a piece of data, usually a single file
 	** omparing the checksum that you generate from your version of the file, with the one provided by the source of the file, helps ensure that your copy of the file is genuine and error free
@@ -510,22 +559,50 @@ RSACryptoServiceProvider + X509Store (X509Certificate2)
 	** if an object used as a key does not provide a useful implementation of GetHashCode, you can specify a hash code provider when the Hashtable object is constructed.
 * HashTable (Add, Clear, Contains, ContainsKey, ContainsValue, KeyEquals, Remove):
 	** represents a collection of key/value pairs that are organized based on the hash code of the key
-HashAlgorithm (SHA1Managed, SHA256)
+* HashAlgorithm (KeyedHashAlgorithm, MD5, RIPEMD160, SHA1, SHA256, SHA384, SHA512):
+	** represents the base class from which all implementations of cryptographic hash algorithms must derive
 * #define + #undef
 * Conditional:
 	** indicates to compilers that a method call or attribute should be ignored unless a specified conditional compilation symbol is defined
-#line nr + #line default
-nop (no operation, Debug vs Release)
-Debug (WriteLine, Indent, Unindent, WriteLineIf, Assert)
-Trace (WriteLine, Indent, Unindent, TraceInformation, TraceWarning, TraceError)
-TraceListener
-TraceSource + TraceEventType
-TraceSwitch (Level: 1 = error, 2 = error and warning, 3 = error, warning and information, 4 = error, warning, information and verbose)
-SourceSwitch (Level, Switch, TraceEvent, Flush, config: switches -> value)
-Stopwatch (Start, Stop, Pause, Restart)
-PerformanceCounter (NextValue, NextSample, Increment, Decrement)
-CounterCreationDataCollection (PerformanceCounterCategory, PerformanceCounterType)
-EventLog (Source, SourceExists, CreateEventSource, WriteEntry, EntryWritten, EnableRaisingEvents)
+* #line nr + #line default:
+	** #line lets you modify the compiler's line numbering and (optionally) the file name output for errors and warnings
+	** #line default directive returns the line numbering to its default numbering, which counts the lines that were renumbered by the previous directive
+* nop (no operation, Debug vs Release)
+* Debug (WriteLine, Indent, Unindent, WriteLineIf, Assert):
+	** provides a set of methods and properties that help debug your code
+	** if you use methods in the Debug class to print debugging information and check your logic with assertions, you can make your code more robust without impacting the performance and code size of your shipping product
+	'** to enable debugging in C#, add the /d:DEBUG flag to the compiler command line when you compile your code, or you can add #define DEBUG to the top of your file
+* Trace (Assert, WriteLine, Indent, Unindent, TraceInformation, TraceWarning, TraceError):
+	** provides a set of methods and properties that help you trace the execution of your code
+	** this class cannot be inherited
+	** you can use the properties and methods in the Trace class to instrument release builds
+	** instrumentation allows you to monitor the health of your application running in real-life settings
+	** tracing helps you isolate problems and fix them without disturbing a running system
+	** to enable tracing in C#, add the /d:TRACE flag to the compiler command line when you compile your code, or add #define TRACE to the top of your file
+* TraceListener (DefaultTraceListener, ConsoleTraceListener, EventLogTraceListener, TextWriterTraceListener):
+	** provides the abstract base class for the listeners who monitor trace and debug output
+* TraceSource:
+	** provides a set of methods and properties that enable applications to trace the execution of code and associate trace messages with their source
+* TraceEventType (Critical, Error, Warning, Information, Verbose):
+	** identifies the type of event that has caused the trace
+* TraceSwitch (Level: 1 = error, 2 = error and warning, 3 = error, warning and information, 4 = error, warning, information and verbose):
+	** provides a multilevel switch to control tracing and debug output without recompiling your code
+* SourceSwitch (Level, Switch, TraceEvent, Flush, config: switches -> value):
+	** provides a multilevel switch to control tracing and debug output without recompiling your code
+* Stopwatch (Start, Stop, Pause, Restart, Rest, StartNew):
+	** provides a set of methods and properties that you can use to accurately measure elapsed time
+* PerformanceCounter (NextValue, NextSample, Increment, Decrement):
+	** represents a Windows NT performance counter component
+* PerformanceCounterCategory:
+	** represents a performance object, which defines a category of performance counters
+* PerformanceCounterType (Unknown, SingleInstance, MultiInstance):
+	** indicates whether the performance counter category can have multiple instances
+* CounterCreationDataCollection (PerformanceCounterCategory, PerformanceCounterType):
+	** provides a strongly typed collection of CounterCreationData objects
+* CounterCreationData:
+	** defines the counter type, name, and help string for a custom counter
+* EventLog (Source, SourceExists, CreateEventSource, WriteEntry, EntryWritten, EnableRaisingEvents):
+	** provides interaction with Windows event logs
 
 LISTING 4:
 * FileStream (FileMode, FileAccess, Close, Dispose, Finalize, Flush, Seek, Read, Write + async):
@@ -654,12 +731,56 @@ LISTING 4:
 	** defines methods to manipulate generic collections
 
 MISC:
-self-signed certificates (Makecert)
+* self-signed certificates:
+	** two major store locations exist that are further divided into sub-stores, if you are the administrator on a computer, you can view both major stores by using the MMC snap-in tool (non-administrators can view only the current user store):		
+		*** local machine store:
+			**** this contains the certificates accessed by machine processes, such as ASP.NET
+			**** use this location to store certificates that authenticate the server to clients
+		*** current user store:
+			**** interactive applications typically place certificates here for the computer's current user
+			**** if you are creating a client application, this is where you typically place certificates that authenticate a user to a service
+	** these two stores are further divided into sub-stores, the most important of these when programming with WCF include:
+		*** Trusted Root Certification Authorities:
+			**** you can use the certificates in this store to create a chain of certificates, which can be traced back to a certification authority certificate in this store
+		*** Personal:
+			**** this store is used for certificates associated with a user of a computer
+			**** typically this store is used for certificates issued by one of the certification authority certificates found in the Trusted Root Certification Authorities store
+			**** alternatively, a certificate found here may be self-issued and trusted by an application
 * WeakReference:
 	** represents a weak reference, which references an object while still allowing that object to be reclaimed by garbage collection
-debug (hit count, condition, filter)
-framework tools
-	https://docs.microsoft.com/en-us/dotnet/framework/tools
+* debug (hit count, condition, filter)
+* framework tools:
+	** Al.exe (Assembly Linker):
+		*** generates a file that has an assembly manifest from modules or resource files
+	** Gacutil.exe (Global Assembly Cache Tool):
+		*** lets you view and manipulate the contents of the global assembly cache and download cache
+	** Ilasm.exe (IL Assembler):
+		*** generates a portable executable (PE) file from intermediate language (IL)
+		*** you can run the resulting executable to determine whether the IL performs as expected
+	** Ildasm.exe (IL Disassembler):
+		*** takes a portable executable (PE) file that contains intermediate language (IL) code and creates a text file that can be input to the IL Assembler (Ilasm.exe)
+	** Installutil.exe (Installer Tool):
+		*** enables you to install and uninstall server resources by executing the installer components in a specified assembly
+		*** works with classes in the System.Configuration.Install namespace
+	** MakeCert.exe (Make Certificate):
+		*** the MakeCert tool creates an X.509 certificate, signed by the test root key or other specified key, that binds your name to the public part of the key pair
+		*** the certificate is saved to a file, a system certificate store, or both
+	** Regasm.exe (Assembly Registration Tool):
+		*** reads the metadata within an assembly and adds the necessary entries to the registry 
+		*** this enables COM clients to appear as .NET Framework classes
+	** Regsvr32.exe (Register Server):
+		*** a command-line utility to register and unregister OLE controls, such as DLLs and ActiveX controls in the Windows Registry
+	** SignTool.exe (Sign Tool):
+		*** digitally signs files, verifies signatures in files, and time-stamps files
+	** Sn.exe (Strong Name Tool):
+		*** helps create assemblies with strong names
+		*** this tool provides options for key management, signature generation, and signature verification
+	** SPYXX.EXE (Spy++):
+		*** a Win32-based utility that gives you a graphical view of the system's processes, threads, windows, and window messages
+	** Tlbexp.exe (Type Library Exporter):
+		*** generates a type library that describes the types that are defined in a common language runtime assembly
+	** Tlbimp.exe (Type Library Importer):
+		*** converts the type definitions found in a COM type library into equivalent definitions in a common language runtime assembly
 * MulticastDelegate:
 	** represents a multicast delegate; that is, a delegate that can have more than one element in its invocation list
 * PrincipalPermission:
