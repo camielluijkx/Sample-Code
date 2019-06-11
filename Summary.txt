@@ -1,141 +1,519 @@
 LISTING 1:
-Action
-Parallel.Invoke
-Parallel.ForEach
-Parallel.For
-ParallelLoopState (Break vs Stop)
-ParallelLoopResult
-AsParallel
-WithExecutionMode (ParallelExecutionMode)
-WithDegreeOfParallelism
-AsOrdered
-AsSequential
-ForAll
-AggregateException
-Task (Start, Run, Wait)
-Task<T>
-TaskFactory (StartNew)
-TaskCreationOptions
-TaskContinuationOptions
-CancellationTokenSource
-CancellationToken
-WaitAll
-WaitAny
-WhenAll
-ContinueWith (when antecedent task finishes)
-TaskContinuationOptions (OnlyOnRanToCompletion + OnlyOnFaulted)
-TaskCreationOptions (AttachedToParent vs DenyChildAttach)
-Thread
-ThreadStart
-ParameterizedThreadStart
-Thread.Start + Thread.Abort (shared flag variable)
-Thread.Join
-ThreadStatic vs ThreadLocal
-context (CurrentCulture, Priority, ExecutionContext, IsThreadPoolThread, IsBackground)
-ThreadPool (QueueUserWorkItem + WaitCallBack)
-Dispatcher.RunAsync
-async + await
-BlockingCollection (Add, TryAdd + Take, TryTake + CompleteAdding, IsCompleted)
-ConcurrentQueue (Enqueue, TryPeek, TryDequeue, Count + IsEmpty)
-ConcurrentStack (Push + PushRange, TryPeek, TryPop + TryPopRange, Count + IsEmpty)
-ConcurrentBag (Add, TryPeek, TryTake, Count + IsEmpty)
-ConcurrentDictionary (GetOrAdd, AddOrUpdate, TryAdd + TryUpdate, TryGetValue, TryRemove)
-Enumerable.Range (start, count)
-lock
-Monitor.Enter, Monitor.TryEnter + Monitor.Exit
-Interlocked (Add, Decrement, Increment)
-volatile
-CancellationToken (CanBeCancelled, IsCancellationRequested, ThrowIfCancellationRequested, WaitHandle)
-while
-do while
-for (initalize(); test(); update())
-for (index, length)
-foreach
-IEnumerable (IEnumerator.GetEnumerator())
-break vs continue
-if, else, else if
-cand (&&)
-cor (||)
-xor (^)
-switch (case, default, goto case)
-operators (unary / monadic, binary, ternary)
-null conditional operator (.?)
-coalesce operator
-publish and subscribe vs unsubscribe (+= vs -=)
-event
-EventHandler
-custom event args
-delegate (lambda expressions)
-closures ()
-Funct vs Action vs Predicate delegates
-exception (Message, StackTrace, HelpLink, TargetSite, Source)
-exception types
-try (catch) finally
-throw (throw vs throw ex vs throw new)
-custom exception
-conditional exception (catch + when)
-InnerException (throw vs throw ex)
-AggregateException (Flatten)
+* Action:
+	** encapsulates a method that has no parameters and does not return a value
+* Action<T>:
+	** encapsulates a method that has a single parameter and does not return a value
+* Action<T1, T2>:
+	** encapsulates a method that has two parameters and does not return a value
+* Parallel.Invoke:
+	** Actions -> void, ParallelOptions: CancellationToken, MaxDegreeOfParallelism, TaskScheduler
+	** no control over the order in which the tasks are started
+* Enumerable.Range (start, count):
+	** generates sequence of numbers within specified range
+* Parallel.ForEach:
+	** IEnumerable collection as first parameter, action to be performed on each item in the collection as second parameter
+	** tasks are not completed in the same order that they were started
+* Parallel.For:
+	** start and end index for iteration of the collection as first and second parameter
+    ** delegate that is invoked once per iteration as third parameter
+	** tasks are not completed in the same order that they were started
+* ParallelLoopState (Break vs Stop):
+	** Break: communicates that the Parallel loop should cease execution of iterations beyond the current iteration at the system's earliest convenience
+		*** no iterations whose index is greater than the LowestBreakIteration property value start after the call to the Break method
+	** Stop: communicates that the Parallel loop should cease execution at the system's earliest convenience
+		*** no iterations execute after the call to the Stop method
+* ParallelLoopResult (IsCompleted, LowestBreakIteration)
+* AsParallel:
+	** method examines the query to determine if using a parallel version would speed it up
+	** query is broken down into a number of processes and each is run concurrently when it is decided that executing elements of the query in parallel would improve performance
+	** query is not executed in parallel if the AsParallel method couldn't decide whether parallelization would improve performance
+	** parallel query may process data in a different order from the input data
+* WithExecutionMode (ParallelExecutionMode: Default, ForceParallelism)
+* WithDegreeOfParallelism:
+	** sets degree of parallelism to use in a query
+	** degree of parallelism is the maximum number of concurrently executing tasks that will be used to process the query
+* AsOrdered:
+	** can be used to request the query to preserve the order of the original data
+	** method doesn't prevent the parallelization of the query, instead it organizes the output so that it is in the same order as the original data which can slow down the query
+* AsSequential:
+	** method can be used to identify parts of a query that must be executed sequentially
+	** executes the query in order whereas AsOrdered returns a sorted result but but does not necessarily run the query in order
+* ForAll:
+	** method can be used to iterate through all of the elements in a query
+	** teration takes place in parallel and will start before the query is complete
+	** parallel query may process data in a different order from the input data
+* AggregateException (Handle, Flatten, InnerExceptions):
+	** is thrown when all queries are completed if any query generates an exception
+	** Handle: invokes a handler on each Exception contained by this AggregateException (if ex is CustomException etc.)
+	** Flatten: Flattens an AggregateException instances into a single, new instance
+* Task (IsCompleted, IsCanceled, IsFaulted, Status)
+* Task.Start (TaskScheduler):
+	** starts the Task, scheduling it for execution to the current / specific TaskScheduler
+* Task.Wait (TimeSpan, CancellationToken, Int32 -> milliseconds):
+	** waits for the Task to complete execution
+	** in console app, the call to the Wait method is necessary to prevent the app from terminating before the task finishes execution
+	*** call to  Wait method ensures that the task completes and displays its output before the application ends
+	*** otherwise it is possible that the Main method will complete before the task finishes
+	** example usage to check if timeout interval elapsed
+* Task.Run + Task.Run<TResult> (Action, CancellationToken, Func<Task>, Func<Task<TResult>>):
+	** queues specified work to run on the ThreadPool and returns a task or Task<TResult> handle for that work
+	** method provides a set of overloads that make it easy to start a task by using default values (it is a lightweight alternative to the StartNew overloads)
+* Task<TResult>:
+	** represents an asynchronous operation that can return a value
+* TaskFactory, TaskFactory<TResult> (StartNew, ContinueWhenAll, ContinueWhenAny, CancellationToken, ContinuationOptions, CreationOptions, Scheduler):
+	** provides support for creating and scheduling Task objects
+	** Task.Run is preferred over Task.TaskFactory.StartNew, Task<TResult>.TaskFactory.StartNew
+* antecedent task: a continuation task (also known just as a continuation) is an asynchronous task that is invoked by another task, which is known as the antecedent, when the antecedent finishes
+* TaskCreationOptions (None, PreferFairness, LongRunning, AttachedToParent, DenyChildAttach, HideScheduler, RunContinuationsAsynchronously):
+	** PreferrFairness: a hint to a TaskScheduler to schedule a task in as fair a manner as possible, meaning that tasks scheduled sooner will be more likely to be run sooner, and tasks scheduled later will be more likely to be run later
+	** LongRunning: it provides a hint to the TaskScheduler that oversubscription may be warranted 
+		*** oversubscription lets you create more threads than the available number of hardware threads
+					it also provides a hint to the task scheduler that an additional thread might be required for the task so that it does not block the forward progress of other threads or work items on the local thread-pool queue
+	** AttachedToParent: specifies that a task is attached to a parent in the task hierarchy
+		*** by default, a child task (that is, an inner task created by an outer task) executes independently of its parent
+		*** you can use the AttachedToParent option so that the parent and child tasks are synchronized
+		*** note that if a parent task is configured with the DenyChildAttach option, the AttachedToParent option in the child task has no effect, and the child task will execute as a detached child task
+	** DenyChildAttach: specifies that any child task that attempts to execute as an attached child task (that is, it is created with the AttachedToParent option) will not be able to attach to the parent task and will execute instead as a detached child task
+	** HideScheduler: prevents the ambient scheduler from being seen as the current scheduler in the created task which means that operations like StartNew or ContinueWith that are performed in the created task will see Default as the current scheduler
+	** RunContinuationsAsynchronously: forces continuations added to the current task to be executed asynchronously
+* TaskContinuationOptions (None, PreferFairness, LongRunning, AttachedToParent, DenyChildAttach, HideScheduler, LazyCancellation, RunContinuationsAsynchronously, NotOnRanToCompletion, NotOnFaulted, NotOnCanceled, OnlyOnCanceled, OnlyOnFaulted, OnlyOnRanToCompletion, ExecuteSynchronously):
+	** LazyCancellation: in the case of continuation cancellation, prevents completion of the continuation until the antecedent has completed
+	** NotOnRanToCompletion: specifies that the continuation task should not be scheduled if its antecedent ran to completion
+		*** an antecedent runs to completion if its Status property upon completion is RanToCompletion
+		** this option is not valid for multi-task continuations
+	** NotOnFaulted: specifies that the continuation task should not be scheduled if its antecedent threw an unhandled exception
+		** an antecedent throws an unhandled exception if its Status property upon completion is Faulted
+		** his option is not valid for multi-task continuations
+	** NotOnCanceled: specifies that the continuation task should not be scheduled if its antecedent was canceled
+		*** an antecedent is canceled if its Status property upon completion is Canceled
+		*** this option is not valid for multi-task continuations
+	** OnlyOnCanceled: specifies that the continuation should be scheduled only if its antecedent was canceled
+		*** an antecedent is canceled if its Status property upon completion is Canceled
+		*** this option is not valid for multi-task continuations
+	** OnlyOnFaulted: specifies that the continuation task should be scheduled only if its antecedent threw an unhandled exception
+		*** an antecedent throws an unhandled exception if its Status property upon completion is Faulted
+		*** the OnlyOnFaulted option guarantees that the Exception property in the antecedent is not null
+		*** you can use that property to catch the exception and see which exception caused the task to fault
+		*** if you do not access the Exception property, the exception is unhandled
+		*** also, if you attempt to access the Result property of a task that has been canceled or has faulted, a new exception is thrown
+		*** this option is not valid for multi-task continuations
+	** OnlyOnRanToCompletion: specifies that the continuation should be scheduled only if its antecedent ran to completion
+		*** an antecedent runs to completion if its Status property upon completion is RanToCompletion
+		*** this option is not valid for multi-task continuations
+	** ExecuteSynchronously: specifies that the continuation task should be executed synchronously
+		*** with this option specified, the continuation runs on the same thread that causes the antecedent task to transition into its final state
+		*** ff the antecedent is already complete when the continuation is created, the continuation will run on the thread that creates the continuation
+		*** if the antecedent's CancellationTokenSource is disposed in a finally block, a continuation with this option will run in that finally block
+		*** only very short-running continuations should be executed synchronously
+		*** because the task executes synchronously, there is no need to call a method such as Wait() to ensure that the calling thread waits for the task to complete
+* CancellationTokenSource (Cancel, CancelAfter, IsCancellationRequested, Token, CreateLinkedTokenSource, Dispose)
+* CancellationToken (CanBeCanceled, IsCancellationRequested, None, WaitHandle, Register, UnsafeRegister, ThrowIfCancellationRequested , Equals)
+* WaitAll:
+	** method can be used to pause a program until a number of tasks have completed
+* WaitAny:
+	** method can be used to pause a program until any of the tasks have completed
+* WhenAll:
+	** method to create an "awaitable" task that returns when a number of parallel tasks have completed
+* ContinueWith:
+	** continuous task can be nominated to start when an existing task (the antecedent task) finishes
+* Task vs Thread:
+	** Thread can be aborted at any time, whereas a Task must monitor a cancellation token so that it will end when told to
+	** Task object represents an item of work to be performed, Thread object represents a process running within the Operating System
+	** Threads are created as foreground processes (although they can be set to run in the background), operating system will run a foreground process to completion, which means that an application will not terminate while it contains an active foreground thread
+	** Tasks are created as background processes and can be terminated before they complete if all the foreground threads in an application complete
+	** Threads have a priority property that can be changed during the lifetime of a thread, it is not possible to set the priority of a Task, this gives a thread a higher priority request so a greater portion of processor time is allocated
+	** Thread cannot deliver a result to another thread, Threads must communicate by using shared variables, which can introduce synchronization issues
+	** it is not possible to create a continuation on a thread, threads provide a method called a join, which allows one thread to pause until another completes
+	** Tasks provide exception aggregation, but threads don't
+* ThreadStart:
+	** represents method that executes on a thread
+* ParameterizedThreadStart:
+	** represents method that executes on a thread
+	** allows an object to be to be passed to the thread
+* Thread.Start:
+	** causes the operating system to change the state of the current instance to Running
+	** once a thread is in the ThreadState.Running state, the operating system can schedule it for execution
+	** thread begins executing at the first line of the method represented by the ThreadStart or ParameterizedThreadStart delegate supplied to the thread constructor
+* Thread.Abort:
+	** raises a ThreadAbortException in the thread on which it is invoked, to begin the process of terminating the thread, calling this method usually terminates the thread
+	** to be used with caution when you call it to abort a thread other than the current thread, you do not know what code has executed or failed to execute when the ThreadAbortException is thrown, nor can you be certain of the state of your application or any application and user state that it is responsible for preserving
+* Thread.Join:
+	** Join is a synchronization method that blocks the calling thread (that is, the thread that calls the method) until the thread whose Join method is called has completed
+	** use this method to ensure that a thread has been terminated,the caller will block indefinitely if the thread does not terminate
+* Thread.SpinWait:
+	** causes a thread to wait the number of times defined by the iterations parameter
+* Thread.Yield:
+	** causes the calling thread to yield execution to another thread that is ready to run on the current processor, the operating system selects the thread to yield to
+* STAThread:
+	** indicates that the COM threading model for an application is single-threaded apartment (STA)
+* ThreadStatic vs ThreadLocal:
+	** use the ThreadStatic attribute to specify that the given variable should be created for each thread
+	** if your program needs to initialize the local data for each thread you can use the ThreadLocal<T> class
+    ** when an instance of ThreadLocal is created it gives a delegate to the code that will initialize attributes of threads.
+* context (Name, CurrentCulture, Priority, ExecutionContext, IsThreadPoolThread, IsBackground)
+* ThreadPool (QueueUserWorkItem + WaitCallBack with or without state):
+	** thread pool stores a collection of reusable thread objects
+	** QueueUserWorkItem allocates a thread to run the supplied item of work
+* Dispatcher.RunAsync:
+	** schedules the provided callback on the UI thread from a worker thread, and returns the results asynchronously
+* async + await:
+	** Asynchronous Programming Model (APM) pattern
+	** Event-based Asynchronous Pattern (EAP)
+	** Task-based Asynchronous Pattern (TAP)
+* BlockingCollection, BlockingCollection<T> (Add, TryAdd + Take, TryTake + CompleteAdding, IsCompleted):
+	** provides blocking and bounding capabilities for thread-safe collections that implement IProducerConsumerCollection<T>
+* ConcurrentQueue (Enqueue, TryPeek, TryDequeue, Count + IsEmpty):
+	** represents a thread-safe first in-first out (FIFO) collection
+* ConcurrentStack (Push + PushRange, TryPeek, TryPop + TryPopRange, Count + IsEmpty):
+	** represents a thread-safe last in-first out (LIFO) collection
+* ConcurrentBag (Add, TryPeek, TryTake, Count + IsEmpty):
+	** represents a thread-safe, unordered collection of objects
+* ConcurrentDictionary (GetOrAdd, AddOrUpdate, TryAdd + TryUpdate, TryGetValue, TryRemove):
+	** represents a thread-safe collection of key/value pairs that can be accessed by multiple threads concurrently
+* lock:
+	** lock statement acquires the mutual-exclusion lock for a given object, executes a statement block, and then releases the lock
+	** while a lock is held, the thread that holds the lock can again acquire and release the lock
+	** ny other thread is blocked from acquiring the lock and waits until the lock is released
+* Monitor (Enter, TryEnter, Exit, IsEntered, Pulse, PulseAll, Wait):
+	** provides a mechanism that synchronizes access to objects
+	** Enter: acquires an exclusive lock on a specified object
+	** Exit: releases an exclusive lock on the specified object
+	** IsEntered: determines whether the current thread holds the lock on the specified object
+	** Pulse: notifies a thread in the waiting queue of a change in the locked object's state
+	** PulseAll: notifies all waiting threads of a change in the object's state
+	** Wait: releases the lock on an object and blocks the current thread until it reacquires the lock
+* Interlocked (Add, Decrement, Increment):
+	** provides atomic operations for variables that are shared by multiple threads
+* volatile:
+	** volatile keyword indicates that a field might be modified by multiple threads that are executing at the same time
+	** the compiler, the runtime system, and even hardware may rearrange reads and writes to memory locations for performance reasons
+	** fields that are declared volatile are not subject to these optimizations
+	** adding the volatile modifier ensures that all threads will observe volatile writes performed by any other thread in the order in which they were performed
+* while:
+	** while statement executes a statement or a block of statements while a specified Boolean expression evaluates to true
+	** because that expression is evaluated before each execution of the loop, a while loop executes zero or more times
+* do while:
+	** do statement executes a statement or a block of statements while a specified Boolean expression evaluates to true
+	** because that expression is evaluated after each execution of the loop, a do-while loop executes one or more times
+* for (initializer -> void; condition -> bool; iterator -> void)
+* foreach (in)
+* IEnumerable, IEnumerable<T> (GetEnumerator -> IEnumerator, IEnumerator<T>):
+	** exposes an enumerator, which supports a simple iteration over a non-generic collection
+* break vs continue:
+	** break statement terminates the closest enclosing loop or switch statement in which it appears, control is passed to the statement that follows the terminated statement, if any
+	** continue statement passes control to the next iteration of the enclosing while, do, for, or foreach statement in which it appears
+* if, else, else if
+* cand (&&)
+* cor (||)
+* xor (^)
+* compound assignment (x op= y => x = x op y)
+* switch (case, default, break, return, throw, goto case, goto label, when)
+* operators (unary / monadic, binary, ternary)
+* null conditional operator (.?)
+* coalesce operator (??)
+* publish and subscribe vs unsubscribe (+= vs -=):
+	** events enable a class or object to notify other classes or objects when something of interest occurs
+	** the class that sends (or raises) the event is called the publisher and the classes that receive (or handle) the event are called subscribers
+* event:
+	** event keyword is used to declare an event in a publisher class
+* EventHandler:
+	** represents the method that will handle an event when the event provides data
+	** Event handlers are nothing more than methods that are invoked through delegates
+* custom event args:
+	** CustomEventArgs: EventArgs
+	** public event EventHandler<CustomEventArgs> CustomEvent;
+	** public void CustomEventHandler(object sender, CustomEventArgs args)
+	** instance.CustomEvent += new EventHandler<CustomEventArgs>(CustomEventHandler);
+* delegate (lambda expressions):
+	** a delegate is a type that represents references to methods with a particular parameter list and return type
+	** when you instantiate a delegate, you can associate its instance with any method with a compatible signature and return type
+	** you can invoke (or call) the method through the delegate instance
+* closures:
+	** in computer science, a closure is a first-class function with free variables that are bound in the lexical environment
+	** a free variable is referenced in a function which is not a parameter of the function or a local variable of the function
+	** C# supports first class functions using anonymous methods
+* Func vs Action vs Predicate delegates:
+	** Func<TResult>: encapsulates a method that has no parameters and returns a value of the type specified by the TResult parameter
+	** Func<T,TResult>: encapsulates a method that has one parameter and returns a value of the type specified by the TResult parameter
+	** Predicate<T>(T obj): represents the method that defines a set of criteria and determines whether the specified object meets those criteria
+* exception (Message, StackTrace, HelpLink, TargetSite, Source):
+	** Message: gets a message that describes the current exception
+	** StackTrace: gets a string representation of the immediate frames on the call stack
+	** HelpLink: gets or sets a link to the help file associated with this exception
+	** TargetSite: gets the method that throws the current exception
+	** Source: gets or sets the name of the application or the object that causes the error
+* exception types (ApplicationException, InvalidOperationException, ArgumentException, ArgumentNullException, ArgumentOutOfRangeException, NullReferenceException, IndexOutOfRangeException, AccessViolationException, StackOverflowException, OutOfMemoryException, ComException, SEHException, ExecutionEngineException)
+* try (catch) finally
+* throw (throw vs throw ex vs throw new):
+	** throw: rethrows the original exception and preserves its original stack trace
+	** throw ex: throws the original exception but resets the stack trace, destroying all stack trace information until your catch block
+	** throw new CustomException: by passing the original InnerException, you preserve all of the original exception's properties, including the stack trace
+* custom exception:
+	** derive from Exception, (), (string message) : base(message), (string message, Exception inner) : base(message, inner), (SerializationInfo info, StreamingContext context) : base(info, context)
+* conditional exception (catch + when):
+	** catch (ExceptionType [e]) when (expr)
+	** where expr is an expression that evaluates to a Boolean value, if it returns true, the exception handler executes; if false, it does not
 
 LISTING 2:
-Value Type vs Reference Type
-Class vs Struct
-Immutable (DateTime, String)
-enum
-Generic Type (T)
-Constructor (default, overload, base, this, static)
-Member (Field, Property, Method)
-Property (indexer: this + identifier, backing fields for custom validation, get + set accessors)
-Method (abstract vs virtual + override, base)
-Extension Method
-Parameter (named, optional)
-Boxing vs Unboxing (value is boxed into object vs value is unboxed from object)
-Type conversion (implicit vs explicit)
-dynamic
-access modifiers (members: private vs public vs protected, class: private vs public vs protected)
-interface (explicit implementation)
-inheritance
-IComparable + IComparabe<T> (CompareTo(object|T) => int)
-IEnumerable + IEnumerable<T> (GetEnumerator, yield, foreach)
-IEnumerator + IEnumerator<T> (Current, MoveNext, Reset)
-IDisposable (Dispose, using)
-Serializable (NonSerialized)
-Conditional (#define)
-Attribute (positional vs named, AttributeUsage: AttributeTargets, Attribute.IsDefined, Attribute.GetCustomAttribute)
-type (GetType -> Type, GetMembers -> MemberInfo, GetMethod -> MethodInfo + Invoke, IsAssignableFrom, PropertyInfo)
-Assembly (GetAssembly(Type), GetEntryAssembly, GetExecutingAssembly, GetCallingAssembly, LoadFrom)
+* Value Type vs Reference Type:
+	** a variable containing a value type contains the entire value type value, for a struct, it means that the variable contains the entire struct, with all its fields
+	** a variable containing a reference type contains a pointer, or a reference to somewhere else in memory where the actual value resides
+	** value types always contains a value, reference types can contain a null-reference, meaning that they don't refer to anything at all at the moment
+	** copying the contents of a value type variable into another variable, copies the entire contents into the new variable, making the two distinct
+	** copying the contents of a reference type variable into another variable, copies the reference, which means you now have two references to the same somewhere else storage of the actual data
+	** value type lives on the stack, reference type lives on the stack as a pointer to somewhere in heap memory where the actual memory lives
+	** class/struct-field: value type lives completely inside the type, reference type lives inside the type as a pointer to somewhere in heap memory where the actual memory lives
+* Class vs Struct:
+	** structs are value types, classes are reference types
+	** classes support inheritance and polymorphism, structs cannot support inheritance and polymorphism (structs are sealed)
+	** structs cannot have an explicit parameterless constructor whereas a class can
+	** structs cannot have destructors, whereas a class can
+	** structs are passed by value
+	** both are compound data types typically used to contain a few variables that have some logical relationship
+	** both can contain methods and events
+	** both can support interfaces
+	** avoid defining a struct unless the type has all of the following characteristics:
+		*** it logically represents a single value, similar to primitive types (int, double, etc.)
+		*** it has an instance size under 16 bytes
+		*** it is immutable.
+		*** it will not have to be boxed frequently
+* Immutable types (DateTime, String):
+	** type of object whose data cannot be changed after its creation
+	** an immutable type sets the property or state of the object as read only because it cannot be modified after it is assigned during initialization
+	** immutable types are designed for efficient memory management and better speed, which makes them suitable for objects with synchronization requirements
+	** immutability provides better code readability by making changes in program state visibility and isolating the operations that change state from those that do not
+	** immutable types provides higher security than mutable types
+	** immutable type is used where data is to persist after being assigned once, but without any requirement for the data to be changed in the future
+	** because immutable objects do not change their state, they are more useful in multithread and multiprocess scenarios, as multiple threads may read or write an object, which may cause racing conditions and synchronization issues
+* enum:
+	** enum keyword is used to declare an enumeration, a distinct type that consists of a set of named constants called the enumerator list
+	** by default, the first enumerator has the value 0, and the value of each successive enumerator is increased by 1
+	** enumerators can use initializers to override the default values
+	** approved types for an enum are byte, sbyte, short, ushort, int, uint, long, or ulong
+	** when you apply System.FlagsAttribute to an enumeration that contains elements that can be combined with a bitwise OR operation
+* Generic Type (T):
+	** generics make it possible to design classes and methods that defer the specification of one or more types until the class or method is declared and instantiated by client code
+	** where T : struct	
+		*** the type argument must be a value type 
+		*** any value type except Nullable<T> can be specified
+	** where T : class
+		*** the type argument must be a reference type
+		*** this constraint applies also to any class, interface, delegate, or array type
+	** where T : unmanaged
+		*** the type argument must not be a reference type and must not contain any reference type members at any level of nesting
+	** where T : new()
+		*** the type argument must have a public parameterless constructor 
+		*** when used together with other constraints, the new() constraint must be specified last
+	** where T : <base class name>	
+		*** the type argument must be or derive from the specified base class
+	** where T : <interface name>
+		*** the type argument must be or implement the specified interface
+		*** multiple interface constraints can be specified
+		*** the constraining interface can also be generic
+	** where T : U
+		*** the type argument supplied for T must be or derive from the argument supplied for U
+* Constructor (default, overload, base, this, static)
+* Member (Field, Constant, Property, Method, Event, Operator, Indexer, Constructor, Finalizer, Nested Type)
+* Property (indexer: this + identifier, backing fields for custom validation, get + set accessors):
+	** indexers allow instances of a class or struct to be indexed just like arrays
+	** the indexed value can be set or retrieved without explicitly specifying a type or instance member
+	** indexers resemble properties except that their accessors take parameters
+* Method (abstract vs virtual + override, base, sealed, static):
+	** the abstract modifier indicates that the thing being modified has a missing or incomplete implementation
+	** the abstract modifier can be used with classes, methods, properties, indexers, and events
+	** use the abstract modifier in a class declaration to indicate that a class is intended only to be a base class of other classes, not instantiated on its own
+	** members marked as abstract must be implemented by classes that derive from the abstract class
+	** the virtual keyword is used to modify a method, property, indexer, or event declaration and allow for it to be overridden in a derived class
+	** the implementation of a virtual member can be changed by an overriding member in a derived class
+	** when applied to a class, the sealed modifier prevents other classes from inheriting from it
+	** use the static modifier to declare a static member, which belongs to the type itself rather than to a specific object
+	** the static modifier can be used with classes, fields, methods, properties, operators, events, and constructors, but it cannot be used with indexers, finalizers, or types other than classes
+* ReadOnly:
+	** in a field declaration, readonly indicates that assignment to the field can only occur as part of the declaration or in a constructor in the same class
+	** in a readonly struct definition, readonly indicates that the struct is immutable
+	** in a ref readonly method return, the readonly modifier indicates that method returns a reference and writes are not allowed to that reference:
+		*** private static readonly Point origin = new Point(0, 0);
+        *** public static ref readonly Point Origin => ref origin;
+* Access Modifiers:
+	** public: the type or member can be accessed by any other code in the same assembly or another assembly that references it
+	** private: the type or member can be accessed only by code in the same class or struct
+	** protected: the type or member can be accessed only by code in the same class, or in a class that is derived from that class
+	** internal: the type or member can be accessed by any code in the same assembly, but not from another assembly
+	** protected internal: the type or member can be accessed by any code in the assembly in which it is declared, or from within a derived class in another assembly
+	** private protected: the type or member can be accessed only within its declaring assembly, by code in the same class or in a type that is derived from that class
+* Extension Method:
+	** extension methods enable you to "add" methods to existing types without creating a new derived type, recompiling, or otherwise modifying the original type
+	** extension methods are a special kind of static method, but they are called as if they were instance methods on the extended type 
+* Parameter (named, optional):
+	** named arguments, when used with positional arguments, are valid as long as they're not followed by any positional arguments, or starting with C# 7.2, they're used in the correct position
+* Boxing vs Unboxing (value is boxed into object vs value is unboxed from object):
+	** object o = 99; // 99 is boxed into object
+	** int oVal = (int)o; // boxed object is unboxed back into an int
+* Type conversion (implicit vs explicit):
+	* the implicit keyword is used to declare an implicit user-defined type conversion operator
+	* use it to enable implicit conversions between a user-defined type and another type, if the conversion is guaranteed not to cause a loss of data
+	* the explicit keyword declares a user-defined type conversion operator that must be invoked with a cast
+	* Example class Miles had:
+		** public static implicit operator Kilometers(Miles t)
+		** public static explicit operator int(Miles t)
+* dynamic:
+	** dynamic is used to tell the compiler that a variable's type can change or that it is not known until runtime
+* interface:
+	** an interface contains only the signatures of methods, properties, events or indexers
+	** a class or struct that implements the interface must implement the members of the interface that are specified in the interface definition
+	** if a class implements two interfaces that contain a member with the same signature, then implementing that member on the class will cause both interfaces to use that member as their implementation
+	** this can lead to an incorrect implementation of one or both of the interfaces, if the two interface members do not perform the same function
+	** it is possible to implement an interface member explicitly—creating a class member that is only called through the interface, and is specific to that interface
+	** explicit implementation is also used to resolve cases where two interfaces each declare different members of the same name such as a property and a method
+* inheritance:
+	** inheritance is one of the fundamental attributes of object-oriented programming
+	** it allows you to define a child class that reuses (inherits), extends, or modifies the behavior of a parent class
+	** the class whose members are inherited is called the base class
+	** the class that inherits the members of the base class is called the derived class
+	** C# and .NET support single inheritance only, that is, a class can only inherit from a single class
+	** inheritance is transitive, which allows you to define an inheritance hierarchy for a set of types
+	** not all members of a base class are inherited by derived classes, the following members are not inherited:
+		*** static constructors, which initialize the static data of a class
+		*** instance constructors, which you call to create a new instance of the class
+		*** finalizers, which are called by the runtime's garbage collector to destroy instances of a class
+	** while all other members of a base class are inherited by derived classes, whether they are visible or not depends on their accessibility:
+		*** private members are visible only in derived classes that are nested in their base class, otherwise, they are not visible in derived classes
+		*** protected members are visible only in derived classes
+		*** internal members are visible only in derived classes that are located in the same assembly as the base class, they are not visible in derived classes located in a different assembly from the base class
+		*** public members are visible in derived classes and are part of the derived class' public interface, public inherited members can be called just as if they are defined in the derived class
+	** in some cases, a derived class must override the base class implementation, base class members marked with the abstract keyword require that derived classes override them
+	** inheritance applies only to classes and interfaces, other type categories (structs, delegates, and enums) do not support inheritance
+	** implicit inheritance from the Object class makes these methods available to the SimpleClass class:
+		*** the public ToString method, which converts a SimpleClass object to its string representation, returns the fully qualified type name
+		*** three methods that test for equality of two objects: 
+			**** the public instance Equals(Object) method
+			**** the public static Equals(Object, Object) method
+			**** the public static ReferenceEquals(Object, Object) method
+			**** by default, these methods test for reference equality; that is, to be equal, two object variables must refer to the same object
+		*** the public GetHashCode method, which computes a value that allows an instance of the type to be used in hashed collections
+		*** the public GetType method, which returns a Type object that represents the SimpleClass type
+		*** the protected Finalize method, which is designed to release unmanaged resources before an object's memory is reclaimed by the garbage collector
+		*** the protected MemberwiseClone method, which creates a shallow clone of the current object
+* IComparable + IComparabe<T> (CompareTo(object|T) => int):
+	** defines a generalized type-specific comparison method that a value type or class implements to order or sort its instances
+* IEnumerable + IEnumerable<T> (GetEnumerator, yield, foreach):
+	** exposes an enumerator, which supports a simple iteration over a non-generic collection
+	** you use a yield return statement to return each element one at a time, you can use a yield break statement to end the iteration
+	** when a yield return statement is reached in the iterator method, expression is returned, and the current location in code is retaine** execution is restarted from that location the next time that the iterator function is called
+* IEnumerator + IEnumerator<T> (Current, MoveNext, Reset):
+	** supports a simple iteration over a non-generic collection.
+* IDisposable (Dispose, using):
+	** provides a mechanism for releasing unmanaged resources
+* Serializable (NonSerialized):
+	** indicates that a class can be serialized
+	** NonSerialized: indicates that a field of a serializable class should not be serialized
+* Conditional (#define: #if, #else, #elif, #endif + #undef)
+* Attribute (positional vs named, AttributeUsage: AttributeTargets, Attribute.IsDefined, Attribute.GetCustomAttribute):
+	** many attributes have parameters, which can be positional, unnamed, or named
+	** any positional parameters must be specified in a certain order and cannot be omitted
+	** named parameters are optional and can be specified in any order
+	** positional parameters are specified first
+	** AttributeUsage: determines how a custom attribute class can be used
+	** AttributeTargets: specifies the application elements on which it is valid to apply an attribute
+* type (GetType -> Type, GetMembers -> MemberInfo, GetMethod -> MethodInfo + Invoke, IsAssignableFrom, PropertyInfo)
+* Assembly (GetAssembly(Type), GetEntryAssembly, GetExecutingAssembly, GetCallingAssembly, LoadFrom):
+	** GetAssembly(Type): returns the currently loaded assembly in which the specified type is defined
+	** GetEntryAssembly: returns the process executable in the default application domain
+	** GetExecutingAssembly: returns the assembly that contains the code that is currently executing
+	** GetCallingAssembly: returns the assembly of the method that invoked the currently executing method
+	** LoadFrom: loads an assembly
 CodeDomProvider + CodeCompileUnit (CodeNamespace, CodeNamespaceImport, CodeTypeDeclaration, CodeMemberField)
-Expression (ParameterExpression, BinaryExpression, ExpressionVisitor)
-Assembly (FullName, getName, Version, GlobalAssemblyCache, Modules -> Module + GetTypes -> Type + GetMembers)
+Expression (ParameterExpression, BinaryExpression, ExpressionVisitor):
+* Assembly (FullName, getName, Version, GlobalAssemblyCache, Modules -> Module + GetTypes -> Type + GetMembers)
 dynamic vs DynamicObject vs ExpandoObject
-BindingFlags
-garbage collection (GC: SuppressFinalize)
-Finalizer (~)
-IDisposable (Dispose)
-string (Intern -> reference, Contains, TrimStart, TrimEnd, StartsWith, EndsWith, IndexOf, SubString, Replace, Split, Equals, )
-StringBuilder
-StringReader + StringWriter
-IFormattable (ToString: format, formatProvider)
-IFormatProvider (GetFormat: formatType)
-interpolation (${,allignment}: + alligned to right, - alligned to left)
+* BindingFlags (Default, IgnoreCase, DeclaredOnly, Instance, Static, Public, NonPublic, FlattenHierarchy, InvokeMethod, CreateInstance, GetField, SetField, GetProperty, SetProperty, PutDispProperty, PutRefDispProperty, ExactBinding, SuppressChangeType, OptionalParamBinding, IgnoreReturn):
+	** specifies flags that control binding and the way in which the search for members and types is conducted by reflection
+* garbage collection:
+	** AddMemoryPressure: informs the runtime of a large allocation of unmanaged memory that should be taken into account when scheduling garbage collection
+	** Collect: forces an immediate garbage collection of all generations
+	** KeepAlive: references the specified object, which makes it ineligible for garbage collection from the start of the current routine to the point where this method is called
+	** SuppressFinalize: requests that the common language runtime not call the finalizer for the specified object
+* Finalizer (~):
+	** finalizers (which are also called destructors) are used to perform any necessary final clean-up when a class instance is being collected by the garbage collector
+	** finalizers cannot be defined in structs, they are only used with classes
+	** class can only have one finalizer
+	** finalizers cannot be inherited or overloaded
+	** finalizers cannot be called, they are invoked automatically
+	** finalizer does not take modifiers or have parameters
+* string (Intern -> reference, Contains, TrimStart, TrimEnd, StartsWith, EndsWith, IndexOf, SubString, Replace, Split, Equals, Join):
+	** Intern: retrieves the system's reference to the specified string
+* StringBuilder (Append, AppendLine, AppendFormat, Clear, Remove, Replace, Insert, Lenght, Capacity, MaxCapacity):
+	** represents a mutable string of characters
+	** this class cannot be inherited
+	** Capacity: the maximum number of characters that can be contained in the memory allocated by the current instance (its value can range from Length to MaxCapacity)
+	** MaxCapacity: maximum number of characters this instance can hold
+* StringReader (Close, Dispose, Peek, Read, ReadAsync, ReadLine, ReadToEnd + async):
+	** implements a TextReader that reads from a string
+	** Peek: returns the next available character but does not consume it
+	** Read: reads the next character or next set of characters from the input string
+	** ReadLine: reads a line of characters from the current string and returns the data as a string
+	** ReadToEnd: reads all characters from the current position to the end of the string and returns them as a single string
+* StringWriter (Close, Dispose, Write, WriteLine + async, FlushAsync):
+	** implements a TextWriter for writing information to a string, the information is stored in an underlying StringBuilder
+	** Write: writes data to the string
+	** WriteLine: writes data followed by a line terminator to the string
+	** FlushAsync: asynchronously clears all buffers for the current writer and causes any buffered data to be written to the underlying device
+* IFormattable (ToString: format, formatProvider):
+	** provides functionality to format the value of an object into a string representation
+	** IFormattable: public string ToString (string format, IFormatProvider formatProvider)
+* IFormatProvider:
+	** provides a mechanism for retrieving an object to control formatting
+	** IFormatProvider: public object GetFormat(Type formatType)
+	** public string Format(string fmt, object arg, IFormatProvider formatProvider) 
+* interpolation (${,allignment}: + alligned to right, - alligned to left):
+	** the $ special character identifies a string literal as an interpolated string
+	** an interpolated string is a string literal that might contain interpolation expressions
+	** when an interpolated string is resolved to a result string, items with interpolation expressions are replaced by the string representations of the expression results
+* verbatim (@):
+	** the @ special character serves as a verbatim identifier
+	** it can be used in the following ways:
+		*** to enable C# keywords to be used as identifiers
+		*** to indicate that a string literal is to be interpreted verbatim (escape certain characters)
+		*** to enable the compiler to distinguish between attributes in cases of a naming conflict
 
 LISTING 3:
-JsonConvert (SerializeObject, DeserializeObject<T>, JsonReaderException)
-XmlSerializer (Serialize, Deserialize)
-Regex (IsMatch, Match, Replace)
-Regex (^ start search, $ stop search, top level domain, escape \, ?)
+* JsonConvert (SerializeObject, DeserializeObject<T>, JsonReaderException):
+	** provides methods for converting between .NET types and JSON types
+* XmlSerializer (Serialize, Deserialize):
+	** serializes and deserializes objects into and from XML documents
+	** the XmlSerializer enables you to control how objects are encoded into XML
+* Regex (IsMatch, Match, Replace, RegexOptions.Compiled)
+* Regex (^ start search, $ stop search, top level domain, escape \, ?)
 	example => https://regex101.com: ^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9]+\.([a-z]{1,6}\.)?[a-z]{2,6}$
-Parse vs TryParse (out)
-Convert
+* Parse vs TryParse (out):
+	** Parse: converts the string representation of a data type to its date type equivalent
+	** TryParse: converts the string representation of a data type to its data type equivalent, a return value indicates whether the operation succeeded
+* Convert:
+	** converts a base data type to another base data type
 Advanced Encryption Standard (Aes: Create, Key, IV, CreateEncryptor + CreateDecryptor -> ICryptoTransform, CryptoStream)
 Rivest, Shamir, Adleman (Encrypt + Decrypt -> Bytes, fOAEP: pad with extra bytes, ToXmlString + FromXmlString)
 RSACryptoServiceProvider + CspParameters (CspProviderFlags)
 RSACryptoServiceProvider + X509Store (X509Certificate2)
-checksum
-GetHashCode
+* checksum:
+	** a checksum is the outcome of running an algorithm, called a cryptographic hash function, on a piece of data, usually a single file
+	** omparing the checksum that you generate from your version of the file, with the one provided by the source of the file, helps ensure that your copy of the file is genuine and error free
+	** a checksum is also sometimes called a hash sum and less often a hash value, hash code, or simply a hash
+* GetHashCode:
+	** a hash code is a numeric value that is used to identify an object during equality testing
+	** it can also serve as an index for an object in a collection
+	** the default implementation of the GetHashCode method does not guarantee unique return values for different objects
+	** the .NET Framework does not guarantee the default implementation of the GetHashCode method, and the value it returns will be the same between different versions of the .NET Framework
+	** the default implementation of this method must not be used as a unique object identifier for hashing purposes
+	** the GetHashCode method can be overridden by a derived type, value types must override this method to provide a hash function that is appropriate for that type and to provide a useful distribution in a hash table
+	** for uniqueness, the hash code must be based on the value of an instance field or property instead of a static field or property
+	** objects used as a key in a Hashtable object must also override the GetHashCode method because those objects must generate their own hash code
+	** if an object used as a key does not provide a useful implementation of GetHashCode, you can specify a hash code provider when the Hashtable object is constructed.
+* HashTable (Add, Clear, Contains, ContainsKey, ContainsValue, KeyEquals, Remove):
+	** represents a collection of key/value pairs that are organized based on the hash code of the key
 HashAlgorithm (SHA1Managed, SHA256)
-#define + #undef
-Conditional
+* #define + #undef
+* Conditional:
+	** indicates to compilers that a method call or attribute should be ignored unless a specified conditional compilation symbol is defined
 #line nr + #line default
 nop (no operation, Debug vs Release)
 Debug (WriteLine, Indent, Unindent, WriteLineIf, Assert)
@@ -144,82 +522,192 @@ TraceListener
 TraceSource + TraceEventType
 TraceSwitch (Level: 1 = error, 2 = error and warning, 3 = error, warning and information, 4 = error, warning, information and verbose)
 SourceSwitch (Level, Switch, TraceEvent, Flush, config: switches -> value)
-Stopwatch (STart, Stop, Pause, Restart)
+Stopwatch (Start, Stop, Pause, Restart)
 PerformanceCounter (NextValue, NextSample, Increment, Decrement)
 CounterCreationDataCollection (PerformanceCounterCategory, PerformanceCounterType)
 EventLog (Source, SourceExists, CreateEventSource, WriteEntry, EntryWritten, EnableRaisingEvents)
 
 LISTING 4:
-FileStream (FileMode, FileAccess, Read, Write, ReadAsync, WriteAsync)
-StreamReader (ReadToEnd) + StreamWriter
-GZipStream (CompressionMode)
-File (WriteAllText, AppendAllText, ReadAllText, Exists, Delete, Copy, OpenText, ReadToEnd)
-DriveInfo (GetDrives -> DriveInfo[], Name, DriveType, DriveFormat, TotalFreeSpace)
-FileInfo (Name, FullName, LastAccessTime, Length, Attributes, IsReadOnly)
-Directory (Exists, CreateDirectory, Delete)
-DirectoryInfo (Create, Exists, Delete)
-Path (GetDirectoryName, GetFileName, GetExtension, ChangeExtension, Combine, GetDirectories, GetFiles)
-WebRequest + WebResponse (Create, GetResponse)
-WebClient (DownloadStringTaskAsync, DownloadStringAsync, DownloadDataAsync)
-HttpClient (GetStringAsync)
-SqlConnection (Open, Close)
-SqlCommand (ExecuteReader, ExecuteReaderAsync, ExecuteNonQuery, ExecuteScalar, Parameters)
-SqlDataReader (Read, ReadAsync)
-XmlTextReader (Read)
-XmlDocument (LoadXml, XmlElement, Element, Attribute, FirstChild)
-ServiceContract + OperationContract
-DataContract + DataMember
-LINQ (from in where select)
-LINQ (projection vs anonymous)
-LINQ (join in on equals)
-LINQ (group by into)
-LINQ (orderby, thenby)
-LINQ (Skip + Take)
-LINQ (Sum, Min, Max, Average)
-LINQ (method based: .Where, .Select)
-LINQ (.ToArray, .ToList)
-var
-XDocument (Parse, XElement, Descendants, Element, Attribute, FirstNode, Add, Remove)
-BinaryFormatter (Serialize, Deserialize using Stream)
-ISerializable (GetObjectData: SerializationInfo, StreamingContext)
-SerializationInfo (GetString, AddValue)
-OnSerializing + OnSerialized, OnDeserializing + OnDeserialized attributes
-OptionalField
-XmlSerializer (Serialize, Deserialize using Stream)
-DataContractSerializer (ReadObject, WriteObject using Stream)
-array (GetLength, GetUpperBound, Rank)
-ArrayList
-LinkedList
-List (Add, Insert, InsertRange, Remove, RemoveAt, RemoveRange, Clear)
-Dictionary (key, value, Add, Remove, ContainsKey, ContainsValue, Keys, Values)
-HashSet (Add, IsSubsetOf, Remove, RemoveWhere)
-Queue (Enqueue, Dequeue)
-Stack (Push, Pop)
-ICollection (Count, SyncRoot: object used used to synchronise access, IsSynchronized: whether it is thread safe, CopyTo, GetEnumerator)
+* FileStream (FileMode, FileAccess, Close, Dispose, Finalize, Flush, Seek, Read, Write + async):
+	** provides a Stream for a file, supporting both synchronous and asynchronous read and write operations
+* StreamReader (Close, Dispose, Peek, Read, ReadLine, ReadToEnd + async):
+	** implements a TextReader that reads characters from a byte stream in a particular encoding
+* StreamWriter (Close, Dispose, Finalize, Flush, Write, WriteLine + async):
+	** implements a TextWriter for writing characters to a stream in a particular encoding
+* GZipStream (Read, Write, Flush + async):
+	** provides methods and properties used to compress and decompress streams by using the GZip data format specification
+* File (WriteAllText, AppendAllText, ReadAllText, Exists, Delete, Copy, OpenText, ReadLines, ReadAllText):
+	** provides static methods for the creation, copying, deletion, moving, and opening of a single file, and aids in the creation of FileStream objects
+* DriveInfo (GetDrives -> DriveInfo[], Name, DriveType, DriveFormat, TotalFreeSpace):
+	** provides access to information on a drive
+* FileInfo (Name, FullName, LastAccessTime, Length, Attributes, IsReadOnly):
+	** provides properties and instance methods for the creation, copying, deletion, moving, and opening of files, and aids in the creation of FileStream objects
+	** this class cannot be inherited
+* Directory (Exists, CreateDirectory, Delete, GetFiles, GetDirectories):
+	** exposes static methods for creating, moving, and enumerating through directories and subdirectories
+	** this class cannot be inherited
+* DirectoryInfo (Create, Exists, Delete, getFiles, GetDirectories):
+	** exposes instance methods for creating, moving, and enumerating through directories and subdirectories
+	** this class cannot be inherited
+* Path (GetDirectoryName, GetFileName, GetExtension, ChangeExtension, Combine, GetDirectories, GetFiles):
+	** performs operations on String instances that contain file or directory path information
+	** these operations are performed in a cross-platform manner
+* WebRequest + WebResponse (Create, GetResponse):
+	** WebRequest:
+		*** makes a request to a Uniform Resource Identifier (URI)
+		*** this is an abstract class
+	** WebResponse:
+		*** provides a response from a Uniform Resource Identifier (URI)
+		*** this is an abstract class
+* WebClient (DownloadStringTaskAsync, DownloadStringAsync, DownloadDataAsync):
+	** provides common methods for sending data to and receiving data from a resource identified by a URI
+* HttpClient (GetStringAsync):
+	** sends HTTP requests and receives HTTP responses from a resource identified by a URI
+* SqlConnection (Open, Close):
+	** represents a connection to a SQL Server database
+	** this class cannot be inherited
+* SqlCommand (ExecuteReader, ExecuteReaderAsync, ExecuteNonQuery, ExecuteScalar, Parameters):
+	** represents a Transact-SQL statement or stored procedure to execute against a SQL Server database
+	** this class cannot be inherited
+* SqlDataReader (Read, ReadAsync):
+	** provides a way of reading a forward-only stream of rows from a SQL Server database
+	** this class cannot be inherited
+* XmlTextReader (Read):
+	** represents a reader that provides fast, non-cached, forward-only access to XML data
+* XmlDocument (LoadXml, XmlElement, Element, Attribute, FirstChild):
+	** represents an XML document
+	** you can use this class to load, validate, edit, add, and position XML in a document
+* ServiceContract + OperationContract:
+	** Servicecontract: indicates that an interface or a class defines a service contract in a Windows Communication Foundation (WCF) application
+	** OperationContract: indicates that a method defines an operation that is part of a service contract in a Windows Communication Foundation (WCF) application
+* DataContract + DataMember:
+	** DataContract: specifies that the type defines or implements a data contract and is serializable by a serializer, such as the DataContractSerializer
+	** to make their type serializable, type authors must define a data contract for their type
+	** DataMember: when applied to the member of a type, specifies that the member is part of a data contract and is serializable by the DataContractSerializer
+* LINQ (from in where select)
+* LINQ (projection vs anonymous)
+* LINQ (join in on equals)
+* LINQ (group by into)
+* LINQ (orderby, thenby)
+* LINQ (Skip + Take)
+* LINQ (Sum, Min, Max, Average)
+* LINQ (method based: .Where, .Select)
+* IEnumerable (.ToArray, .ToList)
+* var:
+	** an implicitly typed local variable is strongly typed just as if you had declared the type yourself, but the compiler determines the type
+* XDocument (Parse, XElement, Descendants, Element, Attribute, FirstNode, Add, Remove):
+	** represents an XML document
+* BinaryFormatter (Serialize, Deserialize using Stream):
+	** serializes and deserializes an object, or an entire graph of connected objects, in binary format
+* ISerializable:
+	** allows an object to control its own serialization and deserialization
+	** public void GetObjectData(SerializationInfo info, StreamingContext context)
+* SerializationInfo (GetString, AddValue)
+	** stores all the data needed to serialize or deserialize an object
+	** this class cannot be inherited
+* OnSerializing + OnSerialized, OnDeserializing + OnDeserialized attributes:
+	** OnSerializing:
+		*** when applied to a method, specifies that the method is called during serialization of an object in an object graph 
+		*** the order of serialization relative to other objects in the graph is non-deterministic
+	** OnSerialized:
+		*** when applied to a method, specifies that the method is called after serialization of an object in an object graph 
+		*** the order of serialization relative to other objects in the graph is non-deterministic
+	** OnDeserializing:
+		*** when applied to a method, specifies that the method is called during deserialization of an object in an object graph
+		*** the order of deserialization relative to other objects in the graph is non-deterministic
+	** OnDeserialized:
+		*** when applied to a method, specifies that the method is called immediately after deserialization of an object in an object graph
+		*** the order of deserialization relative to other objects in the graph is non-deterministic
+* OptionalField:
+	** specifies that a field can be missing from a serialization stream so that the BinaryFormatter and the SoapFormatter does not throw an exception
+* XmlSerializer (Serialize, Deserialize):
+	** serializes and deserializes objects into and from XML documents
+	** the XmlSerializer enables you to control how objects are encoded into XML
+* DataContractSerializer (ReadObject, WriteObject using Stream):
+	** serializes and deserializes an instance of a type into an XML stream or document using a supplied data contract
+	** this class cannot be inherited
+* array (GetLength, GetLowerBound, GetUpperBound, Rank):
+	** GetLength: gets a 32-bit integer that represents the number of elements in the specified dimension of the Array
+	** GetLowerBound: gets the index of the first element of the specified dimension in the array
+	** GetUpperBound: gets the index of the last element of the specified dimension in the array
+	** Rank: gets the rank (number of dimensions) of the Array
+* ArrayList:
+	** implements the IList interface using an array whose size is dynamically increased as required
+	** it is recommended to use List<T> instead
+* LinkedList<T>:
+	** represents a doubly linked list
+	** each node points forward to the Next node and backward to the Previous node
+	** it is a dynamic collection which grows, according to the need of your program
+	** it also provides fast inserting and removing elements
+* List<T> (Add, Insert, InsertRange, Remove, RemoveAt, RemoveRange, Clear):
+	** represents a strongly typed list of objects that can be accessed by index
+	** provides methods to search, sort, and manipulate lists
+* Dictionary<TKey, TValue> (key, value, Add, Remove, ContainsKey, ContainsValue, Keys, Values):
+	** represents a collection of keys and values
+* HashSet<T> (Add, IsSubsetOf, Remove, RemoveWhere, UnionWith):
+	** represents a set of values
+* Queue, Queue<T> (Enqueue, Dequeue):
+	** represents a first-in, first-out collection of objects or instances of the same specified type 
+* Stack, Stack<T> (Peek, Push, Pop):
+	** represents a simple last-in-first-out (LIFO) non-generic collection of objects or instances of the same specified type
+* ICollection<T> (Count, SyncRoot: object used used to synchronise access, IsSynchronized: whether it is thread safe, CopyTo, GetEnumerator)
+	** defines methods to manipulate generic collections
 
 MISC:
 self-signed certificates (Makecert)
-* WeakReference
+* WeakReference:
+	** represents a weak reference, which references an object while still allowing that object to be reclaimed by garbage collection
 debug (hit count, condition, filter)
 framework tools
 	https://docs.microsoft.com/en-us/dotnet/framework/tools
-* MulticastDelegate
-* PrincipalPermission
-* IDataContractSurrogate
-* StringCollection (Add, AddRange, Insert, Remove)
-* DebuggerDisplay
-* expression body definition (=>)
-* unsafe
-* Mutex
-* Lazy
-* Flags
-* DataProtectionScope vs MemoryProtectionScope
-* IEquatable<T> (Equals) vs IComparable<T> (CompareTo)
-* IValidateableObject
-* GC (AddMemoryPressure, Collect, KeepAlive, SuppressFinalize + ReRegisterForFinalize)
-* Access Modifiers
-* SafeHandle (wrapper)
-* WaitHandle (WaitOne, WaitAny, WaitAll)
-* Semaphore vs SemaphoreSlim 
-* ReaderWriterLockSlim
-* ManualResetEvent vs AutoResetEvent (WaitOne, Set, Reset)
+* MulticastDelegate:
+	** represents a multicast delegate; that is, a delegate that can have more than one element in its invocation list
+* PrincipalPermission:
+	** allows checks against the active principal using the language constructs defined for both declarative and imperative security actions
+	** this class cannot be inherited
+* IDataContractSurrogate:
+	** provides the methods needed to substitute one type for another by the DataContractSerializer during serialization, deserialization, and export and import of XML schema documents (XSD)
+* StringCollection (Add, AddRange, Insert, Remove):
+	** represents a collection of strings
+* DebuggerDisplay:
+	** the DebuggerDisplayAttribute controls how an object, property, or field is displayed in the debugger variable windows
+	** this attribute can be applied to types, delegates, properties, fields, and assemblies
+* expression body definition (member => expression):
+	** expression body definitions let you provide a member's implementation in a very concise, readable form
+	** you can use an expression body definition whenever the logic for any supported member, such as a method or property, consists of a single expression
+* unsafe:
+	** the unsafe keyword denotes an unsafe context, which is required for any operation involving pointers
+* Mutex:
+	** a synchronization primitive that can also be used for interprocess synchronization
+* Lazy<T>:
+	** provides support for lazy initialization
+* Flags:
+	** indicates that an enumeration can be treated as a bit field; that is, a set of flags
+* DataProtectionScope (CurrentUser, LocalMachine) vs MemoryProtectionScope (SameProcess, CrossProcess, SameLogon):
+	** DataProtectionScope: specifies the scope of the data protection to be applied by the Protect(Byte[], Byte[], DataProtectionScope) method
+	** MemoryProtectionScope: specifies the scope of memory protection to be applied by the Protect(Byte[], MemoryProtectionScope) method
+* IEquatable<T> (Equals) vs IComparable<T> (CompareTo):
+	** defines a generalized method that a value type or class implements to create a type-specific method for determining equality of instances
+	** public bool Equals (T other)
+* IValidateableObject:
+	** provides a way for an object to be invalidated
+	** public IEnumerable<ValidationResult> Validate (ValidationContext validationContext)
+* SafeHandle (wrapper):
+	** represents a wrapper class for operating system handles
+	** this class must be inherited
+* WaitHandle (WaitOne, WaitAny, WaitAll):
+	** encapsulates operating system-specific objects that wait for exclusive access to shared resources
+* Semaphore vs SemaphoreSlim:
+	** Semaphore:
+		*** limits the number of threads that can access a resource or pool of resources concurrently
+	** SemaphoreSlim:
+		*** represents a lightweight alternative to Semaphore that limits the number of threads that can access a resource or pool of resources concurrently
+* ReaderWriterLockSlim:
+	** represents a lock that is used to manage access to a resource, allowing multiple threads for reading or exclusive access for writing
+* ManualResetEvent vs AutoResetEvent (WaitOne, Set, Reset):
+	** ManualResetevent:
+		*** represents a thread synchronization event that, when signaled, must be reset manually 
+		*** this class cannot be inherited
+	** AutoResetEvent:
+		*** represents a thread synchronization event that, when signaled, resets automatically after releasing a single waiting thread
+		*** this class cannot be inherited
