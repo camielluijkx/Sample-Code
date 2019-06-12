@@ -735,6 +735,8 @@ LISTING 4:
 	** represents a first-in, first-out collection of objects or instances of the same specified type 
 * Stack, Stack<T> (Peek, Push, Pop):
 	** represents a simple last-in-first-out (LIFO) non-generic collection of objects or instances of the same specified type
+* SortedList<TKey, TValue>:
+	** represents a collection of key/value pairs that are sorted by key based on the associated IComparer<T> implementation
 * ICollection<T> (Count, SyncRoot: object used used to synchronise access, IsSynchronized: whether it is thread safe, CopyTo, GetEnumerator)
 	** defines methods to manipulate generic collections
 
@@ -762,6 +764,7 @@ MISC:
 		*** generates a file that has an assembly manifest from modules or resource files
 	** Gacutil.exe (Global Assembly Cache Tool):
 		*** lets you view and manipulate the contents of the global assembly cache and download cache
+		** Windows Installer 2.0 can also be used
 	** Ilasm.exe (IL Assembler):
 		*** generates a portable executable (PE) file from intermediate language (IL)
 		*** you can run the resulting executable to determine whether the IL performs as expected
