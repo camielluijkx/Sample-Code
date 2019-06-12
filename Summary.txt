@@ -1,4 +1,6 @@
 LISTING 1:
+* Enumerable.Range (start, count):
+	** generates sequence of numbers within specified range
 * Action:
 	** encapsulates a method that has no parameters and does not return a value
 * Action<T>:
@@ -8,8 +10,6 @@ LISTING 1:
 * Parallel.Invoke:
 	** Actions -> void, ParallelOptions: CancellationToken, MaxDegreeOfParallelism, TaskScheduler
 	** no control over the order in which the tasks are started
-* Enumerable.Range (start, count):
-	** generates sequence of numbers within specified range
 * Parallel.ForEach:
 	** IEnumerable collection as first parameter, action to be performed on each item in the collection as second parameter
 	** tasks are not completed in the same order that they were started
@@ -23,7 +23,7 @@ LISTING 1:
 	** Stop: communicates that the Parallel loop should cease execution at the system's earliest convenience
 		*** no iterations execute after the call to the Stop method
 * ParallelLoopResult (IsCompleted, LowestBreakIteration)
-* AsParallel:
+* query -> AsParallel:
 	** method examines the query to determine if using a parallel version would speed it up
 	** query is broken down into a number of processes and each is run concurrently when it is decided that executing elements of the query in parallel would improve performance
 	** query is not executed in parallel if the AsParallel method couldn't decide whether parallelization would improve performance
@@ -32,15 +32,15 @@ LISTING 1:
 * WithDegreeOfParallelism:
 	** sets degree of parallelism to use in a query
 	** degree of parallelism is the maximum number of concurrently executing tasks that will be used to process the query
-* AsOrdered:
+* query -> AsOrdered:
 	** can be used to request the query to preserve the order of the original data
 	** method doesn't prevent the parallelization of the query, instead it organizes the output so that it is in the same order as the original data which can slow down the query
-* AsSequential:
+* query -> AsSequential:
 	** method can be used to identify parts of a query that must be executed sequentially
-	** executes the query in order whereas AsOrdered returns a sorted result but but does not necessarily run the query in order
-* ForAll:
+	** executes the query in order whereas AsOrdered returns a sorted result but does not necessarily run the query in order
+* query -> ForAll:
 	** method can be used to iterate through all of the elements in a query
-	** teration takes place in parallel and will start before the query is complete
+	** iteration takes place in parallel and will start before the query is complete
 	** parallel query may process data in a different order from the input data
 * AggregateException (Handle, Flatten, InnerExceptions):
 	** is thrown when all queries are completed if any query generates an exception
@@ -51,19 +51,20 @@ LISTING 1:
 	** starts the Task, scheduling it for execution to the current / specific TaskScheduler
 * Task.Wait (TimeSpan, CancellationToken, Int32 -> milliseconds):
 	** waits for the Task to complete execution
-	** in console app, the call to the Wait method is necessary to prevent the app from terminating before the task finishes execution
-	*** call to  Wait method ensures that the task completes and displays its output before the application ends
-	*** otherwise it is possible that the Main method will complete before the task finishes
+	** in console application the call to the Wait method is necessary to prevent the app from terminating before the task finishes execution:
+		*** call to Wait method ensures that the task completes and displays its output before the application ends
+		*** otherwise it is possible that the Main method will complete before the task finishes
 	** example usage to check if timeout interval elapsed
 * Task.Run + Task.Run<TResult> (Action, CancellationToken, Func<Task>, Func<Task<TResult>>):
-	** queues specified work to run on the ThreadPool and returns a task or Task<TResult> handle for that work
+	** queues specified work to run on the ThreadPool and returns a Task or Task<TResult> handle for that work
 	** method provides a set of overloads that make it easy to start a task by using default values (it is a lightweight alternative to the StartNew overloads)
 * Task<TResult>:
 	** represents an asynchronous operation that can return a value
 * TaskFactory, TaskFactory<TResult> (StartNew, ContinueWhenAll, ContinueWhenAny, CancellationToken, ContinuationOptions, CreationOptions, Scheduler):
 	** provides support for creating and scheduling Task objects
 	** Task.Run is preferred over Task.TaskFactory.StartNew, Task<TResult>.TaskFactory.StartNew
-* antecedent task: a continuation task (also known just as a continuation) is an asynchronous task that is invoked by another task, which is known as the antecedent, when the antecedent finishes
+* antecedent task:
+	** a continuation task (also known just as a continuation) is an asynchronous task that is invoked by another task, which is known as the antecedent, when the antecedent finishes
 * TaskCreationOptions (None, PreferFairness, LongRunning, AttachedToParent, DenyChildAttach, HideScheduler, RunContinuationsAsynchronously):
 	** PreferrFairness: a hint to a TaskScheduler to schedule a task in as fair a manner as possible, meaning that tasks scheduled sooner will be more likely to be run sooner, and tasks scheduled later will be more likely to be run later
 	** LongRunning: it provides a hint to the TaskScheduler that oversubscription may be warranted 
@@ -102,12 +103,12 @@ LISTING 1:
 		*** this option is not valid for multi-task continuations
 	** ExecuteSynchronously: specifies that the continuation task should be executed synchronously
 		*** with this option specified, the continuation runs on the same thread that causes the antecedent task to transition into its final state
-		*** ff the antecedent is already complete when the continuation is created, the continuation will run on the thread that creates the continuation
+		*** if the antecedent is already complete when the continuation is created, the continuation will run on the thread that creates the continuation
 		*** if the antecedent's CancellationTokenSource is disposed in a finally block, a continuation with this option will run in that finally block
 		*** only very short-running continuations should be executed synchronously
 		*** because the task executes synchronously, there is no need to call a method such as Wait() to ensure that the calling thread waits for the task to complete
 * CancellationTokenSource (Cancel, CancelAfter, IsCancellationRequested, Token, CreateLinkedTokenSource, Dispose)
-* CancellationToken (CanBeCanceled, IsCancellationRequested, None, WaitHandle, Register, UnsafeRegister, ThrowIfCancellationRequested , Equals)
+* CancellationToken (CanBeCanceled, IsCancellationRequested, None, WaitHandle, Register, UnsafeRegister, ThrowIfCancellationRequested, Equals)
 * WaitAll:
 	** method can be used to pause a program until a number of tasks have completed
 * WaitAny:
@@ -139,7 +140,7 @@ LISTING 1:
 	** to be used with caution when you call it to abort a thread other than the current thread, you do not know what code has executed or failed to execute when the ThreadAbortException is thrown, nor can you be certain of the state of your application or any application and user state that it is responsible for preserving
 * Thread.Join:
 	** Join is a synchronization method that blocks the calling thread (that is, the thread that calls the method) until the thread whose Join method is called has completed
-	** use this method to ensure that a thread has been terminated,the caller will block indefinitely if the thread does not terminate
+	** use this method to ensure that a thread has been terminated, the caller will block indefinitely if the thread does not terminate
 * Thread.SpinWait:
 	** causes a thread to wait the number of times defined by the iterations parameter
 * Thread.Yield:
@@ -160,20 +161,20 @@ LISTING 1:
 	** Asynchronous Programming Model (APM) pattern
 	** Event-based Asynchronous Pattern (EAP)
 	** Task-based Asynchronous Pattern (TAP)
-* BlockingCollection, BlockingCollection<T> (Add, TryAdd + Take, TryTake + CompleteAdding, IsCompleted):
+* BlockingCollection<T> (Add, TryAdd + Take, TryTake + CompleteAdding, IsCompleted):
 	** provides blocking and bounding capabilities for thread-safe collections that implement IProducerConsumerCollection<T>
-* ConcurrentQueue (Enqueue, TryPeek, TryDequeue, Count + IsEmpty):
+* ConcurrentQueue<T> (Enqueue, TryPeek, TryDequeue, Count + IsEmpty):
 	** represents a thread-safe first in-first out (FIFO) collection
-* ConcurrentStack (Push + PushRange, TryPeek, TryPop + TryPopRange, Count + IsEmpty):
+* ConcurrentStack<T> (Push + PushRange, TryPeek, TryPop + TryPopRange, Count + IsEmpty):
 	** represents a thread-safe last in-first out (LIFO) collection
-* ConcurrentBag (Add, TryPeek, TryTake, Count + IsEmpty):
+* ConcurrentBag<T> (Add, TryPeek, TryTake, Count + IsEmpty):
 	** represents a thread-safe, unordered collection of objects
-* ConcurrentDictionary (GetOrAdd, AddOrUpdate, TryAdd + TryUpdate, TryGetValue, TryRemove):
+* ConcurrentDictionary<TKey, TValue> (GetOrAdd, AddOrUpdate, TryAdd + TryUpdate, TryGetValue, TryRemove):
 	** represents a thread-safe collection of key/value pairs that can be accessed by multiple threads concurrently
 * lock:
 	** lock statement acquires the mutual-exclusion lock for a given object, executes a statement block, and then releases the lock
 	** while a lock is held, the thread that holds the lock can again acquire and release the lock
-	** ny other thread is blocked from acquiring the lock and waits until the lock is released
+	** any other thread is blocked from acquiring the lock and waits until the lock is released
 * Monitor (Enter, TryEnter, Exit, IsEntered, Pulse, PulseAll, Wait):
 	** provides a mechanism that synchronizes access to objects
 	** Enter: acquires an exclusive lock on a specified object
@@ -197,7 +198,7 @@ LISTING 1:
 	** because that expression is evaluated after each execution of the loop, a do-while loop executes one or more times
 * for (initializer -> void; condition -> bool; iterator -> void)
 * foreach (in)
-* IEnumerable, IEnumerable<T> (GetEnumerator -> IEnumerator, IEnumerator<T>):
+* IEnumerable, IEnumerable<T> (GetEnumerator -> IEnumerator, GetEnumerator<T> -> IEnumerator<T>):
 	** exposes an enumerator, which supports a simple iteration over a non-generic collection
 * break vs continue:
 	** break statement terminates the closest enclosing loop or switch statement in which it appears, control is passed to the statement that follows the terminated statement, if any
@@ -218,12 +219,13 @@ LISTING 1:
 	** event keyword is used to declare an event in a publisher class
 * EventHandler:
 	** represents the method that will handle an event when the event provides data
-	** Event handlers are nothing more than methods that are invoked through delegates
+	** event handlers are nothing more than methods that are invoked through delegates
 * custom event args:
 	** CustomEventArgs: EventArgs
 	** public event EventHandler<CustomEventArgs> CustomEvent;
 	** public void CustomEventHandler(object sender, CustomEventArgs args)
 	** instance.CustomEvent += new EventHandler<CustomEventArgs>(CustomEventHandler);
+	** instance.CustomEvent -= new EventHandler<CustomEventArgs>(CustomEventHandler);
 * delegate (lambda expressions):
 	** a delegate is a type that represents references to methods with a particular parameter list and return type
 	** when you instantiate a delegate, you can associate its instance with any method with a compatible signature and return type
@@ -275,7 +277,7 @@ LISTING 2:
 	** avoid defining a struct unless the type has all of the following characteristics:
 		*** it logically represents a single value, similar to primitive types (int, double, etc.)
 		*** it has an instance size under 16 bytes
-		*** it is immutable.
+		*** it is immutable (readonly)
 		*** it will not have to be boxed frequently
 * Immutable types (DateTime, String):
 	** type of object whose data cannot be changed after its creation
@@ -326,7 +328,7 @@ LISTING 2:
 	** the virtual keyword is used to modify a method, property, indexer, or event declaration and allow for it to be overridden in a derived class
 	** the implementation of a virtual member can be changed by an overriding member in a derived class
 	** when applied to a class, the sealed modifier prevents other classes from inheriting from it
-	** use the static modifier to declare a static member, which belongs to the type itself rather than to a specific object
+	** use the static modifier to declare a static member, which belongs to the type itself rather than to an instance of the specific object
 	** the static modifier can be used with classes, fields, methods, properties, operators, events, and constructors, but it cannot be used with indexers, finalizers, or types other than classes
 * ReadOnly:
 	** in a field declaration, readonly indicates that assignment to the field can only occur as part of the declaration or in a constructor in the same class
@@ -391,7 +393,7 @@ LISTING 2:
 			**** the public static ReferenceEquals(Object, Object) method
 			**** by default, these methods test for reference equality; that is, to be equal, two object variables must refer to the same object
 		*** the public GetHashCode method, which computes a value that allows an instance of the type to be used in hashed collections
-		*** the public GetType method, which returns a Type object that represents the SimpleClass type
+		*** the public GetType method, which returns a Type object that represents the class type
 		*** the protected Finalize method, which is designed to release unmanaged resources before an object's memory is reclaimed by the garbage collector
 		*** the protected MemberwiseClone method, which creates a shallow clone of the current object
 * IComparable + IComparabe<T> (CompareTo(object|T) => int):
@@ -399,7 +401,8 @@ LISTING 2:
 * IEnumerable + IEnumerable<T> (GetEnumerator, yield, foreach):
 	** exposes an enumerator, which supports a simple iteration over a non-generic collection
 	** you use a yield return statement to return each element one at a time, you can use a yield break statement to end the iteration
-	** when a yield return statement is reached in the iterator method, expression is returned, and the current location in code is retaine** execution is restarted from that location the next time that the iterator function is called
+	** when a yield return statement is reached in the iterator method, expression is returned, and the current location in code is retained
+	** execution is restarted from that location the next time that the iterator function is called
 * IEnumerator + IEnumerator<T> (Current, MoveNext, Reset):
 	** supports a simple iteration over a non-generic collection.
 * IDisposable (Dispose, using):
@@ -436,6 +439,7 @@ LISTING 2:
 	** GetExecutingAssembly: returns the assembly that contains the code that is currently executing
 	** GetCallingAssembly: returns the assembly of the method that invoked the currently executing method
 	** LoadFrom: loads an assembly
+	** ReflectionOnlyLoadFrom: loads an assembly into the reflection-only context, given its path
 * CodeDomProvider + CodeCompileUnit (CodeNamespace, CodeNamespaceImport, CodeTypeDeclaration, CodeMemberField)
 * Expression (ParameterExpression, BinaryExpression, ExpressionVisitor):
 * Assembly (FullName, getName, Version, GlobalAssemblyCache, Modules -> Module + GetTypes -> Type + GetMembers)
@@ -459,6 +463,7 @@ LISTING 2:
 	** Collect: forces an immediate garbage collection of all generations
 	** KeepAlive: references the specified object, which makes it ineligible for garbage collection from the start of the current routine to the point where this method is called
 	** SuppressFinalize: requests that the common language runtime not call the finalizer for the specified object
+	** RemoveMemoryPressure: informs the runtime that unmanaged memory has been released and no longer needs to be taken into account when scheduling garbage collection
 * Finalizer (~):
 	** finalizers (which are also called destructors) are used to perform any necessary final clean-up when a class instance is being collected by the garbage collector
 	** finalizers cannot be defined in structs, they are only used with classes
@@ -486,7 +491,7 @@ LISTING 2:
 	** FlushAsync: asynchronously clears all buffers for the current writer and causes any buffered data to be written to the underlying device
 * IFormattable (ToString: format, formatProvider):
 	** provides functionality to format the value of an object into a string representation
-	** IFormattable: public string ToString (string format, IFormatProvider formatProvider)
+	** IFormattable: public string ToString(string format, IFormatProvider formatProvider)
 * IFormatProvider:
 	** provides a mechanism for retrieving an object to control formatting
 	** IFormatProvider: public object GetFormat(Type formatType)
@@ -509,6 +514,9 @@ LISTING 3:
 	** serializes and deserializes objects into and from XML documents
 	** the XmlSerializer enables you to control how objects are encoded into XML
 * Regex (IsMatch, Match, Replace, RegexOptions.Compiled):
+	** ?	zero or one
+	** +	one or more
+	** *	zero or more
 	** check for repeated occurrences of words in a string:
 		*** \b(?<word>\w+)\s+(\k<word>)\b:
 			**** \b						start the match at a word boundary
@@ -542,10 +550,10 @@ LISTING 3:
 	** defines a stream that links data streams to cryptographic transformations
 * RSACryptoServiceProvider:
 	** performs asymmetric encryption and decryption using the implementation of the RSA algorithm provided by the cryptographic service provider (CSP)
-	** this class cannot be inherited.
+	** this class cannot be inherited
 * checksum:
 	** a checksum is the outcome of running an algorithm, called a cryptographic hash function, on a piece of data, usually a single file
-	** omparing the checksum that you generate from your version of the file, with the one provided by the source of the file, helps ensure that your copy of the file is genuine and error free
+	** comparing the checksum that you generate from your version of the file, with the one provided by the source of the file, helps ensure that your copy of the file is genuine and error free
 	** a checksum is also sometimes called a hash sum and less often a hash value, hash code, or simply a hash
 * GetHashCode:
 	** a hash code is a numeric value that is used to identify an object during equality testing
@@ -571,7 +579,7 @@ LISTING 3:
 * Debug (WriteLine, Indent, Unindent, WriteLineIf, Assert):
 	** provides a set of methods and properties that help debug your code
 	** if you use methods in the Debug class to print debugging information and check your logic with assertions, you can make your code more robust without impacting the performance and code size of your shipping product
-	'** to enable debugging in C#, add the /d:DEBUG flag to the compiler command line when you compile your code, or you can add #define DEBUG to the top of your file
+	** to enable debugging in C#, add the /d:DEBUG flag to the compiler command line when you compile your code, or you can add #define DEBUG to the top of your file
 * Trace (Assert, WriteLine, Indent, Unindent, TraceInformation, TraceWarning, TraceError):
 	** provides a set of methods and properties that help you trace the execution of your code
 	** this class cannot be inherited
